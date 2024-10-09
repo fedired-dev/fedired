@@ -12,7 +12,7 @@
 	"devDependencies": {
 		"fedired-js": "workspace:*",
 		"idb-keyval": "6.2.1",
-		"vite": "5.4.6",
+		"vite": "5.4.2",
 		"vite-plugin-compression": "0.5.1"
 	}
 }
