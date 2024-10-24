@@ -71,7 +71,7 @@ const releaseUrl = 'https://github.com/fedired-dev/fedired/releases/latest';
 
 .releaseButton {
 	margin-top: 8px;
-	background-color: #17063B;
-	color: #6364FF;
+	background-color: #6364FF;
+	color: #17063B;
 }
 </style>
