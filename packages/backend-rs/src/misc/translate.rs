@@ -133,8 +133,8 @@ mod deepl_translate {
 
         // DeepL API requires us to specify "en-US" or "en-GB" for English
         // translations ("en" does not work), so we need to address it
-        if target_lang == "en" {
-            target_lang = "en-US";
+        if target_lang == "es" {
+            target_lang = "es-ES";
         }
 
         let body = if let Some(source_lang) = source_lang {

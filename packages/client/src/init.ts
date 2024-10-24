@@ -114,7 +114,7 @@ function checkForSplash() {
 
 	// #region Set lang attr
 	const html = document.documentElement;
-	html.setAttribute("lang", lang || "en-US");
+	html.setAttribute("lang", lang || "es-ES");
 	html.setAttribute(
 		"dir",
 		[

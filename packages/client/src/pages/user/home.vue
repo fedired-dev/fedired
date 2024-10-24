@@ -416,7 +416,7 @@ const timeForThem = computed(() => {
 		const tz = tzInfo[0].timezone;
 		if (!tz) continue;
 
-		const theirTime = new Date().toLocaleString("en-US", {
+		const theirTime = new Date().toLocaleString("es-Es", {
 			timeZone: tz,
 			hour12: false,
 		});

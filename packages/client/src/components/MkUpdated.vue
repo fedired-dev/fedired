@@ -9,7 +9,7 @@
 			<div :class="$style.title">
 				<MkSparkle>{{ i18n.ts.fediredUpdated }}</MkSparkle>
 			</div>
-			<div :class="$style.version"> {{ version }} </div>
+			<div :class="$style.version">✨ {{ version }} 🚀</div>
 			<MkButton
 				:class="$style.gotIt"
 				primary
@@ -18,9 +18,11 @@
 				>{{ i18n.ts.gotIt }}</MkButton
 			>
 			<a :href="releaseUrl" target="_blank" rel="noopener noreferrer">
-				<MkButton :class="$style.releaseButton" secondary full>
-					{{ i18n.ts.viewRelease }}
-				</MkButton>
+				<MkSparkle>
+					<MkButton :class="$style.releaseButton" secondary full>
+						{{ i18n.ts.viewRelease }}
+					</MkButton>
+				</MkSparkle>
 			</a>
 		</div>
 	</MkModal>
@@ -69,5 +71,7 @@ const releaseUrl = 'https://github.com/fedired-dev/fedired/releases/latest';
 
 .releaseButton {
 	margin-top: 8px;
+	background-color: #17063B;
+	color: #6364FF;
 }
 </style>
