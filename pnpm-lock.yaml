@@ -104,7 +104,7 @@ importers:
         version: 4.16.1
       cacheable-lookup:
         specifier: git+https://github.com/TheEssem/cacheable-lookup.git#dd2fb616366a3c68dcf321a57a67295967b204bf
-        version: git+https://git@github.com:TheEssem/cacheable-lookup.git#dd2fb616366a3c68dcf321a57a67295967b204bf
+        version: https://codeload.github.com/TheEssem/cacheable-lookup/tar.gz/dd2fb616366a3c68dcf321a57a67295967b204bf
       cbor-x:
         specifier: 1.6.0
         version: 1.6.0
@@ -132,15 +132,15 @@ importers:
       escape-regexp:
         specifier: 0.0.1
         version: 0.0.1
-      fedired-js:
-        specifier: workspace:*
-        version: link:../fedired-js
       feed:
         specifier: 4.2.2
         version: 4.2.2
       file-type:
         specifier: 19.4.1
         version: 19.4.1
+      fedired-js:
+        specifier: workspace:*
+        version: link:../fedired-js
       fluent-ffmpeg:
         specifier: 2.1.3
         version: 2.1.3
@@ -630,7 +630,7 @@ importers:
         version: 0.16.11
       libopenmpt-wasm:
         specifier: git+https://github.com/TheEssem/libopenmpt-packaging.git#d05d151a72b638c6312227af0417aca69521172c
-        version: git+https://git@github.com:TheEssem/libopenmpt-packaging.git#d05d151a72b638c6312227af0417aca69521172c
+        version: https://codeload.github.com/TheEssem/libopenmpt-packaging/tar.gz/d05d151a72b638c6312227af0417aca69521172c
       long:
         specifier: 5.2.3
         version: 5.2.3
@@ -1533,7 +1533,6 @@ packages:
   '@koa/router@13.0.0':
     resolution: {integrity: sha512-P278xb5IoLtDn2inRsCzJVKGxt5RkjOivwxGbniMO1sI8bft1/Dr93UsRP5aByT8C74x8zqxDYyPXrQwRKIhjg==}
     engines: {node: '>= 18'}
-    deprecated: Use v13.1.0 or higher to fix the vulnerability issue
 
   '@kurkle/color@0.3.2':
     resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
@@ -3018,8 +3017,8 @@ packages:
     resolution: {integrity: sha512-+qJyx4xiKra8mZrcwhjMRMUhD5NR1R8esPkzIYxX96JiecFoxAXFuz/GpR3+ev4PE1WamHip78wV0vcmPQtp8w==}
     engines: {node: '>=14.16'}
 
-  cacheable-lookup@git+https://git@github.com:TheEssem/cacheable-lookup.git#dd2fb616366a3c68dcf321a57a67295967b204bf:
-    resolution: {commit: dd2fb616366a3c68dcf321a57a67295967b204bf, repo: git@github.com:TheEssem/cacheable-lookup.git, type: git}
+  cacheable-lookup@https://codeload.github.com/TheEssem/cacheable-lookup/tar.gz/dd2fb616366a3c68dcf321a57a67295967b204bf:
+    resolution: {tarball: https://codeload.github.com/TheEssem/cacheable-lookup/tar.gz/dd2fb616366a3c68dcf321a57a67295967b204bf}
     version: 7.0.0
     engines: {node: '>=14.16'}
 
@@ -4865,8 +4864,8 @@ packages:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
     engines: {node: '>=6'}
 
-  libopenmpt-wasm@git+https://git@github.com:TheEssem/libopenmpt-packaging.git#d05d151a72b638c6312227af0417aca69521172c:
-    resolution: {commit: d05d151a72b638c6312227af0417aca69521172c, repo: git@github.com:TheEssem/libopenmpt-packaging.git, type: git}
+  libopenmpt-wasm@https://codeload.github.com/TheEssem/libopenmpt-packaging/tar.gz/d05d151a72b638c6312227af0417aca69521172c:
+    resolution: {tarball: https://codeload.github.com/TheEssem/libopenmpt-packaging/tar.gz/d05d151a72b638c6312227af0417aca69521172c}
     version: 0.7.2
 
   lines-and-columns@1.2.4:
@@ -5479,8 +5478,8 @@ packages:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
 
-  plyr@git+https://git@github.com:sampotts/plyr.git#d434c9af16e641400aaee93188594208d88f2658:
-    resolution: {commit: d434c9af16e641400aaee93188594208d88f2658, repo: git@github.com:sampotts/plyr.git, type: git}
+  plyr@https://codeload.github.com/sampotts/plyr/tar.gz/d434c9af16e641400aaee93188594208d88f2658:
+    resolution: {tarball: https://codeload.github.com/sampotts/plyr/tar.gz/d434c9af16e641400aaee93188594208d88f2658}
     version: 3.7.0
 
   pngjs@5.0.0:
@@ -9201,7 +9200,7 @@ snapshots:
 
   cacheable-lookup@7.0.0: {}
 
-  cacheable-lookup@git+https://git@github.com:TheEssem/cacheable-lookup.git#dd2fb616366a3c68dcf321a57a67295967b204bf: {}
+  cacheable-lookup@https://codeload.github.com/TheEssem/cacheable-lookup/tar.gz/dd2fb616366a3c68dcf321a57a67295967b204bf: {}
 
   cacheable-request@12.0.1:
     dependencies:
@@ -11296,7 +11295,7 @@ snapshots:
 
   leven@3.1.0: {}
 
-  libopenmpt-wasm@git+https://git@github.com:TheEssem/libopenmpt-packaging.git#d05d151a72b638c6312227af0417aca69521172c: {}
+  libopenmpt-wasm@https://codeload.github.com/TheEssem/libopenmpt-packaging/tar.gz/d05d151a72b638c6312227af0417aca69521172c: {}
 
   lines-and-columns@1.2.4: {}
 
@@ -11811,7 +11810,7 @@ snapshots:
 
   pluralize@8.0.0: {}
 
-  plyr@git+https://git@github.com:sampotts/plyr.git#d434c9af16e641400aaee93188594208d88f2658:
+  plyr@https://codeload.github.com/sampotts/plyr/tar.gz/d434c9af16e641400aaee93188594208d88f2658:
     dependencies:
       core-js: 3.37.1
       custom-event-polyfill: 1.0.7
@@ -12945,7 +12944,7 @@ snapshots:
 
   vue-plyr@7.0.0:
     dependencies:
-      plyr: git+https://git@github.com:sampotts/plyr.git#d434c9af16e641400aaee93188594208d88f2658
+      plyr: https://codeload.github.com/sampotts/plyr/tar.gz/d434c9af16e641400aaee93188594208d88f2658
       vue: 2.7.16
 
   vue-prism-editor@2.0.0-alpha.2(vue@3.4.38(typescript@5.5.4)):
