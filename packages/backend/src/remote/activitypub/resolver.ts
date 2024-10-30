@@ -1,4 +1,5 @@
 import { config } from "@/config.js";
+const allowedContexts = ["https://www.w3.org/ns/activitystreams"];
 import type { ILocalUser } from "@/models/entities/user.js";
 import {
 	extractHost,
@@ -125,10 +126,10 @@ export default class Resolver {
 		if (
 			object == null ||
 			(Array.isArray(object["@context"])
-				? !(object["@context"] as unknown[]).includes(
-						"https://www.w3.org/ns/activitystreams",
-					)
-				: object["@context"] !== "https://www.w3.org/ns/activitystreams")
+				? !((object["@context"] as unknown[]).every(
+					(ctx) => allowedContexts.includes(ctx)
+					))
+				: !allowedContexts.includes(object["@context"]))
 		) {
 			throw new Error("invalid response");
 		}
