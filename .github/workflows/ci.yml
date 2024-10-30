@@ -1,17 +1,19 @@
-name: Test (production install and build)
+name: Test (fedired.js)
 
 on:
   push:
-    branches:
-      - master
-      - develop
+    branches: [ develop ]
+    paths:
+      - packages/fedired-js/**
+      - .github/workflows/ci.yml
   pull_request:
-
-env:
-  NODE_ENV: production
-
+    branches: [ develop ]
+    paths:
+      - packages/fedired-js/**
+      - .github/workflows/ci.yml
 jobs:
-  production:
+  test:
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,21 +21,33 @@ jobs:
         node-version: [20.16.0]
 
     steps:
-    - uses: actions/checkout@v4.1.1
-      with:
-        submodules: true
-    - name: Install pnpm
-      uses: pnpm/action-setup@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4.0.4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
-    - run: corepack enable
-    - run: pnpm i --no-frozen-lockfile  # Cambiado aquí
-    - name: Check pnpm-lock.yaml
-      run: git diff --exit-code pnpm-lock.yaml
-    - name: Copy Configure
-      run: cp .github/fedired/test.yml .config/default.yml
-    - name: Build
-      run: pnpm build
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - run: corepack enable
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.0.4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Check pnpm-lock.yaml
+        run: git diff --exit-code pnpm-lock.yaml
+
+      - name: Build
+        run: pnpm --filter fedired-js build
+
+      - name: Test
+        run: pnpm --filter fedired-js test
+        env:
+          CI: true
+
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./packages/fedired-js/coverage/coverage-final.json
