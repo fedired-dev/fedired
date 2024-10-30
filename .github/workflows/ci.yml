@@ -3,22 +3,34 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - main    
+      - nvus    
+  pull_request:
+    branches:
+      - main    
+      - nvus   
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set npm registry
-        run: npm config set registry https://registry.npmjs.org/
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'  
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2.2.5  
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install Dependencies
+        run: pnpm install  
 
-      # Otros pasos de tu CI
+      - name: Run Tests
+        run: pnpm test  
+
+      - name: Build Packages
+        run: pnpm run build  
