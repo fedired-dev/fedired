@@ -1,36 +1,49 @@
-name: CI
+name: Test (production install and build)
 
 on:
   push:
     branches:
-      - main    # Se ejecuta en la rama main
-      - nvus    # Se ejecuta en la rama nvus
+      - main    # Cambia a main en lugar de master
+      - nvus    # Mantén la rama nvus
   pull_request:
     branches:
-      - main    # Se ejecuta para pull requests a la rama main
-      - nvus    # Se ejecuta para pull requests a la rama nvus
+      - main
+      - nvus
+
+env:
+  NODE_ENV: production
 
 jobs:
-  build:
+  production:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [20.16.0]
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4.1.1
         with:
-          node-version: '20'
+          submodules: true
+          
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
-      - name: Install PNPM
-        uses: pnpm/action-setup@v2.0.0  
-
-      - name: Install Dependencies
-        run: pnpm install  
-
-      - name: Run Tests
-        run: pnpm test  
-
-      - name: Build Packages
-        run: pnpm run build  
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.0.4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+          
+      - run: corepack enable
+      
+      - run: pnpm i --frozen-lockfile
+      
+      - name: Check pnpm-lock.yaml
+        run: git diff --exit-code pnpm-lock.yaml
+        
+      - name: Copy Configure
+        run: cp .github/fedired/test.yml .config/default.yml
+        
+      - name: Build
+        run: pnpm build
