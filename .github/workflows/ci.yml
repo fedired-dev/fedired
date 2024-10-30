@@ -3,12 +3,12 @@ name: CI
 on:
   push:
     branches:
-      - main    
-      - nvus    
+      - main    # Se ejecuta en la rama main
+      - nvus    # Se ejecuta en la rama nvus
   pull_request:
     branches:
-      - main    
-      - nvus   
+      - main    # Se ejecuta para pull requests a la rama main
+      - nvus    # Se ejecuta para pull requests a la rama nvus
 
 jobs:
   build:
@@ -21,10 +21,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'  
+          node-version: '20'
 
       - name: Install PNPM
-        uses: pnpm/action-setup@v2.2.5  
+        uses: pnpm/action-setup@v2.0.0  
 
       - name: Install Dependencies
         run: pnpm install  
