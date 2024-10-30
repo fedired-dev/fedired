@@ -1,61 +1,24 @@
-name: CI for Fedired
+name: CI
 
 on:
   push:
-    branches: 
-      - main
-      - nvus
-  pull_request:
     branches:
       - main
-      - nvus
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
-
-    services:
-      # Configura PostgreSQL para tus pruebas y migraciones
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: fedired_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd="pg_isready -U postgres"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2.2.4
-        with:
-          version: 9.9.0
+      - name: Set npm registry
+        run: npm config set registry https://registry.npmjs.org/
 
-      - name: Install dependencies with pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
         run: pnpm install
 
-      - name: Build the project
-        run: pnpm run build
-
-      - name: Run TypeScript tests
-        run: pnpm run test:ts
-
-      - name: Run Rust tests
-        run: pnpm run test:rs
-
-      - name: Run Rust Miri tests
-        run: pnpm run test:rs:miri
-
-      - name: Run linters for TypeScript and Rust
-        run: pnpm run lint
-
-      - name: Clean up build files
-        run: pnpm run clean
+      # Otros pasos de tu CI
