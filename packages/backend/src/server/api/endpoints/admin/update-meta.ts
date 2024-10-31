@@ -400,6 +400,18 @@ export default define(meta, paramDef, async (ps, me) => {
 		set.summalyProxy = ps.summalyProxy;
 	}
 
+	
+	if (ps.enableGithubIntegration !== undefined) {
+		set.enableGithubIntegration = ps.enableGithubIntegration;
+	}
+
+	if (ps.githubClientId !== undefined) {
+		set.githubClientId = ps.githubClientId;
+	}
+
+	if (ps.githubClientSecret !== undefined) {
+		set.githubClientSecret = ps.githubClientSecret;
+	}
 	if (ps.enableEmail !== undefined) {
 		set.enableEmail = ps.enableEmail;
 	}
