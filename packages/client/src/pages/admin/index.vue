@@ -209,6 +209,12 @@ const menuDef = computed(() => [
 				to: "/admin/abuses",
 				active: currentPage.value?.route.name === "abuses",
 			},
+			{
+				icon: `${icon("ph-plug ph-bold ph-lg")}`,
+				text: i18n.ts.integrations,
+				to: "/admin/integrations",
+				active: currentPage.value?.route.name === "integrations",
+			},
 		],
 	},
 	...(isAdmin
@@ -247,8 +253,8 @@ const menuDef = computed(() => [
 							active: currentPage.value?.route.name === "relays",
 						},
 						{
-							icon: "ph-plug ph-bold ph-lg",
-							text: i18n.ts.integration,
+							icon: `${icon("ph-thin ph-plug")}`,
+							text: i18n.ts.integration.title,
 							to: "/admin/integrations",
 							active: currentPage?.route.name === "integrations",
 						},
