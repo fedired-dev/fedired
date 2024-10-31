@@ -287,6 +287,11 @@ export const meta = {
 				optional: false,
 				nullable: false,
 			},
+			enableGithubIntegration: {
+				type: "boolean",
+				optional: false,
+				nullable: false,
+			},
 			enableServiceWorker: {
 				type: "boolean",
 				optional: false,

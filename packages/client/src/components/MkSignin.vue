@@ -130,6 +130,18 @@
 				</div>
 			</div>
 		</div>
+		<div class="social _section">
+      <a
+        v-if="meta && meta.enableGithubIntegration"
+        class="_borderButton _gap"
+        :href="`${apiUrl}/signin/github`"
+      ><i
+          class="ph-github-logo ph-bold ph-lg"
+          style="margin-right: 4px"
+        ></i>{{ i18n.t("signinWith", {
+						x: "GitHub"
+					}) }}</a>
+		</div>
 	</form>
 </template>
 

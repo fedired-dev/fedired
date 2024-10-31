@@ -348,6 +348,23 @@ export class Meta {
 		length: 128,
 		nullable: true,
 	})
+	public enableGithubIntegration: boolean;
+
+	@Column("varchar", {
+		length: 128,
+		nullable: true,
+	})
+	public githubClientId: string | null;
+
+	@Column("varchar", {
+		length: 128,
+		nullable: true,
+	})
+	public githubClientSecret: string | null;
+
+	@Column("boolean", {
+		default: false,
+	})
 	public deeplAuthKey: string | null;
 
 	@Column("boolean", {
