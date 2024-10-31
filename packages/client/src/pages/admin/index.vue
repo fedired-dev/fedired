@@ -259,6 +259,12 @@ const menuDef = computed(() => [
 							active: currentPage.value?.route.name === "relays",
 						},
 						{
+							icon: "ph-plug ph-bold ph-lg",
+							text: i18n.ts.integration,
+							to: "/admin/integrations",
+							active: currentPage?.route.name === "integrations",
+						},
+						{
 							icon: `${icon("ph-prohibit")}`,
 							text: i18n.ts.instanceBlocking,
 							to: "/admin/instance-block",
