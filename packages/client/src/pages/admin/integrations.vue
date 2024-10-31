@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import {} from "vue";
+import { ref, computed } from "vue";
 import XGithub from "./integrations.github.vue";
 import FormSuspense from "@/components/form/suspense.vue";
 import FormFolder from "@/components/form/folder.vue";

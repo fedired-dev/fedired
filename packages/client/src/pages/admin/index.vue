@@ -94,6 +94,7 @@ import {
 	provideMetadataReceiver,
 } from "@/scripts/page-metadata";
 import icon from "@/scripts/icon";
+import Integrations from './integrations.vue' // Importa el componente de integración
 
 const isEmpty = (x: string | null) => x == null || x === "";
 const el = ref<HTMLElement | null>(null);
@@ -260,7 +261,7 @@ const menuDef = computed(() => [
 						},
 						{
 							icon: `${icon("ph-thin ph-plug")}`,
-							text: i18n.ts.integration.title,
+							text: i18n.ts.integration,
 							to: "/admin/integrations",
 							active: currentPage.value?.route.name === "integrations",
 						},
