@@ -806,10 +806,7 @@ emailAddress: Адрес за ел. поща
 addItem: Добавяне на елемент
 visibility: Видимост
 description: Описание
-_relayStatus:
-integrations: "Integrations"
-
-  accepted: Прието
+accepted: Прието
 other: Други
 channel: Канали
 accountInfo: Информация за акаунта
