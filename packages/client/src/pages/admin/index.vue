@@ -10,6 +10,7 @@
 							class="icon"
 						/>
 					</div>
+
 					<MkInfo
 						v-if="thereIsUnresolvedAbuseReport"
 						warn
@@ -55,6 +56,7 @@
 							>Reciber Soporte</a
 						></MkInfo
 					>
+
 					<MkSuperMenu :def="menuDef" :grid="narrow"></MkSuperMenu>
 				</div>
 			</MkSpacer>
@@ -64,6 +66,7 @@
 		</div>
 	</div>
 </template>
+
 <script lang="ts" setup>
 import {
 	computed,
@@ -91,16 +94,21 @@ import {
 	provideMetadataReceiver,
 } from "@/scripts/page-metadata";
 import icon from "@/scripts/icon";
+
 const isEmpty = (x: string | null) => x == null || x === "";
 const el = ref<HTMLElement | null>(null);
 const router = useRouter();
+
 const indexInfo = {
 	title: i18n.ts.controlPanel,
 	icon: `${icon("ph-gear-six")}`,
 	hideHeader: true,
 };
+
 provide("shouldOmitHeaderTitle", false);
+
 const instance = getInstanceInfo();
+
 const INFO = ref(indexInfo);
 const childInfo = ref(null);
 const narrow = ref(false);
@@ -114,22 +122,26 @@ const noEmailServer = !instance.enableEmail;
 const thereIsUnresolvedAbuseReport = ref(false);
 const updateAvailable = ref(false);
 const currentPage = computed(() => router.currentRef.value?.child);
+
 os.api("admin/abuse-user-reports", {
 	state: "unresolved",
 	limit: 1,
 }).then((reports) => {
 	if (reports?.length > 0) thereIsUnresolvedAbuseReport.value = true;
 });
+
 if (defaultStore.state.showAdminUpdates) {
 	os.api("latest-version").then((res) => {
 		updateAvailable.value = version < res?.latest_version;
 	});
 }
+
 const NARROW_THRESHOLD = 600;
 const ro = new ResizeObserver((entries, observer) => {
 	if (entries.length === 0) return;
 	narrow.value = entries[0].borderBoxSize[0].inlineSize < NARROW_THRESHOLD;
 });
+
 const menuDef = computed(() => [
 	{
 		title: i18n.ts.quickAction,
@@ -247,10 +259,10 @@ const menuDef = computed(() => [
 							active: currentPage.value?.route.name === "relays",
 						},
 						{
-							icon: "ph-plug ph-bold ph-lg",
+							icon: `${icon("ph-thin ph-plug")}`,
 							text: i18n.ts.integration,
 							to: "/admin/integrations",
-							active: currentPage?.route.name === "integrations",
+							active: currentPage.value?.route.name === "integrations",
 						},
 						{
 							icon: `${icon("ph-prohibit")}`,
@@ -287,27 +299,34 @@ const menuDef = computed(() => [
 			]
 		: []),
 ]);
+
 watch(narrow.value, () => {
 	if (currentPage.value?.route.name == null && !narrow.value) {
 		router.push("/admin/overview");
 	}
 });
+
 onMounted(() => {
 	ro.observe(el.value);
+
 	narrow.value = el.value.offsetWidth < NARROW_THRESHOLD;
 	if (currentPage.value?.route.name == null && !narrow.value) {
 		router.push("/admin/overview");
 	}
 });
+
 onActivated(() => {
 	narrow.value = el.value.offsetWidth < NARROW_THRESHOLD;
+
 	if (!narrow.value && currentPage.value?.route.name == null) {
 		router.replace("/admin/overview");
 	}
 });
+
 onUnmounted(() => {
 	ro.disconnect();
 });
+
 watch(router.currentRef, (to) => {
 	if (
 		to?.route.path === "/admin" &&
@@ -317,6 +336,7 @@ watch(router.currentRef, (to) => {
 		router.replace("/admin/overview");
 	}
 });
+
 provideMetadataReceiver((info) => {
 	if (info == null) {
 		childInfo.value = null;
@@ -324,6 +344,7 @@ provideMetadataReceiver((info) => {
 		childInfo.value = info;
 	}
 });
+
 const invite = () => {
 	os.api("admin/invite")
 		.then((x) => {
@@ -339,11 +360,13 @@ const invite = () => {
 			});
 		});
 };
+
 async function lookupNote() {
 	const { canceled, result: q } = await os.inputText({
 		title: i18n.ts.noteId,
 	});
 	if (canceled) return;
+
 	os.api(
 		"notes/show",
 		q.startsWith("http://") || q.startsWith("https://")
@@ -362,6 +385,7 @@ async function lookupNote() {
 			}
 		});
 }
+
 const lookup = (ev) => {
 	os.popupMenu(
 		[
@@ -397,13 +421,16 @@ const lookup = (ev) => {
 		ev.currentTarget ?? ev.target,
 	);
 };
+
 definePageMetadata(INFO.value);
+
 defineExpose({
 	header: {
 		title: i18n.ts.controlPanel,
 	},
 });
 </script>
+
 <style lang="scss" scoped>
 .hiyeyicy {
 	&.wide {
@@ -411,6 +438,7 @@ defineExpose({
 		margin-block: 0;
 		margin-inline: auto;
 		block-size: 100%;
+
 		> .nav {
 			inline-size: 32%;
 			max-inline-size: 280px;
@@ -419,19 +447,23 @@ defineExpose({
 			overflow: auto;
 			block-size: 100%;
 		}
+
 		> .main {
 			flex: 1;
 			min-inline-size: 0;
 		}
 	}
+
 	> .nav {
 		.lxpfedzu {
 			> .info {
 				margin-block: 16px;
 				margin-inline: 0;
 			}
+
 			> .banner {
 				margin: 16px;
+
 				> .icon {
 					display: block;
 					margin: auto;
