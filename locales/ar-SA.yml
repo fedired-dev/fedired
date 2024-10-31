@@ -537,6 +537,8 @@ menu: "القائمة"
 divider: "فاصل"
 addItem: "إضافة عنصر"
 relays: "المُرَحلات"
+integrations: "Integrations"
+
 addRelay: "إضافة مُرحّل"
 inboxUrl: "رابط صندوق الوارد"
 addedRelays: "المرحلات المضافة"

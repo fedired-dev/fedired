@@ -807,6 +807,8 @@ addItem: Добавяне на елемент
 visibility: Видимост
 description: Описание
 _relayStatus:
+integrations: "Integrations"
+
   accepted: Прието
 other: Други
 channel: Канали
