@@ -56,7 +56,7 @@
 							>Reciber Soporte</a
 						></MkInfo
 					>
-
+					
 					<MkSuperMenu :def="menuDef" :grid="narrow"></MkSuperMenu>
 				</div>
 			</MkSpacer>
@@ -257,12 +257,6 @@ const menuDef = computed(() => [
 							text: i18n.ts.relays,
 							to: "/admin/relays",
 							active: currentPage.value?.route.name === "relays",
-						},
-						{
-							icon: `${icon("ph-thin ph-plug")}`,
-							text: i18n.ts.integration,
-							to: "/admin/integrations",
-							active: currentPage.value?.route.name === "integrations",
 						},
 						{
 							icon: `${icon("ph-prohibit")}`,
