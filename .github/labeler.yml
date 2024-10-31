@@ -1,0 +1,15 @@
+# .github/labeler.yml
+
+version: 2
+
+pull_request:
+  'packages/backend/**':
+    - backend
+  'packages/backend-rs/**':
+    - backend-rust
+  'packages/client/**':
+    - client
+  'packages/sw/**':
+    - service-worker
+  'packages/fedired-js/**':
+    - frontend
