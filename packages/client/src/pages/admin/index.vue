@@ -260,7 +260,7 @@ const menuDef = computed(() => [
 						},
 						{
 							icon: `${icon("ph-thin ph-plug")}`,
-							text: i18n.ts.integration,
+							text: i18n.ts.integration.title,
 							to: "/admin/integrations",
 							active: currentPage.value?.route.name === "integrations",
 						},
