@@ -95,7 +95,7 @@ function getInstanceIconErrorEvent($event) {
 	display: flex;
 	align-items: center;
 	block-size: 1.1em;
-	justify-self: flex-end;
+	justify-self: auto;
 	padding-block: 0.2em;
 	padding-inline: 0.4em;
 	border-radius: 100px;

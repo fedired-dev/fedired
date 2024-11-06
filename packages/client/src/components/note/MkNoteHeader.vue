@@ -85,11 +85,11 @@ function openServerInfo() {
 <style lang="scss" scoped>
 .kkwtjztg {
 	position: relative;
-	z-index: 2;
+	z-index: auto;
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
-	justify-self: flex-end;
+	justify-self: auto;
 	border-radius: 100px;
 	font-size: 0.8em;
 	> .avatar {

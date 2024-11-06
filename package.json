@@ -42,13 +42,9 @@
 		"js-yaml": "4.1.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.8.3",
-		"@biomejs/cli-darwin-arm64": "1.8.3",
-		"@biomejs/cli-darwin-x64": "1.8.3",
-		"@biomejs/cli-linux-arm64": "1.8.3",
-		"@biomejs/cli-linux-x64": "1.8.3",
 		"@types/node": "20.16.2",
 		"execa": "9.3.1",
 		"pnpm": "9.9.0"
 	}
 }
+
