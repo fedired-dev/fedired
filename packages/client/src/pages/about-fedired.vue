@@ -1,28 +1,60 @@
 <template>
 	<MkStickyContainer>
-		<template #header><MkPageHeader :actions="headerActions" :tabs="headerTabs"/></template>
-		<div style="overflow: clip;">
-			<MkSpacer :contentMax="600" :marginMin="20">
-				<div class="_gaps_m znqjceqz">
-					<div v-panel class="about">
-						<div ref="containerEl" class="container" :class="{ playing: easterEggEngine != null }">
-							<img src="/client-assets/about-icon.png" alt="" class="icon" draggable="false" @load="iconLoaded" @click="gravity"/>
-							<div class="fedired">Fedired</div>
-							<div class="version">v{{ version }}</div>
-							<span v-for="emoji in easterEggEmojis" :key="emoji.id" class="emoji" :data-physics-x="emoji.left" :data-physics-y="emoji.top" :class="{ _physics_circle_: !emoji.emoji.startsWith(':') }">
-								<MkCustomEmoji v-if="emoji.emoji[0] === ':'" class="emoji" :name="emoji.emoji" :normal="true" :noStyle="true" :fallbackToImage="true"/>
-								<MkEmoji v-else class="emoji" :emoji="emoji.emoji" :normal="true" :noStyle="true"/>
-							</span>
-						</div>
-						<button v-if="thereIsTreasure" class="_button treasure" @click="getTreasure"><img src="/fluent-emoji/1f3c6.png" class="treasureImg"></button>
+		<template #header
+			><MkPageHeader :actions="headerActions" :tabs="headerTabs"
+		/></template>
+		<div style="overflow: clip">
+			<MkSpacer :content-max="600" :margin-min="20">
+				<div class="_formRoot znqjceqz">
+					<div id="debug"></div>
+					<div
+						ref="containerEl"
+						v-panel
+						class="_formBlock about"
+						:class="{ playing: easterEggEngine != null }"
+					>
+						<img
+							src="/client-assets/about-icon.png"
+							alt=""
+							class="icon"
+							draggable="false"
+							@load="iconLoaded"
+							@click="gravity"
+						/>
+						<div class="misskey">Fedired</div>
+						<div class="version">v{{ version }}</div>
+						<span
+							v-for="emoji in easterEggEmojis"
+							:key="emoji.id"
+							class="emoji"
+							:data-physics-x="emoji.left"
+							:data-physics-y="emoji.top"
+							:class="{
+								_physics_circle_: !emoji.emoji.startsWith(':'),
+							}"
+							><MkEmoji
+								class="emoji"
+								:emoji="emoji.emoji"
+								:custom-emojis="instanceEmojis"
+								:is-reaction="false"
+								:normal="true"
+								:no-style="true"
+						/></span>
 					</div>
-					<div style="text-align: center;">
-						{{ i18n.ts._aboutFedired.about }}<br><a href="https://about.fedired.com/" target="_blank" class="_link">{{ i18n.ts.learnMore }}</a>
+					<div class="_formBlock" style="text-align: center">
+						{{ i18n.ts._aboutFirefish.about }}<br /><a
+							href="https://about.fedired.com/"
+							target="_blank"
+							class="_link"
+							>{{ i18n.ts.learnMore }}</a
+						>
 					</div>
-					<div v-if="$i != null" style="text-align: center;">
-						<MkButton primary rounded inline @click="iLoveFedired">I <Mfm text="$[jelly ❤]"/> #Fedired</MkButton>
+					<div class="_formBlock" style="text-align: center">
+						<MkButton primary rounded inline @click="iLoveFedired"
+							>I <Mfm text="$[jelly ❤]" /> #Fedired</MkButton
+						>
 					</div>
-					<FormSection>
+
 						<div class="_gaps_s">
 							<FormLink to="https://github.com/fedired-dev/fedired" external>
 								<template #icon><i class="ti ti-code"></i></template>
