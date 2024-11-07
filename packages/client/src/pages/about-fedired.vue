@@ -72,8 +72,7 @@
 								<template #suffix>Patreon</template>
 							</FormLink>
 						</div>
-					</FormSection>
-					<FormSection v-if="instance.repositoryUrl !== 'https://github.com/fedired-dev/fedired'">
+						<FormSection v-if="instance.repositoryUrl !== 'https://github.com/fedired-dev/fedired'">
 						<div class="_gaps_s">
 							<MkInfo>
 								{{ i18n.tsx._aboutFedired.thisIsModifiedVersion({ name: instance.name }) }}
