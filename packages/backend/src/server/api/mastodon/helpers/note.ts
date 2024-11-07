@@ -737,11 +737,11 @@ export class NoteHelpers {
 			throw new Error("No translator is set up on this server.");
 
 		// DeepL API only allows "en-US" or "en-GB" for English ("en" won’t work)
-		if (instanceMeta.deeplAuthKey && targetLang === "en") {
-			targetLang = "en-US";
+		if (instanceMeta.deeplAuthKey && targetLang === "es") {
+			targetLang = "es-ES";
 		}
 
-		let sourceLang = status.language ?? "";
+		let sourceLang = status.language ?? "es";
 		let translatedText = "";
 		if (status.content) {
 			const translated = await translate(
