@@ -91,6 +91,19 @@
 						</div>
 					</FormSection>
 					<FormSection>
+					<template #label>{{ i18n.ts._aboutFedired.projectMembers }}</template>
+					<div :class="$style.contributors">
+						<a href="https://fedired.com/@srnovus" target="_blank" :class="$style.contributor">
+							<img src="https://avatars.githubusercontent.com/u/81489497?v=4" :class="$style.contributorAvatar">
+							<span :class="$style.contributorUsername">@srnovus</span>
+						</a>
+						<a href="https://mastodon.manalejandro.com/@ale" target="_blank" :class="$style.contributor">
+							<img src="https://mastodon.manalejandro.com/system/accounts/avatars/110/711/016/774/768/897/original/5c4e90ae3f8432f9.png" :class="$style.contributorAvatar">
+							<span :class="$style.contributorUsername">@ale</span>
+						</a>
+					</div>
+				</FormSection>
+					<FormSection>
 						<template #label>Hecho por</template>
 						<div class="contributors">
 							<div class="contributor" v-for="contributor in contributors" :key="contributor.username">
@@ -165,140 +178,153 @@ definePageMetadata({
 	title: i18n.ts.aboutFedired,
 	icon: null,
 });
+
 const contributors = [
-	{ username: '@srnovus', link: 'https://fedired.com/@srnovus', avatar: 'https://avatars.githubusercontent.com/u/81489497?v=4' },
 	{ username: '@ibootech', link: 'https://fedired.com/@ibootech', avatar: 'https://about.fedired.com/storage/2024/10/iboo.png' },
 	{ username: '@joshua', link: 'https://fedired.com/@joshua', avatar: 'https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg' },
 ];
+
+const patrons = [
+	'J-REC',
+];
+
 </script>
 
 <style lang="scss" scoped>
 .znqjceqz {
 	> .about {
 		position: relative;
-		text-align: center;
-		padding: 16px;
-		border-radius: var(--radius);
-		> .icon {
-			display: block;
-			width: 80px; // 
-			margin: 0 auto;
-			border-radius: 16px;
-			position: relative;
-			z-index: 1;
-		}
-		> .misskey {
-			margin: 0.75em auto 0 auto;
-			width: max-content;
-			position: relative;
-			z-index: 1;
-		}
-		> .version {
-			margin: 0 auto;
-			width: max-content;
-			opacity: 0.5;
-			position: relative;
-			z-index: 1;
-		}
-		> .emoji {
+		border-radius: var(--MI-radius);
+
+		> .treasure {
 			position: absolute;
-			z-index: 1;
-			top: 0;
+			top: 60px;
 			left: 0;
-			visibility: hidden;
-			> .emoji {
-				pointer-events: none;
-				font-size: 24px;
-				width: 24px;
+			right: 0;
+			margin: 0 auto;
+			width: min-content;
+
+			> .treasureImg {
+				width: 25px;
+				vertical-align: bottom;
 			}
 		}
-		&.playing {
-			&,
-			* {
-				user-select: none;
+
+		> .container {
+			position: relative;
+			text-align: center;
+			padding: 16px;
+
+			&.playing {
+				&, * {
+					user-select: none;
+				}
+
+				* {
+					will-change: transform;
+				}
+
+				> .emoji {
+					visibility: visible;
+				}
 			}
-			* {
-				will-change: transform;
+
+			> .icon {
+				display: block;
+				width: 80px;
+				margin: 0 auto;
+				border-radius: 16px;
+				position: relative;
+				z-index: 1;
 			}
+
+			> .fedired {
+				margin: 0.75em auto 0 auto;
+				width: max-content;
+				position: relative;
+				z-index: 1;
+			}
+
+			> .version {
+				margin: 0 auto;
+				width: max-content;
+				opacity: 0.5;
+				position: relative;
+				z-index: 1;
+			}
+
 			> .emoji {
-				visibility: visible;
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				left: 0;
+				visibility: hidden;
+
+				> .emoji {
+					pointer-events: none;
+					font-size: 24px;
+					width: 24px;
+				}
 			}
 		}
 	}
 }
-// Estilos para la sección "Hecho por"
-._formLinks {
-	display: flex;
-	flex-direction: column; // Cambia a fila si prefieres
-	align-items: center; // Centra los elementos
-	margin-top: 16px; // Espaciado superior
-	a {
-		display: flex;
-		align-items: center; // Alinea verticalmente el contenido
-		text-decoration: none; // Elimina el subrayado
-		color: inherit; // Hereda el color del texto
-		background: var(--MI_THEME-buttonBg); // Fondo del cuadro
-		border-radius: 8px; // Bordes redondeados
-		padding: 12px; // Espaciado interno
-		margin: 8px 0; // Espaciado entre contribuyentes
-		width: 100%; // Ancho completo
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Sombra para el efecto de elevación
-		transition: transform 0.2s, box-shadow 0.2s; // Transición suave
-		&:hover {
-			transform: translateY(-2px); // Efecto de elevación al pasar el mouse
-			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); // Sombra más intensa al pasar el mouse
-		}
-		img {
-			width: 50px; // Ajusta el tamaño de la imagen
-			height: 50px; // Ajusta el tamaño de la imagen
-			border-radius: 50%; // Hace que la imagen sea circular
-			margin-right: 12px; // Espaciado a la derecha de la imagen
-		}
-		span {
-			font-size: 18px; // Tamaño de fuente para el nombre de usuario
-			font-weight: bold; // Negrita para el nombre de usuario
-			color: var(--MI_THEME-textColor); // Color del texto
-		}
-	}
-}
+</style>
+
+<style lang="scss" module>
 .contributors {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); // Cuadrícula responsiva
-	gap: 16px; // Espaciado entre los cuadros
-	.contributor {
-		display: flex;
-		align-items: center;
-		padding: 12px;
-		background: var(--MI_THEME-buttonBg); // Fondo del cuadro
-		border-radius: 8px; // Bordes redondeados
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Sombra para el efecto de elevación
-		transition: background 0.3s; // Transición suave
-		&:hover {
-			background: var(--MI_THEME-buttonHoverBg); // Cambio de fondo al pasar el mouse
-		}
-		a {
-			display: flex;
-			align-items: center;
-			text-decoration: none; // Elimina el subrayado
-			color: inherit; // Hereda el color del texto
-			img {
-				width: 40px; // Ajusta el tamaño de la imagen
-				height: 40px; // Ajusta el tamaño de la imagen
-				border-radius: 50%; // Hace que la imagen sea circular
-				margin-right: 8px; // Espaciado a la derecha de la imagen
-			}
-			span {
-				font-size: 16px; // Tamaño de fuente para el nombre de usuario
-				font-weight: bold; // Negrita para el nombre de usuario
-			}
-		}
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-gap: 12px;
+}
+
+.contributor {
+	display: flex;
+	align-items: center;
+	padding: 12px;
+	background: var(--MI_THEME-buttonBg);
+	border-radius: 6px;
+
+	&:hover {
+		text-decoration: none;
+		background: var(--MI_THEME-buttonHoverBg);
+	}
+
+	&.active {
+		color: var(--MI_THEME-accent);
+		background: var(--MI_THEME-buttonHoverBg);
 	}
 }
+
 .contributorAvatar {
 	width: 30px;
 	border-radius: 100%;
 }
+
 .contributorUsername {
+	margin-left: 12px;
+}
+
+.patronsWithIcon {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-gap: 12px;
+}
+
+.patronWithIcon {
+	display: flex;
+	align-items: center;
+	padding: 12px;
+	background: var(--MI_THEME-buttonBg);
+	border-radius: 6px;
+}
+
+.patronIcon {
+	width: 24px;
+	border-radius: 100%;
+}
+
+.patronName {
 	margin-left: 12px;
 }
 </style>
