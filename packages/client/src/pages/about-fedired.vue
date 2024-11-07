@@ -119,6 +119,20 @@
 							<div v-for="patron in patronsWithIcon" :class="$style.patronWithIcon">
 								<img :src="patron.icon" :class="$style.patronIcon">
 								<span :class="$style.patronName">{{ patron.name }}</span>
+
+							</div>
+						</div>
+						<div style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); grid-gap: 12px;">
+							<div v-for="patron in patrons" :key="patron">{{ patron }}</div>
+						</div>
+						<p>{{ i18n.ts._aboutFedired.morePatrons }}</p>
+					</FormSection>
+					<FormSection>
+						<template #label><Mfm text="$[jelly ❤]"/> {{ i18n.ts._aboutFedired.patrons }}</template>
+						<div :class="$style.patronsWithIcon">
+							<div v-for="patron in patronsWithIcon" :class="$style.patronWithIcon">
+								<img :src="patron.icon" :class="$style.patronIcon">
+								<span :class="$style.patronName">{{ patron.name }}</span>
 							</div>
 						</div>
 						<div style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); grid-gap: 12px;">
@@ -145,7 +159,6 @@ import * as os from "@/os";
 import { definePageMetadata } from "@/scripts/page-metadata";
 import icon from "@/scripts/icon";
 import { getInstanceInfo } from "@/instance";
-
 	
 	const patronsWithIcon = [{
 		name: 'iBootech',
@@ -309,6 +322,7 @@ import { getInstanceInfo } from "@/instance";
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 		grid-gap: 12px;
+
 	}
 	
 	.contributor {
@@ -360,5 +374,6 @@ import { getInstanceInfo } from "@/instance";
 	.patronName {
 		margin-left: 12px;
 	}
+
 	</style>
 	
