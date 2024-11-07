@@ -117,7 +117,7 @@ describe("API", () => {
 		});
 	});
 
-	test("インスタンスの credential が指定されていても引数で credential が null ならば null としてリクエストされる", async () => {
+	test("Incluso si se especifica la credencial de la instancia, si la credencial es nula en el argumento, se solicitará como nula.", async () => {
 		fetchMock.resetMocks();
 		fetchMock.mockResponse(async (req) => {
 			const body = await req.json();

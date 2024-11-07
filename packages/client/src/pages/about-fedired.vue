@@ -170,11 +170,6 @@ const contributors = [
 	{ username: '@ibootech', link: 'https://fedired.com/@ibootech', avatar: 'https://about.fedired.com/storage/2024/10/iboo.png' },
 	{ username: '@joshua', link: 'https://fedired.com/@joshua', avatar: 'https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg' },
 ];
-
-const patrons = [
-	'J-REC',
-];
-
 </script>
 
 <style lang="scss" scoped>
@@ -260,69 +255,50 @@ const patrons = [
 			margin-right: 12px; // Espaciado a la derecha de la imagen
 		}
 		span {
-			font-size: 18px; 
-			font-weight: bold; 
-			color: var(--MI_THEME-textColor); 
+			font-size: 18px; // Tamaño de fuente para el nombre de usuario
+			font-weight: bold; // Negrita para el nombre de usuario
+			color: var(--MI_THEME-textColor); // Color del texto
 		}
 	}
 }
-
-</style>
-
-<style lang="scss" module>
 .contributors {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	grid-gap: 12px;
-}
-
-.contributor {
-	display: flex;
-	align-items: center;
-	padding: 12px;
-	background: var(--MI_THEME-buttonBg);
-	border-radius: 6px;
-
-	&:hover {
-		text-decoration: none;
-		background: var(--MI_THEME-buttonHoverBg);
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); // Cuadrícula responsiva
+	gap: 16px; // Espaciado entre los cuadros
+	.contributor {
+		display: flex;
+		align-items: center;
+		padding: 12px;
+		background: var(--MI_THEME-buttonBg); // Fondo del cuadro
+		border-radius: 8px; // Bordes redondeados
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Sombra para el efecto de elevación
+		transition: background 0.3s; // Transición suave
+		&:hover {
+			background: var(--MI_THEME-buttonHoverBg); // Cambio de fondo al pasar el mouse
+		}
+		a {
+			display: flex;
+			align-items: center;
+			text-decoration: none; // Elimina el subrayado
+			color: inherit; // Hereda el color del texto
+			img {
+				width: 40px; // Ajusta el tamaño de la imagen
+				height: 40px; // Ajusta el tamaño de la imagen
+				border-radius: 50%; // Hace que la imagen sea circular
+				margin-right: 8px; // Espaciado a la derecha de la imagen
+			}
+			span {
+				font-size: 16px; // Tamaño de fuente para el nombre de usuario
+				font-weight: bold; // Negrita para el nombre de usuario
+			}
+		}
 	}
-
-	&.active {
-		color: var(--MI_THEME-accent);
-		background: var(--MI_THEME-buttonHoverBg);
-	}
 }
-
 .contributorAvatar {
 	width: 30px;
 	border-radius: 100%;
 }
-
 .contributorUsername {
-	margin-left: 12px;
-}
-
-.patronsWithIcon {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	grid-gap: 12px;
-}
-
-.patronWithIcon {
-	display: flex;
-	align-items: center;
-	padding: 12px;
-	background: var(--MI_THEME-buttonBg);
-	border-radius: 6px;
-}
-
-.patronIcon {
-	width: 24px;
-	border-radius: 100%;
-}
-
-.patronName {
 	margin-left: 12px;
 }
 </style>

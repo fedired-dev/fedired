@@ -1,63 +1,63 @@
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Fedired configuration
+# Configuración de Fedired
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# After starting your server, please don't change the URL! Doing so will break federation.
+# Después de iniciar su servidor, ¡por favor no cambie la URL! Hacerlo romperá la federación.
 
 #   ┌─────┐
 #───┘ URL └─────────────────────────────────────────────────────
 
-# Final accessible URL seen by a user.
+# URL final accesible que verá un usuario.
 url: https://example.com/
 
 #   ┌───────────────────────┐
-#───┘ Port and TLS settings └───────────────────────────────────
+#───┘ Configuración de Puerto y TLS └───────────────────────────
 
 #
-# Fedired requires a reverse proxy to support HTTPS connections.
+# Fedired requiere un proxy inverso para soportar conexiones HTTPS.
 #
 #                 +----- https://example.com/ ------------+
 #   +------+      |+-------------+      +----------------+|
-#   | User | ---> || Proxy (443) | ---> | Fedired (3000) ||
+#   | Usuario | ->|| Proxy (443) | ---> | Fedired (3000) ||
 #   +------+      |+-------------+      +----------------+|
 #                 +---------------------------------------+
 #
-#   You need to set up a reverse proxy. (e.g. nginx, caddy)
-#   An encrypted connection with HTTPS is highly recommended
-#   because tokens may be transferred in GET requests.
+#   Necesita configurar un proxy inverso (ej. nginx, caddy).
+#   Se recomienda altamente una conexión cifrada con HTTPS
+#   porque los tokens pueden transferirse en solicitudes GET.
 
-# The port that your Fedired server should listen on.
+# El puerto en el que su servidor Fedired debería escuchar.
 port: 3000
 
-# The bind host your Fedired server should listen on.
-# If unspecified, the wildcard address will be used.
+# La dirección de enlace en la que su servidor Fedired debería escuchar.
+# Si no se especifica, se usará la dirección comodín.
 #bind: 127.0.0.1
 
 #   ┌──────────────────────────┐
-#───┘ PostgreSQL configuration └────────────────────────────────
+#───┘ Configuración de PostgreSQL └─────────────────────────────
 
 db:
   host: localhost
   port: 5432
   #ssl: false
-  # Database name
+  # Nombre de la base de datos
   db: fedired_db
 
-  # Auth
-  user: example-fedired-user
-  pass: example-fedired-pass
+  # Autenticación
+  user: ejemplo-usuario-fedired
+  pass: ejemplo-contraseña-fedired
 
-  # Whether disable Caching queries
+  # Deshabilitar el caché de consultas
   #disableCache: true
 
-  # Extra Connection options
+  # Opciones adicionales de conexión
   #extra:
   #  ssl:
   #   host: localhost
   #   rejectUnauthorized: false
 
 #   ┌─────────────────────┐
-#───┘ Redis configuration └─────────────────────────────────────
+#───┘ Configuración de Redis └─────────────────────────────────
 
 redis:
   host: localhost
@@ -65,100 +65,99 @@ redis:
   #tls:
   #  host: localhost
   #  rejectUnauthorized: false
-  #family: 0  # 0=Both, 4=IPv4, 6=IPv6
-  #pass: example-pass
-  #prefix: example-prefix
+  #family: 0  # 0=Ambos, 4=IPv4, 6=IPv6
+  #pass: ejemplo-contraseña
+  #prefix: ejemplo-prefijo
   #db: 1
-  #user: default
+  #user: predeterminado
 
 #   ┌─────────────────────────────┐
-#───┘ Cache server configuration └─────────────────────────────────────
+#───┘ Configuración de Servidor de Caché └─────────────────────
 
-# A Redis-compatible server (DragonflyDB, Keydb, Redis) for caching
-# If left blank, it will use the Redis server from above
+# Un servidor compatible con Redis (DragonflyDB, Keydb, Redis) para caché.
+# Si se deja en blanco, usará el servidor Redis de arriba.
 
 #cacheServer:
   #host: localhost
   #port: 6379
-  #family: 0  # 0=Both, 4=IPv4, 6=IPv6
-  #pass: example-pass
-  #prefix: example-prefix
+  #family: 0  # 0=Ambos, 4=IPv4, 6=IPv6
+  #pass: ejemplo-contraseña
+  #prefix: ejemplo-prefijo
   #db: 1
 
 #   ┌───────────────┐
-#───┘ ID generation └───────────────────────────────────────────
+#───┘ Generación de ID └───────────────────────────────────────
 
-# No need to uncomment in most cases, but you may want to change
-# these settings if you plan to run a large and/or distributed server.
+# No es necesario descomentar en la mayoría de los casos, pero puede
+# modificar estas configuraciones si planea ejecutar un servidor grande o distribuido.
 
 # cuid:
-#   # Min 16, Max 24
+#   # Mínimo 16, Máximo 24
 #   length: 16
 #
-#   # Set this to a unique string across workers (e.g., machine's hostname)
-#   # if your workers are running in multiple hosts.
-#   fingerprint: my-fingerprint
-
+#   # Establezca esto en una cadena única en todos los trabajadores (por ejemplo, hostname de la máquina)
+#   # si sus trabajadores se ejecutan en varios hosts.
+#   fingerprint: mi-huella
 
 #   ┌─────────────────────┐
-#───┘ Other configuration └─────────────────────────────────────
+#───┘ Otras Configuraciones └──────────────────────────────────
 
-# Maximum length of a post (default 3000, max 100000)
+# Longitud máxima de una publicación (predeterminado 3000, máx 100000)
 #maxNoteLength: 3000
 
-# Maximum length of an image caption (default 1500, max 8192)
+# Longitud máxima de una descripción de imagen (predeterminado 1500, máx 8192)
 #maxCaptionLength: 1500
 
-# Reserved usernames that only the administrator can register with
+# Nombres de usuario reservados que solo el administrador puede registrar
 reservedUsernames: [
   'root',
   'admin',
   'srnovus',
   'fedired',
-  'administrator',
-  'me',
-  'system'
+  'administrador',
+  'yo',
+  'sistema'
 ]
 
-# Whether disable HSTS
+# Deshabilitar HSTS
 #disableHsts: true
 
-# Number of worker processes by type.
-# The sum must not exceed the number of available cores.
+# Número de procesos de trabajadores por tipo.
+# La suma no debe exceder el número de núcleos disponibles.
 #clusterLimits:
 #  web: 1
 #  queue: 1
 
-# Job concurrency per worker
+# Concurrencia de trabajos por trabajador
 # deliverJobConcurrency: 128
 # inboxJobConcurrency: 16
 
-# Job rate limiter
+# Limitador de tasa de trabajos
 # deliverJobPerSec: 128
 # inboxJobPerSec: 16
 
-# Job attempts
+# Intentos de trabajo
 # deliverJobMaxAttempts: 12
 # inboxJobMaxAttempts: 8
 
-# Local address used for outgoing requests
+# Dirección local utilizada para solicitudes salientes
 #outgoingAddress: 127.0.0.1
 
-# IP address family used for outgoing request (ipv4, ipv6 or dual)
+# Familia de direcciones IP utilizada para solicitudes salientes (ipv4, ipv6 o dual)
 #outgoingAddressFamily: ipv4
 
-# Log level (error, warning, info, debug, trace)
-# Production env: info
-# Production env whose storage space or IO is tight: warning
-# Debug/Test env or Troubleshooting: debug (or trace)
+# Nivel de registro (error, advertencia, info, debug, trace)
+# Entorno de producción: info
+# Entorno de producción con espacio de almacenamiento o IO limitado: warning
+# Entorno de depuración/pruebas o resolución de problemas: debug (o trace)
 maxLogLevel: info
 
-# Syslog option
+# Opción de syslog
 #syslog:
 #  host: localhost
 #  port: 514
 
-# Proxy for HTTP/HTTPS
+# Proxy para HTTP/HTTPS
 #proxy: http://127.0.0.1:3128
 
 #proxyBypassHosts: [
@@ -167,38 +166,38 @@ maxLogLevel: info
 #  '192.0.2.8'
 #]
 
-# Proxy for SMTP/SMTPS
-#proxySmtp: http://127.0.0.1:3128   # use HTTP/1.1 CONNECT
-#proxySmtp: socks4://127.0.0.1:1080 # use SOCKS4
-#proxySmtp: socks5://127.0.0.1:1080 # use SOCKS5
+# Proxy para SMTP/SMTPS
+#proxySmtp: http://127.0.0.1:3128   # usa HTTP/1.1 CONNECT
+#proxySmtp: socks4://127.0.0.1:1080 # usa SOCKS4
+#proxySmtp: socks5://127.0.0.1:1080 # usa SOCKS5
 
-# Media Proxy
+# Proxy de medios
 #mediaProxy: https://example.com/proxy
 
-# Proxy remote files (default: true)
+# Proxy para archivos remotos (por defecto: true)
 #proxyRemoteFiles: true
 
 #allowedPrivateNetworks: [
 #  '127.0.0.1/32'
 #]
 
-# Upload or download file size limits (bytes)
+# Límites de tamaño para subir o descargar archivos (bytes)
 #maxFileSize: 262144000
 
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Congrats, you've reached the end of the config file needed for most deployments!
-# Enjoy your Fedired server!
+# Felicidades, ¡ha llegado al final del archivo de configuración necesario para la mayoría de implementaciones!
+# ¡Disfrute de su servidor Fedired!
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
 
 
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Managed hosting settings
-# >>> NORMAL SELF-HOSTERS, STAY AWAY! <<<
-# >>> YOU DON'T NEED THIS! <<<
-# Each category is optional, but if each item in each category is mandatory!
-# If you mess this up, that's on you, you've been warned...
+# Configuración de alojamiento gestionado
+# >>> AUTO-GESTIONADOS, NO LO TOQUEN! <<<
+# >>> ¡USTED NO NECESITA ESTO! <<<
+# Cada categoría es opcional, pero si cada elemento en cada categoría es obligatorio.
+# Si comete un error aquí, es su responsabilidad... ha sido advertido.
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 #maxUserSignups: 100
@@ -210,10 +209,10 @@ maxLogLevel: info
 #
 #email:
 #  managed: true
-#  address: 'example@email.com'
+#  address: 'ejemplo@email.com'
 #  host: 'email.com'
 #  port: 587
-#  user: 'example@email.com'
+#  user: 'ejemplo@email.com'
 #  pass: ''
 #  useImplicitSslTls: false
 #
@@ -231,10 +230,10 @@ maxLogLevel: info
 #  setPublicReadOnUpload: true
 #  s3ForcePathStyle: true
 
-# !!!!!!!!!!
-# >>>>>> AGAIN, NORMAL SELF-HOSTERS, STAY AWAY! <<<<<<
-# >>>>>> YOU DON'T NEED THIS, ABOVE SETTINGS ARE FOR MANAGED HOSTING ONLY! <<<<<<
-# !!!!!!!!!!
+# ¡CUIDADO!
+# >>>>>> DE NUEVO, AUTO-GESTIONADOS, NO TOQUEN ESTO <<<<<<
+# >>>>>> LOS AJUSTES ANTERIORES SON SOLO PARA ALOJAMIENTO GESTIONADO! <<<<<<
+# ¡CUIDADO!
 
-# Seriously. Do NOT fill out the above settings if you're self-hosting.
-# They're much better off being set from the control panel.
+# En serio. NO complete los ajustes anteriores si es auto-gestionado.
+# Es mucho mejor configurarlos desde el panel de control.
