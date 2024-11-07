@@ -101,20 +101,19 @@
 	</template>
 	
 	<script lang="ts" setup>
-	import { nextTick, onBeforeUnmount, ref, shallowRef, computed } from 'vue';
-	import { version } from '@@/js/config.js';
-	import FormLink from '@/components/form/link.vue';
-	import FormSection from '@/components/form/section.vue';
-	import MkButton from '@/components/MkButton.vue';
-	import MkInfo from '@/components/MkInfo.vue';
-	import { physics } from '@/scripts/physics.js';
-	import { i18n } from '@/i18n.js';
-	import { instance } from '@/instance.js';
-	import { defaultStore } from '@/store.js';
-	import * as os from '@/os.js';
-	import { definePageMetadata } from '@/scripts/page-metadata.js';
-	import { claimAchievement, claimedAchievements } from '@/scripts/achievements.js';
-	import { $i } from '@/account.js';
+import { computed, nextTick, onBeforeUnmount, ref } from "vue";
+import { version } from "@/config";
+import FormLink from "@/components/form/link.vue";
+import FormSection from "@/components/form/section.vue";
+import MkButton from "@/components/MkButton.vue";
+import { physics } from "@/scripts/physics";
+import { i18n } from "@/i18n";
+import { defaultReactions, defaultStore } from "@/store";
+import * as os from "@/os";
+import { definePageMetadata } from "@/scripts/page-metadata";
+import icon from "@/scripts/icon";
+import { getInstanceInfo } from "@/instance";
+
 	
 	const patronsWithIcon = [{
 		name: 'iBootech',
