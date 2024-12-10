@@ -60,7 +60,6 @@ oc:
       error:
         title: I a agut un error
       new:
-        prompt_html: "%{client_name} volria l’autorizacion d’accedir a vòstre compte. Es una aplicacion tèrça.<strong>Se vos fisatz pas a ela, alara deuriatz pas l’autorizacion.</strong>"
         review_permissions: Repassar las autorizacions
         title: Cal l’autorizacion
       show:
@@ -127,7 +126,6 @@ oc:
         bookmarks: Marcadors
         conversations: Conversacions
         crypto: Chiframent del cap a la fin
-        favourites: Favorits
         filters: Filtres
         follow: Seguidors, Silenciats e blocats
         follows: Abonaments
@@ -149,6 +147,11 @@ oc:
     scopes:
       admin:read: lectura de totas las donadas del servidor
       admin:read:accounts: lectura de las informacions sensiblas dels comptes
+      admin:read:canonical_email_blocks: legir las informacions sensiblas de totes los blocs d’e-mails canonics
+      admin:read:domain_allows: legir las informacions sensiblas de totes los domenis autorizats
+      admin:read:domain_blocks: legir las informacions sensiblas de totes los domenis blocats
+      admin:read:email_domain_blocks: legir las informacions sensiblas de totes los blocs de domenis d’e-mail
+      admin:read:ip_blocks: legir las informacions sensiblas de totes los blocats d’IP
       admin:read:reports: lectura de las informacions sensiblas dels senhalaments e dels comptes senhalats
       admin:write: modificacion de las donadas del servidor
       admin:write:accounts: realizacion d’accions de moderacion suls comptes
@@ -160,7 +163,6 @@ oc:
       read:accounts: veire las informacions del compte
       read:blocks: veire vòstres blocatges
       read:bookmarks: veire vòstres marcadors
-      read:favourites: veire vòstres favorits
       read:filters: veire vòstres filtres
       read:follows: veire vòstres abonaments
       read:lists: veire vòstras listas
@@ -174,7 +176,6 @@ oc:
       write:blocks: blocar de comptes e de domenis
       write:bookmarks: ajustar als marcadors
       write:conversations: amudir e suprimir las conversacions
-      write:favourites: metre en favorit
       write:filters: crear de filtres
       write:follows: sègre de mond
       write:lists: crear de listas

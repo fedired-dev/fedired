@@ -1,25 +1,26 @@
 - content_for :header_tags do
   = render_initial_state
   = javascript_pack_tag 'public', crossorigin: 'anonymous'
+  = javascript_pack_tag 'admin', async: true, crossorigin: 'anonymous'
+
+- content_for :body_classes, 'admin'
 
 - content_for :content do
   .admin-wrapper
     .sidebar-wrapper
       .sidebar-wrapper__inner
         .sidebar
-          .logo
-            %h2
-              = link_to root_path, class: 'brand' do
-                = site_title
+          = link_to root_path do
+            = render_logo
 
           .sidebar__toggle
             .sidebar__toggle__logo
               = link_to root_path do
-                = site_title
+                = logo_as_symbol(:wordmark)
 
             = link_to '#', class: 'sidebar__toggle__icon', 'aria-label': t('navigation.toggle_menu'), 'aria-expanded': 'false' do
-              = fa_icon 'bars'
-              = fa_icon 'times'
+              = material_symbol 'menu'
+              = material_symbol 'close'
 
           = render_navigation
 

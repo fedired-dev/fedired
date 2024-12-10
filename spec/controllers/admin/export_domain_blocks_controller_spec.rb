@@ -1,10 +1,20 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Admin::ExportDomainBlocksController, type: :controller do
+RSpec.describe Admin::ExportDomainBlocksController do
   render_views
 
   before do
     sign_in Fabricate(:user, role: UserRole.find_by(name: 'Admin')), scope: :user
+  end
+
+  describe 'GET #new' do
+    it 'returns http success' do
+      get :new
+
+      expect(response).to have_http_status(200)
+    end
   end
 
   describe 'GET #export' do
@@ -16,7 +26,13 @@ RSpec.describe Admin::ExportDomainBlocksController, type: :controller do
 
       get :export, params: { format: :csv }
       expect(response).to have_http_status(200)
-      expect(response.body).to eq(IO.read(File.join(file_fixture_path, 'domain_blocks.csv')))
+      expect(response.body).to eq(domain_blocks_csv_file)
+    end
+
+    private
+
+    def domain_blocks_csv_file
+      File.read(File.join(file_fixture_path, 'domain_blocks.csv'))
     end
   end
 
@@ -26,11 +42,8 @@ RSpec.describe Admin::ExportDomainBlocksController, type: :controller do
         post :import, params: { admin_import: { data: fixture_file_upload('domain_blocks.csv') } }
       end
 
-      it 'renders page with expected domain blocks' do
-        expect(assigns(:domain_blocks).map { |block| [block.domain, block.severity.to_sym] }).to match_array [['bad.domain', :silence], ['worse.domain', :suspend], ['reject.media', :noop]]
-      end
-
-      it 'returns http success' do
+      it 'renders page with expected domain blocks and returns http success' do
+        expect(mapped_batch_table_rows).to contain_exactly(['bad.domain', :silence], ['worse.domain', :suspend], ['reject.media', :noop])
         expect(response).to have_http_status(200)
       end
     end
@@ -40,13 +53,18 @@ RSpec.describe Admin::ExportDomainBlocksController, type: :controller do
         post :import, params: { admin_import: { data: fixture_file_upload('domain_blocks_list.txt') } }
       end
 
-      it 'renders page with expected domain blocks' do
-        expect(assigns(:domain_blocks).map { |block| [block.domain, block.severity.to_sym] }).to match_array [['bad.domain', :suspend], ['worse.domain', :suspend], ['reject.media', :suspend]]
-      end
-
-      it 'returns http success' do
+      it 'renders page with expected domain blocks and returns http success' do
+        expect(mapped_batch_table_rows).to contain_exactly(['bad.domain', :suspend], ['worse.domain', :suspend], ['reject.media', :suspend])
         expect(response).to have_http_status(200)
       end
+    end
+
+    def mapped_batch_table_rows
+      batch_table_rows.map { |row| [row.at_css('[id$=_domain]')['value'], row.at_css('[id$=_severity]')['value'].to_sym] }
+    end
+
+    def batch_table_rows
+      response.parsed_body.css('body div.batch-table__row')
     end
   end
 

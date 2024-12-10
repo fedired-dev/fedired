@@ -17,11 +17,13 @@ namespace :mastodon do
     ENV.delete('SIDEKIQ_REDIS_URL')
 
     begin
+      errors = false
+
       prompt.say('Your instance is identified by its domain name. Changing it afterward will break things.')
       env['LOCAL_DOMAIN'] = prompt.ask('Domain name:') do |q|
         q.required true
         q.modify :strip
-        q.validate(/\A[a-z0-9\.\-]+\z/i)
+        q.validate(/\A[a-z0-9.-]+\z/i)
         q.messages[:valid?] = 'Invalid domain. If you intend to use unicode characters, enter punycode here'
       end
 
@@ -32,6 +34,15 @@ namespace :mastodon do
 
       %w(SECRET_KEY_BASE OTP_SECRET).each do |key|
         env[key] = SecureRandom.hex(64)
+      end
+
+      # Required by ActiveRecord encryption feature
+      %w(
+        ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY
+        ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT
+        ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY
+      ).each do |key|
+        env[key] = SecureRandom.alphanumeric(32)
       end
 
       vapid_key = Webpush.generate_key
@@ -92,10 +103,15 @@ namespace :mastodon do
           prompt.ok 'Database configuration works! 🎆'
           db_connection_works = true
           break
-        rescue StandardError => e
+        rescue => e
           prompt.error 'Database connection could not be established with this configuration, try again.'
           prompt.error e.message
-          break unless prompt.yes?('Try again?')
+          unless prompt.yes?('Try again?')
+            return prompt.warn 'Nothing saved. Bye!' unless prompt.yes?('Continue anyway?')
+
+            errors = true
+            break
+          end
         end
       end
 
@@ -132,10 +148,16 @@ namespace :mastodon do
           redis.ping
           prompt.ok 'Redis configuration works! 🎆'
           break
-        rescue StandardError => e
+        rescue => e
           prompt.error 'Redis connection could not be established with this configuration, try again.'
           prompt.error e.message
-          break unless prompt.yes?('Try again?')
+
+          unless prompt.yes?('Try again?')
+            return prompt.warn 'Nothing saved. Bye!' unless prompt.yes?('Continue anyway?')
+
+            errors = true
+            break
+          end
         end
       end
 
@@ -240,7 +262,7 @@ namespace :mastodon do
           end
 
           env['S3_PROTOCOL'] = env['S3_ENDPOINT'].start_with?('https') ? 'https' : 'http'
-          env['S3_HOSTNAME'] = env['S3_ENDPOINT'].gsub(/\Ahttps?:\/\//, '')
+          env['S3_HOSTNAME'] = env['S3_ENDPOINT'].gsub(%r{\Ahttps?://}, '')
 
           env['S3_BUCKET'] = prompt.ask('Minio bucket name:') do |q|
             q.required true
@@ -264,12 +286,12 @@ namespace :mastodon do
 
           env['S3_ENDPOINT'] = prompt.ask('Storj DCS endpoint URL:') do |q|
             q.required true
-            q.default "https://gateway.storjshare.io"
+            q.default 'https://gateway.storjshare.io'
             q.modify :strip
           end
 
           env['S3_PROTOCOL'] = env['S3_ENDPOINT'].start_with?('https') ? 'https' : 'http'
-          env['S3_HOSTNAME'] = env['S3_ENDPOINT'].gsub(/\Ahttps?:\/\//, '')
+          env['S3_HOSTNAME'] = env['S3_ENDPOINT'].gsub(%r{\Ahttps?://}, '')
 
           env['S3_BUCKET'] = prompt.ask('Storj DCS bucket name:') do |q|
             q.required true
@@ -286,13 +308,13 @@ namespace :mastodon do
             q.required true
             q.modify :strip
           end
-          
+
           linksharing_access_key = prompt.ask('Storj Linksharing access key (uplink share --register --public --readonly=true --disallow-lists --not-after=none sj://bucket):') do |q|
             q.required true
             q.modify :strip
           end
           env['S3_ALIAS_HOST'] = "link.storjshare.io/raw/#{linksharing_access_key}/#{env['S3_BUCKET']}"
-          
+
         when 'Google Cloud Storage'
           env['S3_ENABLED']             = 'true'
           env['S3_PROTOCOL']            = 'https'
@@ -399,14 +421,14 @@ namespace :mastodon do
           end
 
           ActionMailer::Base.smtp_settings = {
-            port:                 env['SMTP_PORT'],
-            address:              env['SMTP_SERVER'],
-            user_name:            env['SMTP_LOGIN'].presence,
-            password:             env['SMTP_PASSWORD'].presence,
-            domain:               env['LOCAL_DOMAIN'],
-            authentication:       env['SMTP_AUTH_METHOD'] == 'none' ? nil : env['SMTP_AUTH_METHOD'] || :plain,
-            openssl_verify_mode:  env['SMTP_OPENSSL_VERIFY_MODE'],
-            enable_starttls:      enable_starttls,
+            port: env['SMTP_PORT'],
+            address: env['SMTP_SERVER'],
+            user_name: env['SMTP_LOGIN'].presence,
+            password: env['SMTP_PASSWORD'].presence,
+            domain: env['LOCAL_DOMAIN'],
+            authentication: env['SMTP_AUTH_METHOD'] == 'none' ? nil : env['SMTP_AUTH_METHOD'] || :plain,
+            openssl_verify_mode: env['SMTP_OPENSSL_VERIFY_MODE'],
+            enable_starttls: enable_starttls,
             enable_starttls_auto: enable_starttls_auto,
           }
 
@@ -414,15 +436,29 @@ namespace :mastodon do
             from: env['SMTP_FROM_ADDRESS'],
           }
 
-          mail = ActionMailer::Base.new.mail to: send_to, subject: 'Test', body: 'Mastodon SMTP configuration works!'
+          mail = ActionMailer::Base.new.mail(
+            to: send_to,
+            subject: 'Test', # rubocop:disable Rails/I18nLocaleTexts
+            body: 'Mastodon SMTP configuration works!'
+          )
           mail.deliver
           break
-        rescue StandardError => e
+        rescue => e
           prompt.error 'E-mail could not be sent with this configuration, try again.'
           prompt.error e.message
-          break unless prompt.yes?('Try again?')
+
+          unless prompt.yes?('Try again?')
+            return prompt.warn 'Nothing saved. Bye!' unless prompt.yes?('Continue anyway?')
+
+            errors = true
+            break
+          end
         end
       end
+
+      prompt.say "\n"
+
+      env['UPDATE_CHECK_URL'] = '' unless prompt.yes?('Do you want Mastodon to periodically check for important updates and notify you? (Recommended)', default: true)
 
       prompt.say "\n"
       prompt.say 'This configuration will be written to .env.production'
@@ -438,14 +474,9 @@ namespace :mastodon do
           "#{key}=#{escaped}"
         end.join("\n")
 
-        generated_header = "# Generated with mastodon:setup on #{Time.now.utc}\n\n".dup
+        generated_header = generate_header(incompatible_syntax)
 
-        if incompatible_syntax
-          generated_header << "# Some variables in this file will be interpreted differently whether you are\n"
-          generated_header << "# using docker-compose or not.\n\n"
-        end
-
-        File.write(Rails.root.join('.env.production'), "#{generated_header}#{env_contents}\n")
+        Rails.root.join('.env.production').write("#{generated_header}#{env_contents}\n")
 
         if using_docker
           prompt.ok 'Below is your configuration, save it to an .env.production file outside Docker:'
@@ -463,10 +494,11 @@ namespace :mastodon do
           prompt.say 'Running `RAILS_ENV=production rails db:setup` ...'
           prompt.say "\n\n"
 
-          if !system(env.transform_values(&:to_s).merge({ 'RAILS_ENV' => 'production', 'SAFETY_ASSURED' => '1' }), 'rails db:setup')
-            prompt.error 'That failed! Perhaps your configuration is not right'
-          else
+          if system(env.transform_values(&:to_s).merge({ 'RAILS_ENV' => 'production', 'SAFETY_ASSURED' => '1' }), 'rails db:setup')
             prompt.ok 'Done!'
+          else
+            prompt.error 'That failed! Perhaps your configuration is not right'
+            errors = true
           end
         end
 
@@ -479,16 +511,21 @@ namespace :mastodon do
             prompt.say 'Running `RAILS_ENV=production rails assets:precompile` ...'
             prompt.say "\n\n"
 
-            if !system(env.transform_values(&:to_s).merge({ 'RAILS_ENV' => 'production' }), 'rails assets:precompile')
-              prompt.error 'That failed! Maybe you need swap space?'
-            else
+            if system(env.transform_values(&:to_s).merge({ 'RAILS_ENV' => 'production' }), 'rails assets:precompile')
               prompt.say 'Done!'
+            else
+              prompt.error 'That failed! Maybe you need swap space?'
+              errors = true
             end
           end
         end
 
         prompt.say "\n"
-        prompt.ok 'All done! You can now power on the Mastodon server 🐘'
+        if errors
+          prompt.warn 'Your Mastodon server is set up, but there were some errors along the way, you may have to fix them.'
+        else
+          prompt.ok 'All done! You can now power on the Mastodon server 🐘'
+        end
         prompt.say "\n"
 
         if db_connection_works && prompt.yes?('Do you want to create an admin user straight away?')
@@ -516,6 +553,7 @@ namespace :mastodon do
           owner_role = UserRole.find_by(name: 'Owner')
           user = User.new(email: email, password: password, confirmed_at: Time.now.utc, account_attributes: { username: username }, bypass_invite_request_check: true, role: owner_role)
           user.save(validate: false)
+          user.approve!
 
           Setting.site_contact_username = username
 
@@ -538,14 +576,27 @@ namespace :mastodon do
       puts "VAPID_PUBLIC_KEY=#{vapid_key.public_key}"
     end
   end
+
+  private
+
+  def generate_header(include_warning)
+    default_message = "# Generated with mastodon:setup on #{Time.now.utc}\n\n"
+
+    default_message.tap do |string|
+      if include_warning
+        string << "# Some variables in this file will be interpreted differently whether you are\n"
+        string << "# using docker-compose or not.\n\n"
+      end
+    end
+  end
 end
 
 def disable_log_stdout!
-  dev_null = Logger.new('/dev/null')
+  dev_null = Logger.new(File::NULL)
 
   Rails.logger                 = dev_null
   ActiveRecord::Base.logger    = dev_null
-  HttpLog.configuration.logger = dev_null
+  HttpLog.configuration.logger = dev_null if defined?(HttpLog)
   Paperclip.options[:log]      = false
 end
 
@@ -573,7 +624,7 @@ def dotenv_escape(value)
 
   # As long as the value doesn't include single quotes, we can safely
   # rely on single quotes
-  return "'#{value}'" unless /[']/.match?(value)
+  return "'#{value}'" unless value.include?("'")
 
   # If the value contains the string '\n' or '\r' we simply can't use
   # a double-quoted string, because Dotenv will expand \n or \r no

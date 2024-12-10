@@ -5,10 +5,11 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
   include Redisable
   include Lockable
 
-  def call(status, json, request_id: nil)
+  def call(status, activity_json, object_json, request_id: nil)
     raise ArgumentError, 'Status has unsaved changes' if status.changed?
 
-    @json                      = json
+    @activity_json             = activity_json
+    @json                      = object_json
     @status_parser             = ActivityPub::Parser::StatusParser.new(@json)
     @uri                       = @status_parser.uri
     @status                    = status
@@ -35,13 +36,14 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
     last_edit_date = @status.edited_at.presence || @status.created_at
 
     # Only allow processing one create/update per status at a time
-    with_lock("create:#{@uri}") do
+    with_redis_lock("create:#{@uri}") do
       Status.transaction do
         record_previous_edit!
         update_media_attachments!
         update_poll!
         update_immediate_attributes!
         update_metadata!
+        update_counts!
         create_edits!
       end
 
@@ -58,9 +60,10 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
   end
 
   def handle_implicit_update!
-    with_lock("create:#{@uri}") do
+    with_redis_lock("create:#{@uri}") do
       update_poll!(allow_significant_changes: false)
       queue_poll_notifications!
+      update_counts!
     end
   end
 
@@ -72,7 +75,7 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
     as_array(@json['attachment']).each do |attachment|
       media_attachment_parser = ActivityPub::Parser::MediaAttachmentParser.new(attachment)
 
-      next if media_attachment_parser.remote_url.blank? || @next_media_attachments.size > 4
+      next if media_attachment_parser.remote_url.blank? || @next_media_attachments.size > Status::MEDIA_ATTACHMENTS_LIMIT
 
       begin
         media_attachment   = previous_media_attachments.find { |previous_media_attachment| previous_media_attachment.remote_url == media_attachment_parser.remote_url }
@@ -80,9 +83,7 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
 
         # If a previously existing media attachment was significantly updated, mark
         # media attachments as changed even if none were added or removed
-        if media_attachment_parser.significantly_changes?(media_attachment)
-          @media_attachments_changed = true
-        end
+        @media_attachments_changed = true if media_attachment_parser.significantly_changes?(media_attachment)
 
         media_attachment.description          = media_attachment_parser.description
         media_attachment.focus                = media_attachment_parser.focus
@@ -94,11 +95,9 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
 
         @next_media_attachments << media_attachment
       rescue Addressable::URI::InvalidURIError => e
-        Rails.logger.debug "Invalid URL in attachment: #{e}"
+        Rails.logger.debug { "Invalid URL in attachment: #{e}" }
       end
     end
-
-    added_media_attachments = @next_media_attachments - previous_media_attachments
 
     @status.ordered_media_attachment_ids = @next_media_attachments.map(&:id)
 
@@ -112,7 +111,7 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
       media_attachment.download_file! if media_attachment.remote_url_previously_changed?
       media_attachment.download_thumbnail! if media_attachment.thumbnail_remote_url_previously_changed?
       media_attachment.save
-    rescue Mastodon::UnexpectedResponseError, HTTP::TimeoutError, HTTP::ConnectionError, OpenSSL::SSL::SSLError
+    rescue Mastodon::UnexpectedResponseError, *Mastodon::HTTP_CONNECTION_ERRORS
       RedownloadMediaWorker.perform_in(rand(30..600).seconds, media_attachment.id)
     rescue Seahorse::Client::NetworkingError => e
       Rails.logger.warn "Error storing media attachment: #{e}"
@@ -173,9 +172,9 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
 
     as_array(@json['tag']).each do |tag|
       if equals_or_includes?(tag['type'], 'Hashtag')
-        @raw_tags << tag['name']
+        @raw_tags << tag['name'] if tag['name'].present?
       elsif equals_or_includes?(tag['type'], 'Mention')
-        @raw_mentions << tag['href']
+        @raw_mentions << tag['href'] if tag['href'].present?
       elsif equals_or_includes?(tag['type'], 'Emoji')
         @raw_emojis << tag
       end
@@ -193,6 +192,7 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
   def update_mentions!
     previous_mentions = @status.active_mentions.includes(:account).to_a
     current_mentions  = []
+    unresolved_mentions = []
 
     @raw_mentions.each do |href|
       next if href.blank?
@@ -206,6 +206,12 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
       mention ||= account.mentions.new(status: @status)
 
       current_mentions << mention
+    rescue Mastodon::UnexpectedResponseError, *Mastodon::HTTP_CONNECTION_ERRORS
+      # Since previous mentions are about already-known accounts,
+      # they don't try to resolve again and won't fall into this case.
+      # In other words, this failure case is only for new mentions and won't
+      # affect `removed_mentions` so they can safely be retried asynchronously
+      unresolved_mentions << href
     end
 
     current_mentions.each do |mention|
@@ -218,6 +224,11 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
     removed_mentions = previous_mentions - current_mentions
 
     Mention.where(id: removed_mentions.map(&:id)).update_all(silent: true) unless removed_mentions.empty?
+
+    # Queue unresolved mentions for later
+    unresolved_mentions.uniq.each do |uri|
+      MentionResolveWorker.perform_in(rand(30...600).seconds, @status.id, uri, { 'request_id' => @request_id })
+    end
   end
 
   def update_emojis!
@@ -239,6 +250,19 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
       rescue Seahorse::Client::NetworkingError => e
         Rails.logger.warn "Error storing emoji: #{e}"
       end
+    end
+  end
+
+  def update_counts!
+    likes = @status_parser.favourites_count
+    shares =  @status_parser.reblogs_count
+    return if likes.nil? && shares.nil?
+
+    @status.status_stat.tap do |status_stat|
+      status_stat.untrusted_reblogs_count = shares unless shares.nil?
+      status_stat.untrusted_favourites_count = likes unless likes.nil?
+
+      status_stat.save if status_stat.changed?
     end
   end
 
@@ -283,7 +307,7 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
   end
 
   def reset_preview_card!
-    @status.preview_cards.clear
+    @status.reset_preview_card!
     LinkCrawlWorker.perform_in(rand(1..59).seconds, @status.id)
   end
 
@@ -308,6 +332,6 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
   end
 
   def forwarder
-    @forwarder ||= ActivityPub::Forwarder.new(@account, @json, @status)
+    @forwarder ||= ActivityPub::Forwarder.new(@account, @activity_json, @status)
   end
 end

@@ -17,13 +17,13 @@ class AccountFilter
   attr_reader :params
 
   def initialize(params)
-    @params = params
+    @params = params.to_h.symbolize_keys
   end
 
   def results
-    scope = Account.includes(:account_stat, user: [:ips, :invite_request]).without_instance_actor.reorder(nil)
+    scope = Account.includes(:account_stat, user: [:ips, :invite_request]).without_instance_actor
 
-    params.each do |key, value|
+    relevant_params.each do |key, value|
       next if key.to_s == 'page'
 
       scope.merge!(scope_for(key, value)) if value.present?
@@ -33,6 +33,16 @@ class AccountFilter
   end
 
   private
+
+  def relevant_params
+    params.tap do |args|
+      args.delete(:origin) if origin_is_remote_and_domain_present?
+    end
+  end
+
+  def origin_is_remote_and_domain_present?
+    params[:origin] == 'remote' && params[:by_domain].present?
+  end
 
   def scope_for(key, value)
     case key.to_s
@@ -45,13 +55,13 @@ class AccountFilter
     when 'by_domain'
       Account.where(domain: value.to_s.strip)
     when 'username'
-      Account.matches_username(value.to_s.strip)
+      Account.matches_username(value.to_s.strip.delete_prefix('@'))
     when 'display_name'
       Account.matches_display_name(value.to_s.strip)
     when 'email'
       accounts_with_users.merge(User.matches_email(value.to_s.strip))
     when 'ip'
-      valid_ip?(value) ? accounts_with_users.merge(User.matches_ip(value).group('users.id, accounts.id')) : Account.none
+      valid_ip?(value) ? accounts_with_users.merge(User.matches_ip(value).group(users: [:id], accounts: [:id])) : Account.none
     when 'invited_by'
       invited_by_scope(value)
     when 'order'
@@ -94,7 +104,7 @@ class AccountFilter
   def order_scope(value)
     case value.to_s
     when 'active'
-      accounts_with_users.left_joins(:account_stat).order(Arel.sql('coalesce(users.current_sign_in_at, account_stats.last_status_at, to_timestamp(0)) desc, accounts.id desc'))
+      Account.by_recent_activity
     when 'recent'
       Account.recent
     else

@@ -14,8 +14,8 @@ class Account::Field < ActiveModelSerializers::Model
     @account        = account
 
     super(
-      name:        sanitize(attributes['name']),
-      value:       sanitize(attributes['value']),
+      name: sanitize(attributes['name']),
+      value: sanitize(attributes['value']),
       verified_at: attributes['verified_at']&.to_datetime,
     )
   end
@@ -25,13 +25,11 @@ class Account::Field < ActiveModelSerializers::Model
   end
 
   def value_for_verification
-    @value_for_verification ||= begin
-      if account.local?
-        value
-      else
-        extract_url_from_html
-      end
-    end
+    @value_for_verification ||= if account.local?
+                                  value
+                                else
+                                  extract_url_from_html
+                                end
   end
 
   def verifiable?
@@ -75,10 +73,10 @@ class Account::Field < ActiveModelSerializers::Model
   end
 
   def extract_url_from_html
-    doc = Nokogiri::HTML(value).at_xpath('//body')
+    doc = Nokogiri::HTML5.fragment(value)
 
     return if doc.nil?
-    return if doc.children.size > 1
+    return if doc.children.size != 1
 
     element = doc.children.first
 

@@ -30,12 +30,14 @@ class Admin::Import
 
     csv_converter = lambda do |field, field_info|
       case field_info.header
-      when '#domain', '#public_comment'
+      when '#domain'
+        field&.downcase&.strip
+      when '#public_comment'
         field&.strip
       when '#severity'
-        field&.strip&.to_sym
+        field&.downcase&.strip&.to_sym
       when '#reject_media', '#reject_reports', '#obfuscate'
-        ActiveModel::Type::Boolean.new.cast(field)
+        ActiveModel::Type::Boolean.new.cast(field&.downcase)
       else
         field
       end
@@ -56,6 +58,7 @@ class Admin::Import
 
   def validate_data
     return if data.nil?
+
     errors.add(:data, I18n.t('imports.errors.over_rows_processing_limit', count: ROWS_PROCESSING_LIMIT)) if csv_row_count > ROWS_PROCESSING_LIMIT
   rescue CSV::MalformedCSVError => e
     errors.add(:data, I18n.t('imports.errors.invalid_csv_file', error: e.message))
