@@ -48,7 +48,6 @@ export const defaultReactions = [
 	"😇",
 	"🥴",
 	"🔥",
-	"🐟",
 ];
 
 // TODO: それぞれいちいちwhereとかdefaultというキーを付けなきゃいけないの冗長なのでなんとかする(ただ型定義が面倒になりそう)
