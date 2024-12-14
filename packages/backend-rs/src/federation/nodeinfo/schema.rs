@@ -217,14 +217,14 @@ mod unit_test {
 
     #[test]
     fn parse_nodeinfo_2_0() {
-        let json_str_1 = r#"{"version":"2.0","software":{"name":"mastodon","version":"4.3.0-nightly.2024-04-30"},"protocols":["activitypub"],"services":{"outbound":[],"inbound":[]},"usage":{"users":{"total":1935016,"activeMonth":238223,"activeHalfyear":618795},"localPosts":90175135},"openRegistrations":true,"metadata":{"nodeName":"Mastodon","nodeDescription":"The original server operated by the Mastodon gGmbH non-profit"}}"#;
+        let json_str_1 = r#"{"version":"2.0","software":{"name":"mastodon","version":"5.0.0"},"protocols":["activitypub"],"services":{"outbound":[],"inbound":[]},"usage":{"users":{"total":1935016,"activeMonth":238223,"activeHalfyear":618795},"localPosts":90175135},"openRegistrations":true,"metadata":{"nodeName":"Mastodon","nodeDescription":"The original server operated by the Mastodon gGmbH non-profit"}}"#;
         let parsed_1: Nodeinfo20 = serde_json::from_str(json_str_1).unwrap();
         let serialized_1 = serde_json::to_string(&parsed_1).unwrap();
         let reparsed_1: Nodeinfo20 = serde_json::from_str(&serialized_1).unwrap();
 
         assert_eq!(parsed_1, reparsed_1);
         assert_eq!(parsed_1.software.name, "mastodon");
-        assert_eq!(parsed_1.software.version, "4.3.0-nightly.2024-04-30");
+        assert_eq!(parsed_1.software.version, "5.0.0");
 
         let json_str_2 = r#"{"version":"2.0","software":{"name":"peertube","version":"5.0.0"},"protocols":["activitypub"],"services":{"inbound":[],"outbound":["atom1.0","rss2.0"]},"openRegistrations":false,"usage":{"users":{"total":5,"activeMonth":0,"activeHalfyear":2},"localPosts":1018,"localComments":1},"metadata":{"taxonomy":{"postsName":"Videos"},"nodeName":"Blender Video","nodeDescription":"Blender Foundation PeerTube instance.","nodeConfig":{"search":{"remoteUri":{"users":true,"anonymous":false}},"plugin":{"registered":[]},"theme":{"registered":[],"default":"default"},"email":{"enabled":false},"contactForm":{"enabled":true},"transcoding":{"hls":{"enabled":true},"webtorrent":{"enabled":true},"enabledResolutions":[1080]},"live":{"enabled":false,"transcoding":{"enabled":true,"enabledResolutions":[]}},"import":{"videos":{"http":{"enabled":true},"torrent":{"enabled":false}}},"autoBlacklist":{"videos":{"ofUsers":{"enabled":false}}},"avatar":{"file":{"size":{"max":4194304},"extensions":[".png",".jpeg",".jpg",".gif",".webp"]}},"video":{"image":{"extensions":[".png",".jpg",".jpeg",".webp"],"size":{"max":4194304}},"file":{"extensions":[".webm",".ogv",".ogg",".mp4",".mkv",".mov",".qt",".mqv",".m4v",".flv",".f4v",".wmv",".avi",".3gp",".3gpp",".3g2",".3gpp2",".nut",".mts",".m2ts",".mpv",".m2v",".m1v",".mpg",".mpe",".mpeg",".vob",".mxf",".mp3",".wma",".wav",".flac",".aac",".m4a",".ac3"]}},"videoCaption":{"file":{"size":{"max":20971520},"extensions":[".vtt",".srt"]}},"user":{"videoQuota":5368709120,"videoQuotaDaily":-1},"trending":{"videos":{"intervalDays":7}},"tracker":{"enabled":true}}}}"#;
         let parsed_2: Nodeinfo20 = serde_json::from_str(json_str_2).unwrap();
