@@ -5,7 +5,7 @@ db:
   host: fedired_db
   port: 5432
 
-  db: fedired
+  db: fedired_db
   user: fedired
   pass: password
 

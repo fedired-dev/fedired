@@ -42,11 +42,11 @@ db:
   port: 5432
   #ssl: false
   # Database name
-  db: fedired
+  db: fedired_db
 
   # Auth
-  user: example-fedired-user
-  pass: example-fedired-pass
+  user: fedired
+  pass: password
 
   # Whether disable Caching queries
   #disableCache: true
