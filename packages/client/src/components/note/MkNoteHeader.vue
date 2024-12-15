@@ -58,9 +58,6 @@
 
 <script lang="ts" setup>
 import type { entities } from "fedired-js";
-import { ref, onMounted } from 'vue';
-import yaml from 'js-yaml';
-import fs from 'fs';
 import { defaultStore } from "@/store";
 import MkVisibility from "@/components/MkVisibility.vue";
 import MkInstanceTicker from "@/components/MkInstanceTicker.vue";

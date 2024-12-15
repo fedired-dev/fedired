@@ -1,17 +1,6 @@
 <template>
 	<footer class="footer" ref="el" tabindex="-1">
-		<span 
-			v-if="isVerified(note.user.username)" 
-			v-tooltip.noDelay="'Usuario Verificado'" 
-			class="verified-badge"
-		>
-			<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
-		</span>
-		<XReactionsViewer
-			v-if="enableEmojiReactions && !hideEmojiViewer"
-			ref="reactionsViewer"
-			:note="note"
-		/>
+
 		<button
 			v-tooltip.noDelay.bottom="i18n.ts.reply"
 			class="button _button"

@@ -126,6 +126,13 @@
 									:user="user"
 									:nowrap="true"
 								/>
+								<span 
+									v-if="isVerified(user.username)" 
+									v-tooltip.noDelay="'Usuario Verificado'" 
+									class="verified-badge"
+								>
+									<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
+								</span>
 								<span
 									v-if="
 										isSignedIn(me) &&
@@ -894,9 +901,18 @@ onUnmounted(() => {
 	align-items: center;
 	margin-left: 4px;
 	color: var(--accent);
+	vertical-align: middle;
 	
-	i {
-		font-size: 1.2em;
+	img {
+		width: 20px;
+		height: 20px;
+		vertical-align: middle;
+	}
+
+	@media screen and (max-width: 500px) {
+		display: inline-flex;
+		justify-content: center;
+		margin: 4px auto;
 	}
 }
 </style>
