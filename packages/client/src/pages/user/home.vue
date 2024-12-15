@@ -347,7 +347,7 @@ import {
 	onUnmounted,
 	ref,
 } from "vue";
-import VerifiedIcon from '@/components/VerifiedIcon.vue';
+import VerifiedIcon from '../components/Verifeid.vue'; 
 import calcAge from "s-age";
 import cityTimezones from "city-timezones";
 import type { entities } from "fedired-js";
