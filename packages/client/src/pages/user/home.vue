@@ -369,6 +369,8 @@ import { defaultStore } from "@/store";
 import { i18n } from "@/i18n";
 import { isModerator, isSignedIn, me } from "@/me";
 import icon from "@/scripts/icon";
+import { ref, onMounted } from 'vue';
+
 
 const XPhotos = defineAsyncComponent(() => import("./index.photos.vue"));
 
@@ -460,33 +462,25 @@ onUnmounted(() => {
 	}
 });
 
+const verifiedUsers = ref([]);
 
-export default {
-  data() {
-    return {
-      verifiedUsers: [],  
-    };
-  },
-  mounted() {
-    
-    this.fetchVerifiedUsers();
-  },
-  methods: {
-    fetchVerifiedUsers() {
-      fetch('http://localhost:3000/api/verified-users')
-        .then(response => response.json())
-        .then(data => {
-          this.verifiedUsers = data.verifiedUsers;
-        })
-        .catch(error => {
-          console.error('Error al cargar los usuarios verificados:', error);
-        });
-    },
-    
-    isVerified(username) {
-      return this.verifiedUsers.includes(username);
-    },
-  },
+const fetchVerifiedUsers = () => {
+  fetch('http://localhost:3000/api/verified-users')
+    .then(response => response.json())
+    .then(data => {
+      verifiedUsers.value = data.verifiedUsers;
+    })
+    .catch(error => {
+      console.error('Error al cargar los usuarios verificados:', error);
+    });
+};
+
+onMounted(() => {
+  fetchVerifiedUsers();
+});
+
+const isVerified = (username) => {
+  return verifiedUsers.value.includes(username);
 };
 
 
