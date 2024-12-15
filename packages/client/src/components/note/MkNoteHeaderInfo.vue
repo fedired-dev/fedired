@@ -27,6 +27,13 @@
 			:lang="appearNote.reply.lang"
 			:custom-emojis="note.emojis"
 		/>
+		<span 
+  v-if="isVerified(note.user.username)" 
+  v-tooltip.noDelay="'Usuario Verificado'" 
+  class="verified-badge"
+>
+  <img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
+</span>
 	</div>
 </template>
 
@@ -35,6 +42,8 @@ import { i18n } from "@/i18n";
 import { getNoteSummary } from "@/scripts/get-note-summary";
 import icon from "@/scripts/icon";
 import type { NoteType } from "@/types/note";
+import { isVerified } from '@fedired/verified-users';
+
 
 defineProps<{
 	note: NoteType;

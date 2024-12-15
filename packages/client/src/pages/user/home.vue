@@ -372,9 +372,7 @@ import { defaultStore } from "@/store";
 import { i18n } from "@/i18n";
 import { isModerator, isSignedIn, me } from "@/me";
 import icon from "@/scripts/icon";
-import yaml from 'js-yaml';
-import fs from 'fs';
-import { isVerified } from '../../../.fedired/verified-users';
+import { isVerified } from '@fedired/verified-users';
 
 
 const XPhotos = defineAsyncComponent(() => import("./index.photos.vue"));
@@ -465,26 +463,6 @@ onUnmounted(() => {
 	if (parallaxAnimationId.value) {
 		window.cancelAnimationFrame(parallaxAnimationId.value);
 	}
-});
-
-const verifiedUsers = ref([]);
-
-const loadVerifiedUsers = () => {
-  try {
-    const fileContents = fs.readFileSync('.config/verified.yml', 'utf8');
-    const data = yaml.load(fileContents);
-    verifiedUsers.value = data.verifiedUsers;
-  } catch (error) {
-    console.error('Error al cargar usuarios verificados:', error);
-  }
-};
-
-const isVerified = (username) => {
-  return verifiedUsers.value.includes(username);
-};
-
-onMounted(() => {
-  loadVerifiedUsers();
 });
 
 </script>
