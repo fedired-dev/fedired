@@ -44,9 +44,11 @@
 										:nowrap="true"
 									/>
 
-									<span v-if="isVerified(user.username)" v-tooltip.noDelay="'Verificado'" style="color: var(--badge); margin-left: 4px;">
-       								 <i :class="icon('ph-bold ph-seal-check')" style="font-size: 2.0em;"></i>
-      								</span>
+									<span v-if="isVerified(user.username)" v-tooltip.noDelay="'Verificado'" style="color: var(--badge); margin-left: 4px; display: inline-flex; align-items: center;">
+  									<i :class="icon('ph-bold ph-seal-check')" style="font-size: 2.0em; margin-right: 4px;"></i>
+ 									 
+									</span>
+
 
 									<div v-if="isModerator">
 										<span
