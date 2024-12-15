@@ -70,7 +70,7 @@ import { i18n } from "@/i18n";
 import { pageWindow } from "@/os";
 import icon from "@/scripts/icon";
 import { me, isSignedIn } from "@/me";
-import { isVerified } from '../../../.fedired/verified-users';
+import { isVerified } from '@fedired/verified-users';
 
 const props = defineProps<{
 	note: entities.Note;

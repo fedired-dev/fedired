@@ -1,5 +1,6 @@
 import pluginVue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
+import { fileURLToPath } from 'url';
 
 import locales from "../../locales/index.mjs";
 import meta from "../../package.json" with { type: "json" };
@@ -42,6 +43,7 @@ export default defineConfig(({ command, mode }) => {
 				"@/": `${__dirname}/src/`,
 				"/client-assets/": `${__dirname}/assets/`,
 				"/static-assets/": `${__dirname}/../backend/assets/`,
+				"@fedired": fileURLToPath(new URL('../../.fedired', import.meta.url)),
 			},
 		},
 
