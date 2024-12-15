@@ -1,5 +1,12 @@
 <template>
 	<footer class="footer" ref="el" tabindex="-1">
+		<span 
+			v-if="isVerified(note.user.username)" 
+			v-tooltip.noDelay="'Usuario Verificado'" 
+			class="verified-badge"
+		>
+			<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
+		</span>
 		<XReactionsViewer
 			v-if="enableEmojiReactions && !hideEmojiViewer"
 			ref="reactionsViewer"
@@ -111,6 +118,7 @@ import { defaultStore } from "@/store";
 import { detectLanguage } from "@/scripts/language-utils";
 import type { entities } from "fedired-js";
 import type MkNoteTranslation from "./MkNoteTranslation.vue";
+import { isVerified } from '@fedired/verified-users';
 
 const props = defineProps<{
 	note: NoteType;
@@ -293,6 +301,19 @@ defineExpose({
 		&.reacted {
 			color: var(--accent);
 		}
+	}
+}
+
+.verified-badge {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 4px;
+	margin-right: 8px;
+	
+	img {
+		width: 20px;
+		height: 20px;
+		vertical-align: middle;
 	}
 }
 </style>

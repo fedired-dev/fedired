@@ -43,7 +43,6 @@
 										:user="user"
 										:nowrap="true"
 									/>
-
 									<span 
 										v-if="isVerified(user.username)" 
 										v-tooltip.noDelay="'Usuario Verificado'" 
