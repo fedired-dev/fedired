@@ -38,6 +38,10 @@ coverage
 /custom/*
 !/custom/LICENSE
 
+# .fedired
+.fedired/verified-users.ts
+!.fedired/verified-users.ts.example
+
 # ESLint
 .eslintcache
 
