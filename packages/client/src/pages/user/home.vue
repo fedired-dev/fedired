@@ -374,6 +374,7 @@ import { isModerator, isSignedIn, me } from "@/me";
 import icon from "@/scripts/icon";
 import yaml from 'js-yaml';
 import fs from 'fs';
+import { isVerified } from '../../../.fedired/verified-users';
 
 
 const XPhotos = defineAsyncComponent(() => import("./index.photos.vue"));

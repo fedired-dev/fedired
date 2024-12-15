@@ -70,26 +70,7 @@ import { i18n } from "@/i18n";
 import { pageWindow } from "@/os";
 import icon from "@/scripts/icon";
 import { me, isSignedIn } from "@/me";
-
-const verifiedUsers = ref([]);
-
-const loadVerifiedUsers = () => {
-	try {
-		const fileContents = fs.readFileSync('.config/verified.yml', 'utf8');
-		const data = yaml.load(fileContents);
-		verifiedUsers.value = data.verifiedUsers;
-	} catch (error) {
-		console.error('Error al cargar usuarios verificados:', error);
-	}
-};
-
-const isVerified = (username) => {
-	return verifiedUsers.value.includes(username);
-};
-
-onMounted(() => {
-	loadVerifiedUsers();
-});
+import { isVerified } from '../../../.fedired/verified-users';
 
 const props = defineProps<{
 	note: entities.Note;
