@@ -44,11 +44,13 @@
 										:nowrap="true"
 									/>
 
-									<span v-if="isVerified(user.username)" v-tooltip.noDelay="'Verificado'" style="color: var(--badge); margin-left: 4px; display: inline-flex; align-items: center;">
-  									<i :class="icon('ph-bold ph-seal-check')" style="font-size: 2.0em; margin-right: 4px;"></i>
- 									 
+									<span 
+										v-if="isVerified(user.username)" 
+										v-tooltip.noDelay="'Usuario Verificado'" 
+										class="verified-badge"
+									>
+										<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
 									</span>
-
 
 									<div v-if="isModerator">
 										<span
@@ -353,7 +355,6 @@ import {
 	onUnmounted,
 	ref,
 } from "vue";
-import VerifiedIcon from '@/components/Verifeid.vue';
 import calcAge from "s-age";
 import cityTimezones from "city-timezones";
 import type { entities } from "fedired-js";
@@ -371,6 +372,8 @@ import { defaultStore } from "@/store";
 import { i18n } from "@/i18n";
 import { isModerator, isSignedIn, me } from "@/me";
 import icon from "@/scripts/icon";
+import yaml from 'js-yaml';
+import fs from 'fs';
 
 
 const XPhotos = defineAsyncComponent(() => import("./index.photos.vue"));
@@ -447,7 +450,7 @@ function parallax() {
 
 	if (top < 0) return;
 
-	const z = 1.75; // 奥行き(小さいほど奥)
+	const z = 1.75; // 奥き(小さいほど奥)
 	const pos = -(top / z);
 	banner.style.backgroundPosition = `center calc(50% - ${pos}px)`;
 }
@@ -465,25 +468,23 @@ onUnmounted(() => {
 
 const verifiedUsers = ref([]);
 
-const fetchVerifiedUsers = () => {
-  fetch('http://localhost:3000/api/verified-users')
-    .then(response => response.json())
-    .then(data => {
-      verifiedUsers.value = data.verifiedUsers;
-    })
-    .catch(error => {
-      console.error('Error al cargar los usuarios verificados:', error);
-    });
+const loadVerifiedUsers = () => {
+  try {
+    const fileContents = fs.readFileSync('.config/verified.yml', 'utf8');
+    const data = yaml.load(fileContents);
+    verifiedUsers.value = data.verifiedUsers;
+  } catch (error) {
+    console.error('Error al cargar usuarios verificados:', error);
+  }
 };
-
-onMounted(() => {
-  fetchVerifiedUsers();
-});
 
 const isVerified = (username) => {
   return verifiedUsers.value.includes(username);
 };
 
+onMounted(() => {
+  loadVerifiedUsers();
+});
 
 </script>
 
@@ -907,6 +908,17 @@ const isVerified = (username) => {
 			min-inline-size: 350px;
 			margin-inline-start: var(--margin);
 		}
+	}
+}
+
+.verified-badge {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 4px;
+	color: var(--accent);
+	
+	i {
+		font-size: 1.2em;
 	}
 }
 </style>

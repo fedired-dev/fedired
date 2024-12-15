@@ -11,6 +11,14 @@
 					<MkUserName :user="note.user" class="mkusername">
 						<span v-if="note.user.isBot" class="is-bot">bot</span>
 					</MkUserName>
+					
+					<span 
+						v-if="isVerified(note.user.username)" 
+						v-tooltip.noDelay="'Usuario Verificado'" 
+						class="verified-badge"
+					>
+					<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
+				</span>
 				</MkA>
 				<div class="username"><MkAcct :user="note.user" /></div>
 			</div>
@@ -50,6 +58,9 @@
 
 <script lang="ts" setup>
 import type { entities } from "fedired-js";
+import { ref, onMounted } from 'vue';
+import yaml from 'js-yaml';
+import fs from 'fs';
 import { defaultStore } from "@/store";
 import MkVisibility from "@/components/MkVisibility.vue";
 import MkInstanceTicker from "@/components/MkInstanceTicker.vue";
@@ -59,6 +70,26 @@ import { i18n } from "@/i18n";
 import { pageWindow } from "@/os";
 import icon from "@/scripts/icon";
 import { me, isSignedIn } from "@/me";
+
+const verifiedUsers = ref([]);
+
+const loadVerifiedUsers = () => {
+	try {
+		const fileContents = fs.readFileSync('.config/verified.yml', 'utf8');
+		const data = yaml.load(fileContents);
+		verifiedUsers.value = data.verifiedUsers;
+	} catch (error) {
+		console.error('Error al cargar usuarios verificados:', error);
+	}
+};
+
+const isVerified = (username) => {
+	return verifiedUsers.value.includes(username);
+};
+
+onMounted(() => {
+	loadVerifiedUsers();
+});
 
 const props = defineProps<{
 	note: entities.Note;
@@ -192,6 +223,17 @@ function openServerInfo() {
 			> .name {
 				display: none;
 			}
+		}
+	}
+
+	.verified-badge {
+		display: inline-flex;
+		align-items: center;
+		margin-left: 4px;
+		color: var(--accent);
+		
+		i {
+			font-size: 1.2em;
 		}
 	}
 }
