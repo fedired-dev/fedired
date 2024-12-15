@@ -43,7 +43,11 @@
 										:user="user"
 										:nowrap="true"
 									/>
-									<VerifiedIcon :username="user.username" />
+
+									<span v-if="isVerified(user.username)" v-tooltip.noDelay="'Verificado'" style="color: var(--badge); margin-left: 4px;">
+       								 <i :class="icon('ph-bold ph-seal-check')" style="font-size: 2.0em;"></i>
+      								</span>
+
 									<div v-if="isModerator">
 										<span
 											v-if="user.isSilenced"
@@ -455,6 +459,37 @@ onUnmounted(() => {
 		window.cancelAnimationFrame(parallaxAnimationId.value);
 	}
 });
+
+
+export default {
+  data() {
+    return {
+      verifiedUsers: [],  
+    };
+  },
+  mounted() {
+    
+    this.fetchVerifiedUsers();
+  },
+  methods: {
+    fetchVerifiedUsers() {
+      fetch('http://localhost:3000/api/verified-users')
+        .then(response => response.json())
+        .then(data => {
+          this.verifiedUsers = data.verifiedUsers;
+        })
+        .catch(error => {
+          console.error('Error al cargar los usuarios verificados:', error);
+        });
+    },
+    
+    isVerified(username) {
+      return this.verifiedUsers.includes(username);
+    },
+  },
+};
+
+
 </script>
 
 <style lang="scss" scoped>
