@@ -61,6 +61,15 @@ export function openHelpMenu_(ev: MouseEvent) {
           window.open("https://help.fedired.com", "_blank"); 
         },
       },
+	  {
+        type: "button",
+        text: "Estado del Servicio", 
+        icon: `${icon("ph-check-circle")}`, 
+        action: () => {
+          
+          window.open("https://status.fedired.com", "_blank"); 
+        },
+      },
 			...(instanceSpecificItems.length >= 2 ? [null] : []),
 			...instanceSpecificItems,
 			null,

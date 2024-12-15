@@ -43,6 +43,7 @@
 										:user="user"
 										:nowrap="true"
 									/>
+									<VerifiedIcon :username="user.username" />
 									<div v-if="isModerator">
 										<span
 											v-if="user.isSilenced"
@@ -346,6 +347,7 @@ import {
 	onUnmounted,
 	ref,
 } from "vue";
+import VerifiedIcon from '@/components/VerifiedIcon.vue';
 import calcAge from "s-age";
 import cityTimezones from "city-timezones";
 import type { entities } from "fedired-js";
