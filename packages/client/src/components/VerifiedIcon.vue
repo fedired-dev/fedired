@@ -6,7 +6,6 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue';
-import axios from 'axios';
 
 defineProps<{ username: string }>();
 
@@ -14,8 +13,12 @@ const verifiedUsers = ref<string[]>([]);
 
 onMounted(async () => {
     try {
-        const response = await axios.get('/api/verified-users');
-        verifiedUsers.value = response.data;
+        const response = await fetch('/api/verified-users'); // Reemplaza axios por fetch
+        if (!response.ok) {
+            throw new Error('Error al cargar usuarios verificados');
+        }
+        const data = await response.json(); // Convierte la respuesta a JSON
+        verifiedUsers.value = data;
     } catch (error) {
         console.error('Error al cargar usuarios verificados:', error);
     }
