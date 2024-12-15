@@ -18,7 +18,13 @@
 	</div>
 	<div v-if="collapsedReply && appearNote.reply" class="reply-to">
 		<MkAvatar class="avatar" :user="appearNote.reply.user" />
-		<MkUserName class="username" :user="appearNote.reply.user"></MkUserName>
+		<MkUserName class="username" :user="appearNote.reply.user" />
+		<span 
+			v-if="isVerified(appearNote.reply.user.username)" 
+			class="verified-badge"
+		>
+			<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="16" height="16" alt="Usuario Verificado" />
+		</span>
 		<Mfm
 			class="summary"
 			:text="getNoteSummary(appearNote.reply)"
@@ -101,6 +107,18 @@ defineProps<{
 	&:hover,
 	&:focus-within {
 		color: var(--fg);
+	}
+}
+
+.verified-badge {
+	display: inline-flex;
+	align-items: center;
+	margin: 0 4px;
+	
+	img {
+		width: 16px;
+		height: 16px;
+		vertical-align: middle;
 	}
 }
 </style>
