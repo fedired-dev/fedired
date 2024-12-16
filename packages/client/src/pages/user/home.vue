@@ -46,7 +46,7 @@
 
 									<span 
    									 v-if="isVerified(user.username)" 
-   									 v-tooltip.noDelay="i18n.ts.profileVerified" 
+   									 v-tooltip.noDelay="'Usuario Verificado'" 
    									 class="verified-badge"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
@@ -130,7 +130,7 @@
 
 								<span 
    									 v-if="isVerified(user.username)" 
-   									 v-tooltip.noDelay="i18n.ts.profileVerified" 
+   									 v-tooltip.noDelay="'Usuario Verificado'" 
    									 class="verified-badge"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
