@@ -45,7 +45,7 @@
 									/>
 									<span 
 										v-if="isVerified(user.username)" 
-										v-tooltip.noDelay="i18n.ts.profileVerified"  
+										v-tooltip.noDelay="'Usuario Verificado'"  
 										class="verified-badge">
 										
 										<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
@@ -126,14 +126,8 @@
 									:user="user"
 									:nowrap="true"
 								/>
-								<span 
-										v-if="isVerified(user.username)" 
-										v-tooltip.noDelay="i18n.ts.profileVerified"  
-										class="verified-badge">
-										
-										<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
-									</span>
-								<span
+   								 <MkUserName :user="user" />
+   								 <MkVerifiedBadge :username="user.username" />
 									v-if="
 										isSignedIn(me) &&
 										me.id !== user.id &&
@@ -379,6 +373,8 @@ import { i18n } from "@/i18n";
 import { isModerator, isSignedIn, me } from "@/me";
 import icon from "@/scripts/icon";
 import { isVerified } from '@fedired/verified-users';
+import MkVerifiedBadge from '@/components/MkVerifiedBadge.vue';
+
 
 
 const XPhotos = defineAsyncComponent(() => import("./index.photos.vue"));
