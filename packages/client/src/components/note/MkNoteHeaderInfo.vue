@@ -19,13 +19,15 @@
 	<div v-if="collapsedReply && appearNote.reply" class="reply-to">
 		<MkAvatar class="avatar" :user="appearNote.reply.user" />
 		<MkUserName class="username" :user="appearNote.reply.user" />
+
 		<span 
-									v-if="isVerified(user.username)" 
-									v-tooltip.noDelay="i18n.ts.profileVerified" 
-									class="verified-badge"
-								>
-								<i :class="icon('ph-fill ph-seal-check')"></i>     
-							</span>
+    v-if="isVerified(user.username)" 
+    v-tooltip.noDelay="i18n.ts.profileVerified" 
+    class="verified-badge"
+>
+    <i :class="icon('ph-fill ph-seal-check')"></i>
+</span>
+
 		<Mfm
 			class="summary"
 			:text="getNoteSummary(appearNote.reply)"

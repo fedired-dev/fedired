@@ -44,12 +44,12 @@
 										:nowrap="true"
 									/>
 									<span 
-										v-if="isVerified(user.username)" 
-										v-tooltip.noDelay="i18n.ts.profileVerified" 
-										class="verified-badge"
-									>
-										<i :class="icon('ph-fill ph-seal-check')"></i>
-									</span>
+    v-if="isVerified(user.username)" 
+    v-tooltip.noDelay="i18n.ts.profileVerified" 
+    class="verified-badge"
+>
+    <i :class="icon('ph-fill ph-seal-check')"></i>
+</span>
 
 									<div v-if="isModerator">
 										<span
@@ -127,12 +127,12 @@
 									:nowrap="true"
 								/>
 								<span 
-									v-if="isVerified(user.username)" 
-									v-tooltip.noDelay="i18n.ts.profileVerified" 
-									class="verified-badge"
-								>
-								<i :class="icon('ph-fill ph-seal-check')"></i>
-								</span>
+    v-if="isVerified(user.username)" 
+    v-tooltip.noDelay="i18n.ts.profileVerified" 
+    class="verified-badge"
+>
+    <i :class="icon('ph-fill ph-seal-check')"></i>
+</span>
 								<span
 									v-if="
 										isSignedIn(me) &&

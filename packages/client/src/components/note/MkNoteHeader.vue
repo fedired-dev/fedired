@@ -13,12 +13,12 @@
 					</MkUserName>
 					
 					<span 
-									v-if="isVerified(user.username)" 
-									v-tooltip.noDelay="i18n.ts.profileVerified" 
-									class="verified-badge"
-								>
-								<i :class="icon('ph-fill ph-seal-check')"></i>
-								</span>
+    v-if="isVerified(user.username)" 
+    v-tooltip.noDelay="i18n.ts.profileVerified" 
+    class="verified-badge"
+>
+    <i :class="icon('ph-fill ph-seal-check')"></i>
+</span>
 				</MkA>
 				<div class="username"><MkAcct :user="note.user" /></div>
 			</div>
