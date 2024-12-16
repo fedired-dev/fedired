@@ -129,8 +129,7 @@
 										user.isFollowed
 									"
 									class="followed"
-									>{{ i18n.ts.followsYou }}</span
-								>
+									>{{ i18n.ts.followsYou }}</div>
 								<div v-if="isModerator">
 									<span
 										v-if="user.isSilenced"
