@@ -44,8 +44,13 @@
 										:nowrap="true"
 									/>
 									
-   								 	<MkVerifiedBadge :username="user.username" />
-
+									<span 
+   										 v-if="isVerified(user.username)" 
+   										 v-tooltip.noDelay="i18n.ts.profileVerified" 
+   										 class="verified-badge"
+										>
+   										 <i :class="icon('ph-fill ph-seal-check')"></i>
+									</span>
 
 									<div v-if="isModerator">
 										<span
@@ -122,7 +127,15 @@
 									:user="user"
 									:nowrap="true"
 								/>
-   								 <MkVerifiedBadge :username="user.username" />
+
+								<span 
+   										 v-if="isVerified(user.username)" 
+   										 v-tooltip.noDelay="i18n.ts.profileVerified" 
+   										 class="verified-badge"
+										>
+   										 <i :class="icon('ph-fill ph-seal-check')"></i>
+									</span>
+
 									<div	v-if="
 										isSignedIn(me) &&
 										me.id !== user.id &&
@@ -659,8 +672,8 @@ onUnmounted(() => {
 						}
 
 						> .followed {
-							position: relative;
-							inset-block-start: -4px;
+							position: absolute;
+							inset-block-start: 4px;
 							inset-inline-start: 4px;
 							padding-block: 4px;
 							padding-inline: 8px;
