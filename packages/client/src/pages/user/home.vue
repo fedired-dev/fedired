@@ -43,9 +43,7 @@
 										:user="user"
 										:nowrap="true"
 									/>
-									
-									<MkUserName :user="user" />
-   									 <MkVerifiedBadge :username="user.username" />
+									<MkVerifiedBadge :username="user.username" />
 
 
 									<div v-if="isModerator">
@@ -123,7 +121,6 @@
 									:user="user"
 									:nowrap="true"
 								/>
-   								 <MkUserName :user="user" />
    								 <MkVerifiedBadge :username="user.username" />
 									v-if="
 										isSignedIn(me) &&
