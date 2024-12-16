@@ -1,6 +1,10 @@
 <template>
 	<footer class="footer" ref="el" tabindex="-1">
-
+		<XReactionsViewer
+			v-if="enableEmojiReactions && !hideEmojiViewer"
+			ref="reactionsViewer"
+			:note="note"
+		/>
 		<button
 			v-tooltip.noDelay.bottom="i18n.ts.reply"
 			class="button _button"
@@ -289,19 +293,6 @@ defineExpose({
 		&.reacted {
 			color: var(--accent);
 		}
-	}
-}
-
-.verified-badge {
-	display: inline-flex;
-	align-items: center;
-	margin-left: 4px;
-	margin-right: 8px;
-	
-	img {
-		width: 20px;
-		height: 20px;
-		vertical-align: middle;
 	}
 }
 </style>
