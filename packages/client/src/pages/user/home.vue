@@ -43,14 +43,14 @@
 										:user="user"
 										:nowrap="true"
 									/>
-									
+
 									<span 
-   										 v-if="isVerified(user.username)" 
-   										 v-tooltip.noDelay="i18n.ts.profileVerified" 
-   										 class="verified-badge"
+   									 v-if="isVerified(user.username)" 
+   									 v-tooltip.noDelay="i18n.ts.profileVerified" 
+   									 class="verified-badge"
 										>
-   										 <i :class="icon('ph-fill ph-seal-check')"></i>
-									</span>
+    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
+								</span>
 
 									<div v-if="isModerator">
 										<span
@@ -129,12 +129,12 @@
 								/>
 
 								<span 
-   										 v-if="isVerified(user.username)" 
-   										 v-tooltip.noDelay="i18n.ts.profileVerified" 
-   										 class="verified-badge"
+   									 v-if="isVerified(user.username)" 
+   									 v-tooltip.noDelay="i18n.ts.profileVerified" 
+   									 class="verified-badge"
 										>
-   										 <i :class="icon('ph-fill ph-seal-check')"></i>
-									</span>
+    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
+								</span>
 
 									<div	v-if="
 										isSignedIn(me) &&
@@ -904,18 +904,15 @@ onUnmounted(() => {
 	align-items: center;
 	margin-left: 4px;
 	color: var(--accent);
-	vertical-align: middle;
+	position: relative;
+	top: 6px;
 	
-	img {
-		width: 20px;
-		height: 20px;
+	i {
+		font-size: 2em;
+		display: inline-block;
 		vertical-align: middle;
-	}
-
-	@media screen and (max-width: 500px) {
-		display: inline-flex;
-		justify-content: center;
-		margin: 4px auto;
+		position: relative;
+		top: -6px;
 	}
 }
 </style>
