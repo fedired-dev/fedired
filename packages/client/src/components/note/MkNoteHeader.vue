@@ -11,14 +11,15 @@
 					<MkUserName :user="note.user" class="mkusername">
 						<span v-if="note.user.isBot" class="is-bot">bot</span>
 					</MkUserName>
-					
+
 					<span 
     v-if="isVerified(user.username)" 
     v-tooltip.noDelay="i18n.ts.profileVerified" 
     class="verified-badge"
 >
-    <i :class="icon('ph-fill ph-seal-check')"></i>
-</span>
+    <img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
+</span>					
+
 				</MkA>
 				<div class="username"><MkAcct :user="note.user" /></div>
 			</div>

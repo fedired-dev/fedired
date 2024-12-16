@@ -25,7 +25,7 @@
     v-tooltip.noDelay="i18n.ts.profileVerified" 
     class="verified-badge"
 >
-    <i :class="icon('ph-fill ph-seal-check')"></i>
+    <img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
 </span>
 
 		<Mfm
