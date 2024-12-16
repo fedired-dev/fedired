@@ -1,6 +1,6 @@
 <template>
     <span 
-        v-if="isVerified(user?.username || note?.user || username)" 
+        v-if="isVerified(user?.username || note?.username || username)" 
         v-tooltip.noDelay="'Usuario Verificado'" 
         class="verified-badge"
     >
