@@ -62,7 +62,7 @@ import { i18n } from "@/i18n";
 import { pageWindow } from "@/os";
 import icon from "@/scripts/icon";
 import { me, isSignedIn } from "@/me";
-import { isVerified } from '@fedired/verified-users';
+import MkVerifiedBadge from '@/components/MkVerifiedBadge.vue';
 
 const props = defineProps<{
 	note: entities.Note;

@@ -38,7 +38,7 @@ import { i18n } from "@/i18n";
 import { getNoteSummary } from "@/scripts/get-note-summary";
 import icon from "@/scripts/icon";
 import type { NoteType } from "@/types/note";
-import { isVerified } from '@fedired/verified-users';
+import MkVerifiedBadge from '@/components/MkVerifiedBadge.vue';
 
 
 defineProps<{
