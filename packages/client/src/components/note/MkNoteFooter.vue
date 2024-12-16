@@ -107,7 +107,6 @@ import { defaultStore } from "@/store";
 import { detectLanguage } from "@/scripts/language-utils";
 import type { entities } from "fedired-js";
 import type MkNoteTranslation from "./MkNoteTranslation.vue";
-import { isVerified } from '@fedired/verified-users';
 
 const props = defineProps<{
 	note: NoteType;
