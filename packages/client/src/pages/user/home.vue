@@ -45,10 +45,10 @@
 									/>
 									<span 
 										v-if="isVerified(user.username)" 
-										v-tooltip.noDelay="'Usuario Verificado'" 
+										v-tooltip.noDelay="i18n.ts.profileVerified" 
 										class="verified-badge"
 									>
-										<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
+										<i :class="icon('ph-fill ph-seal-check')"></i>
 									</span>
 
 									<div v-if="isModerator">
@@ -128,10 +128,10 @@
 								/>
 								<span 
 									v-if="isVerified(user.username)" 
-									v-tooltip.noDelay="'Usuario Verificado'" 
+									v-tooltip.noDelay="i18n.ts.profileVerified" 
 									class="verified-badge"
 								>
-									<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
+								<i :class="icon('ph-fill ph-seal-check')"></i>
 								</span>
 								<span
 									v-if="
@@ -901,12 +901,9 @@ onUnmounted(() => {
 	align-items: center;
 	margin-left: 4px;
 	color: var(--accent);
-	vertical-align: middle;
 	
-	img {
-		width: 20px;
-		height: 20px;
-		vertical-align: middle;
+	i {
+		font-size: 1.2em;
 	}
 
 	@media screen and (max-width: 500px) {
