@@ -36,7 +36,7 @@ jobs:
 
     # (Opcional) Verificar que no haya conflictos en el lockfile
     - name: Verify lockfile (optional)
-      run: pnpm install --no-frozen-lockfile  # Re-instala dependencias para verificar el lockfile
+      run: pnpm install --frozen-lockfile  # Re-instala dependencias para verificar el lockfile
 
     # Construir la imagen Docker para la fase de construcción
     - name: Build Docker image (build stage)
