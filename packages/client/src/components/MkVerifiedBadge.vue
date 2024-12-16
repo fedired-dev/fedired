@@ -1,6 +1,6 @@
 <template>
     <span 
-        v-if="isVerified(user?.username || username)" 
+        v-if="isVerified(user?.username || note?.user || username)" 
         v-tooltip.noDelay="'Usuario Verificado'" 
         class="verified-badge"
     >
@@ -9,7 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-import { i18n } from "@/i18n";
 import icon from "@/scripts/icon";
 import { isVerified } from '@fedired/verified-users';
 import type { entities } from "fedired-js";
@@ -17,6 +16,7 @@ import type { entities } from "fedired-js";
 defineProps<{
     username?: string;
     user?: entities.User;
+    note?: entities.Note;
 }>();
 </script>
 
