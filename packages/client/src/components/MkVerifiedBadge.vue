@@ -1,7 +1,7 @@
 <template>
     <span 
-        v-if="isVerified(username)" 
-        v-tooltip.noDelay="i18n.ts.profileVerified" 
+        v-if="isVerified(user?.username || username)" 
+        v-tooltip.noDelay="'Usuario Verificado'" 
         class="verified-badge"
     >
         <i :class="icon('ph-fill ph-seal-check')"></i>
@@ -12,9 +12,11 @@
 import { i18n } from "@/i18n";
 import icon from "@/scripts/icon";
 import { isVerified } from '@fedired/verified-users';
+import type { entities } from "fedired-js";
 
 defineProps<{
-    username: string;
+    username?: string;
+    user?: entities.User;
 }>();
 </script>
 

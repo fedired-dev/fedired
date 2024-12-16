@@ -20,13 +20,7 @@
 		<MkAvatar class="avatar" :user="appearNote.reply.user" />
 		<MkUserName class="username" :user="appearNote.reply.user" />
 
-		<span 
-						v-if="isVerified(note.user.username)" 
-						v-tooltip.noDelay="'Usuario Verificado'" 
-						class="verified-badge"
-					>
-					<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
-				</span>
+		<MkVerifiedBadge :user="note.user" />
 
 		<Mfm
 			class="summary"
