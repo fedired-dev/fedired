@@ -43,13 +43,10 @@
 										:user="user"
 										:nowrap="true"
 									/>
-									<span 
-										v-if="isVerified(user.username)" 
-										v-tooltip.noDelay="'Usuario Verificado'"  
-										class="verified-badge">
-										
-										<img src="https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/back/verifeid.png" width="20" height="20" alt="Verificado" />
-									</span>
+									
+									<MkUserName :user="user" />
+   									 <MkVerifiedBadge :username="user.username" />
+
 
 									<div v-if="isModerator">
 										<span
