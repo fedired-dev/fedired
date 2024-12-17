@@ -40,7 +40,9 @@ coverage
 
 # .fedired
 fedired/verified-users.ts
-!fedired/verified-users.ts.example
+fedired/verified-users.js
+.fedired/verified-users.ts
+!.fedired/verified-users.ts.example
 
 # ESLint
 .eslintcache
