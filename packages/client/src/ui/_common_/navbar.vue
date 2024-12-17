@@ -274,10 +274,10 @@ function more(ev: MouseEvent) {
 			}
 		}
 
-		#firefish_app > :not(.wallpaper) & {
+		#fedired_app > :not(.wallpaper) & {
 			background: var(--navBg);
 		}
-		#firefish_app > .wallpaper:not(.centered) & {
+		#fedired_app > .wallpaper:not(.centered) & {
 			border-inline-end: 1px solid var(--divider);
 		}
 	}
