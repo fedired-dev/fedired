@@ -15,6 +15,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Copiar el código y ejecutar la instalación de dependencias
 COPY . ./
+RUN pnpm install --no-frozen-lockfile
 RUN pnpm install --frozen-lockfile
 RUN NODE_ENV='production' NODE_OPTIONS='--max_old_space_size=3072' pnpm run build
 
