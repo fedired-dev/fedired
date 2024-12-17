@@ -3,64 +3,50 @@ name: Build and Deploy Docker Image
 on:
   push:
     branches:
-      - main  # Esto se activa cuando haces push en la rama principal
+      - main  # Se activa cuando haces push en la rama principal
   pull_request:
     branches:
-      - main  # Esto se activa cuando se hace un pull request a la rama principal
+      - main  
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Utiliza la última versión de Ubuntu para ejecutar el flujo de trabajo
+    runs-on: ubuntu-latest  
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # Checkout del código fuente del repositorio
+      uses: actions/checkout@v3  
 
-    # Configurar Node.js en la versión que se usa en el Dockerfile (ajustar la versión si es necesario)
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20'  # La versión de Node.js que se usa en el Dockerfile, cámbiala si es necesario
+        node-version: '20'  
 
-    # Instalar pnpm globalmente
     - name: Install pnpm
       run: npm install -g pnpm
 
-    # Cargo
-    - name: Cargo Update
-      run: cargo update
-
-    # Instalar dependencias con pnpm
     - name: Install dependencies
-      run: pnpm install --no-frozen-lockfile  # Instalar dependencias sin usar el archivo lock congelado
+      run: pnpm install --no-frozen-lockfile  
 
-    # (Opcional) Verificar que no haya conflictos en el lockfile
     - name: Verify lockfile (optional)
-      run: pnpm install --frozen-lockfile  # Re-instala dependencias para verificar el lockfile
+      run: pnpm install --frozen-lockfile  
 
-    # Construir la imagen Docker para la fase de construcción
     - name: Build Docker image (build stage)
-      run: docker build --file Dockerfile --target build --tag fedired .
+      run: docker build --file Dockerfile --target build --tag fedired --build-arg NODE_OPTIONS="--max_old_space_size=4096" .
 
-    # Crear la imagen de producción usando la fase de producción del Dockerfile
     - name: Build production Docker image
-      run: docker build --file Dockerfile --target production --tag fedired:latest .
+      run: docker build --file Dockerfile --target production --tag fedired:latest --build-arg NODE_OPTIONS="--max_old_space_size=4096" .
 
-    # Login a Docker Hub usando las credenciales almacenadas en GitHub Secrets
     - name: Login to Docker Hub
       run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-    # Subir la imagen Docker a Docker Hub
     - name: Push Docker image to Docker Hub
       run: |
         docker tag fedired:latest ${{ secrets.DOCKER_USERNAME }}/fedired:latest  # Etiqueta la imagen
         docker push ${{ secrets.DOCKER_USERNAME }}/fedired:latest  # Sube la imagen etiquetada a Docker Hub
 
-    # Login a GitHub Container Registry (GHCR)
     - name: Login to GitHub Container Registry
       run: echo ${{ secrets.GITTOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-    # Subir la imagen Docker a GitHub Container Registry
     - name: Push Docker image to GitHub Container Registry
       run: |
         docker tag fedired:latest ghcr.io/${{ github.repository_owner }}/fedired:latest  # Etiqueta la imagen para GHCR

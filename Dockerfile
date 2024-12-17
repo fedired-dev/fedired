@@ -1,42 +1,49 @@
-# Etapa de construcción (build)
+# Install dev and compilation dependencies, build files
 FROM docker.io/node:20-alpine AS build
 WORKDIR /fedired
 
-# Instalar herramientas necesarias y preparar el entorno
+# Install build tools and work around the linker name issue
 RUN apk update && apk add --no-cache build-base linux-headers curl ca-certificates python3 perl
 RUN ln -s $(which gcc) /usr/bin/aarch64-linux-musl-gcc
 
-# Instalar Rust
+# Install Rust toolchain
 RUN curl --proto '=https' --tlsv1.2 --silent --show-error --fail https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# Configurar pnpm
+# Configure pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copiar el código fuente y ejecutar la instalación de dependencias
+# Build
 COPY . ./
-RUN pnpm install --no-frozen-lockfile  # Solo instalar una vez, no es necesario el segundo paso
+RUN pnpm install --frozen-lockfile
 RUN NODE_ENV='production' NODE_OPTIONS='--max_old_space_size=3072' pnpm run build
 
-# Limpiar dependencias de desarrollo y dejar solo las de producción
+# Trim down the dependencies to only those for production
 RUN find . -path '*/node_modules/*' -delete && pnpm install --prod --frozen-lockfile
 
-# Etapa de producción (runtime)
-FROM docker.io/node:20-alpine AS production
+# Runtime container
+FROM docker.io/node:20-alpine
 WORKDIR /fedired
 
-# Instalar dependencias necesarias para la ejecución
+# Install runtime dependencies
 RUN apk update && apk add --no-cache zip unzip tini ffmpeg curl
 
-# Copiar dependencias y artefactos generados desde la etapa de construcción
+COPY . ./
+
+# Copy node modules
 COPY --from=build /fedired/node_modules /fedired/node_modules
 COPY --from=build /fedired/packages/backend/node_modules /fedired/packages/backend/node_modules
+# COPY --from=build /fedired/packages/sw/node_modules /fedired/packages/sw/node_modules
+# COPY --from=build /fedired/packages/client/node_modules /fedired/packages/client/node_modules
 COPY --from=build /fedired/packages/fedired-js/node_modules /fedired/packages/fedired-js/node_modules
+
+# Copy the build artifacts
 COPY --from=build /fedired/built /fedired/built
 COPY --from=build /fedired/packages/backend/built /fedired/packages/backend/built
+COPY --from=build /fedired/packages/backend/assets/instance.css /fedired/packages/backend/assets/instance.css
+COPY --from=build /fedired/packages/backend-rs/built /fedired/packages/backend-rs/built
 COPY --from=build /fedired/packages/fedired-js/built /fedired/packages/fedired-js/built
 
-# Configuración final y comandos de ejecución
 RUN corepack enable && corepack prepare pnpm@latest --activate
 ENV NODE_ENV=production
 VOLUME "/fedired/files"

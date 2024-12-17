@@ -1,5 +1,5 @@
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Iceshrimp configuration
+# Fedired configuration
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # After starting your server, please don't change the URL! Doing so will break federation.
@@ -19,7 +19,7 @@ url: https://example.org/
 #───┘ Port and TLS settings └───────────────────────────────────
 
 #
-# Iceshrimp requires a reverse proxy to support HTTPS connections.
+# Fedired requires a reverse proxy to support HTTPS connections.
 #
 #                 +----- https://example.com/ ------------+
 #   +------+      |+-------------+      +----------------+|
@@ -31,7 +31,7 @@ url: https://example.org/
 #   An encrypted connection with HTTPS is highly recommended
 #   because tokens may be transferred in GET requests.
 
-# The port that your Iceshrimp server should listen on.
+# The port that your Fedired server should listen on.
 port: 3000
 
 #   ┌──────────────────────────┐
@@ -212,7 +212,7 @@ reservedUsernames: [
 
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Congrats, you've reached the end of the config file needed for most deployments!
-# Enjoy your Iceshrimp server!
+# Enjoy your Fedired server!
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
