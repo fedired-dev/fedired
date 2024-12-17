@@ -34,14 +34,17 @@
 ## Navigation
 
 - [Instancia Oficial](https://fedired.com)
-- [Documentacion](https://help.fedired.com)
+- [Guia de Instalacion](https://help.fedired.com/project/install.html)
+- [Centro de Ayuda](https://help.fedired.com)
+- [Reglas de Convivencia en Fedired](https://help.fedired.com/manual/vocab.html)
 - [Repositorio Oficial](https://github.com/fedired-dev/fedired)
 - [Donaciones](https://patreon.com/fedired)
+- [Licencia](https://help.fedired.com/legal/licencias.html)
 - [Traduciones](https://crowdin.com/project/fedired)
 
 [![Crowdin](https://badges.crowdin.net/fedired/localized.svg)](https://crowdin.com/project/fedired)
 
-## Features
+## Características
 
 - **Interfaz totalmente personalizable**: Ajusta la apariencia y el diseño de tu instancia para que refleje tu estilo personal.
 - **Reacciones emoji**: Utiliza una amplia variedad de emojis para expresar tus emociones en cada publicación o comentario.

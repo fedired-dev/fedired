@@ -13,10 +13,9 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 # Configurar pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copiar el código y ejecutar la instalación de dependencias
+# Copiar el código fuente y ejecutar la instalación de dependencias
 COPY . ./
-RUN pnpm install --no-frozen-lockfile
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile  # Solo instalar una vez, no es necesario el segundo paso
 RUN NODE_ENV='production' NODE_OPTIONS='--max_old_space_size=3072' pnpm run build
 
 # Limpiar dependencias de desarrollo y dejar solo las de producción
@@ -29,12 +28,10 @@ WORKDIR /fedired
 # Instalar dependencias necesarias para la ejecución
 RUN apk update && apk add --no-cache zip unzip tini ffmpeg curl
 
-# Copiar archivos y dependencias desde la etapa de construcción
+# Copiar dependencias y artefactos generados desde la etapa de construcción
 COPY --from=build /fedired/node_modules /fedired/node_modules
 COPY --from=build /fedired/packages/backend/node_modules /fedired/packages/backend/node_modules
 COPY --from=build /fedired/packages/fedired-js/node_modules /fedired/packages/fedired-js/node_modules
-
-# Copiar artefactos generados en la construcción
 COPY --from=build /fedired/built /fedired/built
 COPY --from=build /fedired/packages/backend/built /fedired/packages/backend/built
 COPY --from=build /fedired/packages/fedired-js/built /fedired/packages/fedired-js/built
