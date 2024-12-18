@@ -46,17 +46,10 @@
 
 									<span 
    									 v-if="isVerified(user.username)" 
+   									 v-tooltip.noDelay="'Cuenta verificada'" 
    									 class="verified-badge"
-										@mouseover="showTooltip = true"
-										@mouseleave="showTooltip = false"
 										>
-    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em; color: var(--icon-color);"></i>
-										<!-- Tooltip -->
-										<div v-if="showTooltip" class="tooltip" @click.stop>
-											<p class="tooltip-title">Cuenta verificada</p>
-											<p class="tooltip-description">Esta cuenta está verificada.</p>
-											<a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a>
-										</div>
+    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 								</span>
 
 								<span 
@@ -148,16 +141,8 @@
    									 v-if="isVerified(user.username)" 
    									 v-tooltip.noDelay="'Cuenta verificada'" 
    									 class="verified-badge"
-										@mouseover="showTooltip = true"
-										@mouseleave="showTooltip = false"
 										>
-    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em; color: var(--icon-color);"></i>
-										<!-- Tooltip -->
-										<div v-if="showTooltip" class="tooltip" @click.stop>
-											<p class="tooltip-title">Cuenta verificada</p>
-											<p class="tooltip-description">Esta cuenta está verificada.</p>
-											<a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a>
-										</div>
+    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 								</span>
 
 								<span 
@@ -507,20 +492,9 @@ onUnmounted(() => {
 	}
 });
 
-const showTooltip = ref(false);
-const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
-
 </script>
 
 <style lang="scss" scoped>
-:root {
-	--icon-color: #563ACC; /* Color del ícono */
-	--tooltip-bg: rgba(0, 0, 0, 0.9); /* Fondo del tooltip */
-	--tooltip-border: #563ACC; /* Borde del tooltip */
-	--more-info-bg: #858AFA; /* Fondo del botón de más información */
-	--more-info-color: white; /* Color del texto del botón */
-}
-
 .ftskorzw {
 	> .main {
 		> .profile {
@@ -944,44 +918,19 @@ const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
 }
 
 .verified-badge {
-	position: relative;
 	display: inline-flex;
 	align-items: center;
-}
-
-.tooltip {
-	position: absolute;
-	background-color: var(--tooltip-bg); /* Fondo oscuro */
-	color: var(--more-info-color); /* Texto blanco */
-	border: 2px solid var(--tooltip-border); /* Borde de color */
-	border-radius: 8px;
-	padding: 10px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-	z-index: 10;
-	top: -10px; /* Mueve el tooltip hacia arriba */
-	left: 50%;
-	transform: translateX(-50%) translateY(-100%); /* Centra y desplaza hacia arriba */
-	width: 220px; /* Ancho fijo para el tooltip */
-}
-
-.tooltip-title {
-	font-weight: bold;
-	margin-bottom: 5px;
-	font-size: 1.1em; /* Tamaño de fuente más grande */
-}
-
-.tooltip-description {
-	font-size: 0.9em;
-}
-
-.more-info {
-	background-color: var(--more-info-bg); /* Color del botón */
-	color: var(--more-info-color); /* Texto blanco */
-	border: none;
-	border-radius: 5px; /* Borde redondeado */
-	padding: 5px 10px; /* Espaciado interno */
-	text-decoration: none; /* Sin subrayado */
-	display: inline-block; /* Para que el padding funcione */
-	margin-top: 5px; /* Espacio superior */
+	margin-left: 4px;
+	color: var(--accent);
+	position: relative;
+	top: 6px;
+	
+	i {
+		font-size: 2em;
+		display: inline-block;
+		vertical-align: middle;
+		position: relative;
+		top: -6px;
+	}
 }
 </style>
