@@ -50,7 +50,7 @@
 										@mouseover="showTooltip = true"
 										@mouseleave="showTooltip = false"
 										>
-    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
+    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em; color: var(--icon-color);"></i>
 										<!-- Tooltip -->
 										<div v-if="showTooltip" class="tooltip" @click.stop>
 											<p class="tooltip-title">Cuenta verificada</p>
@@ -146,12 +146,12 @@
 
 								<span 
    									 v-if="isVerified(user.username)" 
-   									 v-tooltip.noDelay="'Usuario Verificado'" 
+   									 v-tooltip.noDelay="'Cuenta verificada'" 
    									 class="verified-badge"
 										@mouseover="showTooltip = true"
 										@mouseleave="showTooltip = false"
 										>
-    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
+    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em; color: var(--icon-color);"></i>
 										<!-- Tooltip -->
 										<div v-if="showTooltip" class="tooltip" @click.stop>
 											<p class="tooltip-title">Cuenta verificada</p>
@@ -513,6 +513,14 @@ const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
 </script>
 
 <style lang="scss" scoped>
+:root {
+	--icon-color: #563ACC; /* Color del ícono */
+	--tooltip-bg: rgba(0, 0, 0, 0.9); /* Fondo del tooltip */
+	--tooltip-border: #563ACC; /* Borde del tooltip */
+	--more-info-bg: #858AFA; /* Fondo del botón de más información */
+	--more-info-color: white; /* Color del texto del botón */
+}
+
 .ftskorzw {
 	> .main {
 		> .profile {
@@ -943,9 +951,9 @@ const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
 
 .tooltip {
 	position: absolute;
-	background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro */
-	color: white; /* Texto blanco */
-	border: 2px solid #563ACC; /* Borde de color */
+	background-color: var(--tooltip-bg); /* Fondo oscuro */
+	color: var(--more-info-color); /* Texto blanco */
+	border: 2px solid var(--tooltip-border); /* Borde de color */
 	border-radius: 8px;
 	padding: 10px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -967,8 +975,8 @@ const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
 }
 
 .more-info {
-	background-color: #858AFA; /* Color del botón */
-	color: white; /* Texto blanco */
+	background-color: var(--more-info-bg); /* Color del botón */
+	color: var(--more-info-color); /* Texto blanco */
 	border: none;
 	border-radius: 5px; /* Borde redondeado */
 	padding: 5px 10px; /* Espaciado interno */

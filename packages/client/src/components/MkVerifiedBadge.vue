@@ -1,7 +1,7 @@
 <template>
     <span 
         v-if="isVerified(user?.username || note?.username || username)" 
-        v-tooltip.noDelay="'Usuario Verificado'" 
+        v-tooltip.noDelay="'Cuenta verificada'" 
         class="verified-badge"
     >
         <i :class="icon('ph-fill ph-seal-check')"></i>
