@@ -42,7 +42,6 @@ coverage
 fedired/verified-users.ts
 .fedired/verified-users.ts
 /.fedired/verified-users.ts
-!/.fedired/verified-users.ts
 
 # ESLint
 .eslintcache
