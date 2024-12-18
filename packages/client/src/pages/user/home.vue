@@ -940,21 +940,22 @@ const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
 
 .tooltip {
 	position: absolute;
-	background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+	background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro */
 	color: white; /* Texto blanco */
 	border-radius: 8px;
 	padding: 10px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 	z-index: 10;
-	top: 100%; /* Ajusta según sea necesario */
+	top: -10px; /* Mueve el tooltip hacia arriba */
 	left: 50%;
-	transform: translateX(-50%);
-	width: 200px; /* Ancho fijo para el tooltip */
+	transform: translateX(-50%) translateY(-100%); /* Centra y desplaza hacia arriba */
+	width: 220px; /* Ancho fijo para el tooltip */
 }
 
 .tooltip-title {
 	font-weight: bold;
 	margin-bottom: 5px;
+	font-size: 1.1em; /* Tamaño de fuente más grande */
 }
 
 .tooltip-description {
