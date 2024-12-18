@@ -39,11 +39,8 @@ coverage
 !/custom/LICENSE
 
 # .fedired
-fedired/verified-users.ts
 .fedired/verified-users.ts
-/.fedired/verified-users.ts
 .fedired/verified-users.ts
-/.fedired/sponsor.ts
 
 # ESLint
 .eslintcache
