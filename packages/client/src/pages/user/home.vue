@@ -55,7 +55,7 @@
 								<span 
    									 v-if="isSponsor(user.username)" 
    									 v-tooltip.noDelay="'Sponsor de Fedired'" 
-   									 class="verified-badge"
+   									 class="sponsor-badge"
 										>
     									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.8em; height: 1.8em;" />
 										</span>
@@ -144,6 +144,14 @@
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 								</span>
+
+								<span 
+   									 v-if="isSponsor(user.username)" 
+   									 v-tooltip.noDelay="'Sponsor de Fedired'" 
+   									 class="sponsor-badge"
+										>
+    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.8em; height: 1.8em;" />
+										</span>
 
 									<div	v-if="
 										isSignedIn(me) &&
@@ -389,7 +397,7 @@ import { i18n } from "@/i18n";
 import { isModerator, isSignedIn, me } from "@/me";
 import icon from "@/scripts/icon";
 import { isVerified } from '@fedired/verified-users';
-import { isVerified } from '@fedired/sponsor';
+import { isSponsor } from '@fedired/sponsor';
 
 
 
