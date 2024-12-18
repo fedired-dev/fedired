@@ -52,6 +52,15 @@
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 								</span>
 
+								<span 
+   									 v-if="isSponsor(user.username)" 
+   									 v-tooltip.noDelay="'Sponsor de Fedired'" 
+   									 class="verified-badge"
+										>
+    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.8em; height: 1.8em;" />
+										</span>
+
+
 									<div v-if="isModerator">
 										<span
 											v-if="user.isSilenced"
@@ -380,7 +389,8 @@ import { i18n } from "@/i18n";
 import { isModerator, isSignedIn, me } from "@/me";
 import icon from "@/scripts/icon";
 import { isVerified } from '@fedired/verified-users';
-import MkVerifiedBadge from '@/components/MkVerifiedBadge.vue';
+import { isVerified } from '@fedired/sponsor';
+
 
 
 
