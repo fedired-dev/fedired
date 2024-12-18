@@ -46,15 +46,16 @@
 
 									<span 
    									 v-if="isVerified(user.username)" 
-   									 v-tooltip.noDelay="'Usuario Verificado'" 
    									 class="verified-badge"
-										@click="showTooltip = !showTooltip"
+										@mouseover="showTooltip = true"
+										@mouseleave="showTooltip = false"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 										<!-- Tooltip -->
 										<div v-if="showTooltip" class="tooltip" @click.stop>
 											<p class="tooltip-title">Cuenta verificada</p>
-											<p class="tooltip-description">Esta cuenta está verificada. <a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a></p>
+											<p class="tooltip-description">Esta cuenta está verificada.</p>
+											<a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a>
 										</div>
 								</span>
 
@@ -147,13 +148,15 @@
    									 v-if="isVerified(user.username)" 
    									 v-tooltip.noDelay="'Usuario Verificado'" 
    									 class="verified-badge"
-										@click="showTooltip = !showTooltip"
+										@mouseover="showTooltip = true"
+										@mouseleave="showTooltip = false"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 										<!-- Tooltip -->
 										<div v-if="showTooltip" class="tooltip" @click.stop>
 											<p class="tooltip-title">Cuenta verificada</p>
-											<p class="tooltip-description">Esta cuenta está verificada. <a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a></p>
+											<p class="tooltip-description">Esta cuenta está verificada.</p>
+											<a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a>
 										</div>
 								</span>
 
@@ -942,6 +945,7 @@ const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
 	position: absolute;
 	background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro */
 	color: white; /* Texto blanco */
+	border: 2px solid #563ACC; /* Borde de color */
 	border-radius: 8px;
 	padding: 10px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -963,7 +967,13 @@ const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
 }
 
 .more-info {
-	color: var(--accent); /* Color del tema */
-	text-decoration: underline;
+	background-color: #858AFA; /* Color del botón */
+	color: white; /* Texto blanco */
+	border: none;
+	border-radius: 5px; /* Borde redondeado */
+	padding: 5px 10px; /* Espaciado interno */
+	text-decoration: none; /* Sin subrayado */
+	display: inline-block; /* Para que el padding funcione */
+	margin-top: 5px; /* Espacio superior */
 }
 </style>
