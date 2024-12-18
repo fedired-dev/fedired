@@ -1,14 +1,6 @@
- /**
- * Lista de usuarios sponsor.
- * 
- * NOTA: Este archivo debe ser editado manualmente por los administradores
- * para incluir los usuarios correctos en el sistema.
- */
-
- 
 
  export const sponsorUsers = [
-    "",
+    "srnovus",
   ];
   
   export const isSponsor = (username: string): boolean => {

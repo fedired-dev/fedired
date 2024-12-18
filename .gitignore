@@ -38,8 +38,7 @@ coverage
 /custom/*
 !/custom/LICENSE
 
-# .fedired
-.fedired/
+
 
 # ESLint
 .eslintcache
