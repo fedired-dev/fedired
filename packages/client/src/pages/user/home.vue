@@ -48,14 +48,13 @@
    									 v-if="isVerified(user.username)" 
    									 v-tooltip.noDelay="'Usuario Verificado'" 
    									 class="verified-badge"
-										@mouseover="showTooltip = true"
-										@mouseleave="showTooltip = false"
+										@click="showTooltip = !showTooltip"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 										<!-- Tooltip -->
-										<div v-if="showTooltip" class="tooltip">
-											<p>Cuenta Verificada</p>
-											<a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a>
+										<div v-if="showTooltip" class="tooltip" @click.stop>
+											<p class="tooltip-title">Cuenta verificada</p>
+											<p class="tooltip-description">Esta cuenta está verificada. <a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a></p>
 										</div>
 								</span>
 
@@ -148,14 +147,13 @@
    									 v-if="isVerified(user.username)" 
    									 v-tooltip.noDelay="'Usuario Verificado'" 
    									 class="verified-badge"
-										@mouseover="showTooltip = true"
-										@mouseleave="showTooltip = false"
+										@click="showTooltip = !showTooltip"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 										<!-- Tooltip -->
-										<div v-if="showTooltip" class="tooltip">
-											<p>Cuenta Verificada</p>
-											<a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a>
+										<div v-if="showTooltip" class="tooltip" @click.stop>
+											<p class="tooltip-title">Cuenta verificada</p>
+											<p class="tooltip-description">Esta cuenta está verificada. <a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a></p>
 										</div>
 								</span>
 
@@ -942,19 +940,29 @@ const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
 
 .tooltip {
 	position: absolute;
-	background-color: white;
-	border: 1px solid #ccc;
+	background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+	color: white; /* Texto blanco */
+	border-radius: 8px;
 	padding: 10px;
-	border-radius: 5px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 	z-index: 10;
 	top: 100%; /* Ajusta según sea necesario */
 	left: 50%;
 	transform: translateX(-50%);
+	width: 200px; /* Ancho fijo para el tooltip */
+}
+
+.tooltip-title {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.tooltip-description {
+	font-size: 0.9em;
 }
 
 .more-info {
-	color: var(--accent);
-	text-decoration: none;
+	color: var(--accent); /* Color del tema */
+	text-decoration: underline;
 }
 </style>
