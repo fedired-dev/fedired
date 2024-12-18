@@ -41,8 +41,8 @@
 					<MkInfo v-if="updateAvailable" warn class="info"
 						>{{ i18n.ts.updateAvailable }}
 						<a
-							href="https://github.com/fedired-dev/fedired/releases"
-							target="_bank"
+							href="https://help.fedired.com/project/versions.html"
+							target="_blank"
 							class="_link"
 							>{{ i18n.ts.check }}</a
 						></MkInfo
