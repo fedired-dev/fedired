@@ -48,8 +48,15 @@
    									 v-if="isVerified(user.username)" 
    									 v-tooltip.noDelay="'Usuario Verificado'" 
    									 class="verified-badge"
+										@mouseover="showTooltip = true"
+										@mouseleave="showTooltip = false"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
+										<!-- Tooltip -->
+										<div v-if="showTooltip" class="tooltip">
+											<p>Cuenta Verificada</p>
+											<a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a>
+										</div>
 								</span>
 
 								<span 
@@ -141,8 +148,15 @@
    									 v-if="isVerified(user.username)" 
    									 v-tooltip.noDelay="'Usuario Verificado'" 
    									 class="verified-badge"
+										@mouseover="showTooltip = true"
+										@mouseleave="showTooltip = false"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
+										<!-- Tooltip -->
+										<div v-if="showTooltip" class="tooltip">
+											<p>Cuenta Verificada</p>
+											<a :href="verifiedInfoUrl" target="_blank" class="more-info">Más información</a>
+										</div>
 								</span>
 
 								<span 
@@ -491,6 +505,9 @@ onUnmounted(() => {
 		window.cancelAnimationFrame(parallaxAnimationId.value);
 	}
 });
+
+const showTooltip = ref(false);
+const verifiedInfoUrl = "https://help.fedired.com/cuentas/verified.html";
 
 </script>
 
@@ -918,19 +935,26 @@ onUnmounted(() => {
 }
 
 .verified-badge {
+	position: relative;
 	display: inline-flex;
 	align-items: center;
-	margin-left: 4px;
+}
+
+.tooltip {
+	position: absolute;
+	background-color: white;
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	z-index: 10;
+	top: 100%; /* Ajusta según sea necesario */
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.more-info {
 	color: var(--accent);
-	position: relative;
-	top: 6px;
-	
-	i {
-		font-size: 2em;
-		display: inline-block;
-		vertical-align: middle;
-		position: relative;
-		top: -6px;
-	}
+	text-decoration: none;
 }
 </style>
