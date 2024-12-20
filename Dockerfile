@@ -22,7 +22,7 @@ RUN NODE_ENV='production' NODE_OPTIONS='--max_old_space_size=3072' pnpm run buil
 RUN find . -path '*/node_modules/*' -delete && pnpm install --prod --frozen-lockfile
 
 # Runtime container
-FROM docker.io/node:20-alpine
+FROM docker.io/node:20-alpine AS production
 WORKDIR /fedired
 
 # Install runtime dependencies

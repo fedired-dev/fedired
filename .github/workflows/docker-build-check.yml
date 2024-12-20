@@ -3,10 +3,10 @@ name: Build and Deploy Docker Image
 on:
   push:
     branches:
-      - main  # Se activa cuando haces push en la rama principal
+      - main
   pull_request:
     branches:
-      - main  
+      - main
 
 jobs:
   build:
@@ -24,11 +24,16 @@ jobs:
     - name: Install pnpm
       run: npm install -g pnpm
 
+    - name: Cache pnpm dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.pnpm-store
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-
+
     - name: Install dependencies
       run: pnpm install --no-frozen-lockfile  
-
-    - name: Verify lockfile (optional)
-      run: pnpm install --frozen-lockfile  
 
     - name: Build Docker image (build stage)
       run: docker build --file Dockerfile --target build --tag fedired --build-arg NODE_OPTIONS="--max_old_space_size=4096" .
