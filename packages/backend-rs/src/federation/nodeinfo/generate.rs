@@ -102,7 +102,7 @@ async fn generate_nodeinfo_2_1() -> Result<Nodeinfo21, DbErr> {
             name: "fedired".to_owned(),
             version: CONFIG.version.clone(),
             repository: Some(meta.repository_url),
-            homepage: Some("https://github.com/fedired-dev/fedired".to_owned()),
+            homepage: Some("https://help.fedired.com".to_owned()),
         },
         protocols: vec![Protocol::Activitypub],
         services: Services {
