@@ -1,7 +1,7 @@
 <template>
     <span 
         v-if="isVerified(user?.username || note?.username || username)" 
-        v-tooltip.noDelay="'Cuenta verificada'" 
+        v-tooltip.noDelay="'Una insignia de verificación confirma que se trata de una página/perfil auténtico para esta empresa, organización o persona.'" 
         class="verified-badge"
     >
         <i :class="icon('ph-fill ph-seal-check')"></i>

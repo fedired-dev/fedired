@@ -46,7 +46,7 @@
 
 									<span 
    									 v-if="isVerified(user.username)" 
-   									 v-tooltip.noDelay="'Cuenta verificada'" 
+   									 v-tooltip.noDelay="'Una insignia de verificación confirma que se trata de una página/perfil auténtico para esta empresa, organización o persona.'" 
    									 class="verified-badge"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
@@ -57,7 +57,8 @@
    									 v-tooltip.noDelay="'Sponsor de Fedired'" 
    									 class="sponsor-badge"
 										>
-    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.8em; height: 1.8em;" />
+    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.2em; height: 1.2em; margin-right: 4px;" />
+										Sponsor
 										</span>
 
 
@@ -139,7 +140,7 @@
 
 								<span 
    									 v-if="isVerified(user.username)" 
-   									 v-tooltip.noDelay="'Cuenta verificada'" 
+   									 v-tooltip.noDelay="'Una insignia de verificación confirma que se trata de una página/perfil auténtico para esta empresa, organización o persona.'" 
    									 class="verified-badge"
 										>
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
@@ -150,7 +151,8 @@
    									 v-tooltip.noDelay="'Sponsor de Fedired'" 
    									 class="sponsor-badge"
 										>
-    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.8em; height: 1.8em;" />
+    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.2em; height: 1.2em; margin-right: 4px;" />
+										Sponsor
 										</span>
 
 									<div	v-if="
@@ -932,5 +934,20 @@ onUnmounted(() => {
 		position: relative;
 		top: -6px;
 	}
+}
+
+.sponsor-badge {
+	display: inline-flex;
+	align-items: center;
+	border: solid 1px var(--color, var(--divider));
+	border-radius: 999px;
+	margin-right: 4px;
+	padding: 3px 8px;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+	font-size: 0.9em;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 </style>
