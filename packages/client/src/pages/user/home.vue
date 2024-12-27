@@ -52,15 +52,6 @@
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 								</span>
 
-								<span 
-   									 v-if="isSponsor(user.username)" 
-   									 v-tooltip.noDelay="'Sponsor de Fedired'" 
-   									 class="sponsor-badge"
-										>
-    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.2em; height: 1.2em; margin-right: 4px;" />
-										Sponsor
-										</span>
-
 
 									<div v-if="isModerator">
 										<span
@@ -146,14 +137,6 @@
     									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 								</span>
 
-								<span 
-   									 v-if="isSponsor(user.username)" 
-   									 v-tooltip.noDelay="'Sponsor de Fedired'" 
-   									 class="sponsor-badge"
-										>
-    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.2em; height: 1.2em; margin-right: 4px;" />
-										Sponsor
-										</span>
 
 									<div	v-if="
 										isSignedIn(me) &&
@@ -214,6 +197,14 @@
 							</div>
 						</div>
 						<div class="follow-container">
+							<span 
+   									 v-if="isSponsor(user.username)" 
+   									 v-tooltip.noDelay="'Sponsor de Fedired'" 
+   									 class="sponsor-badge"
+										>
+    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.2em; height: 1.2em; margin-right: 4px;" />
+										Sponsor
+										</span>
 							<div class="actions">
 								<MkFollowButton
 									:user="user"
@@ -937,14 +928,15 @@ onUnmounted(() => {
 }
 
 .sponsor-badge {
-	display: inline-flex;
+	display: flex;
 	align-items: center;
 	border: solid 1px var(--color, var(--divider));
 	border-radius: 999px;
-	margin-right: 4px;
-	padding: 3px 8px;
+	margin-right: 100px;
+	margin-left: 100px;
+	padding: 4px 10px;
 	background-color: rgba(0, 0, 0, 0.1);
-	color: #fff;
+	color: var(--accent);
 	font-weight: bold;
 	text-align: center;
 	font-size: 0.9em;
