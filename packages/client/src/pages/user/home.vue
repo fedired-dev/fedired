@@ -941,5 +941,8 @@ onUnmounted(() => {
 	text-align: center;
 	font-size: 0.9em;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	justify-content: center
+
+
 }
 </style>
