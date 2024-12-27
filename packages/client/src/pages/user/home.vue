@@ -198,14 +198,6 @@
 						</div>
 						<div class="follow-container">
 							<div class="actions">
-								<span 
-   									 v-if="isSponsor(user.username)" 
-   									 v-tooltip.noDelay="'Sponsor de Fedired'" 
-   									 class="sponsor-badge"
-										>
-    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.2em; height: 1.2em; margin-right: 4px;" />
-										Sponsor
-										</span>
 								<MkFollowButton
 									:user="user"
 									:inline="true"
@@ -217,6 +209,14 @@
 								/>
 							</div>
 						</div>
+						<span 
+   									 v-if="isSponsor(user.username)" 
+   									 v-tooltip.noDelay="'Sponsor de Fedired'" 
+   									 class="sponsor-badge"
+										>
+    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.2em; height: 1.2em; margin-right: 4px;" />
+										Sponsor
+										</span>
 						<div class="description">
 							<Mfm
 								v-if="user.description"
