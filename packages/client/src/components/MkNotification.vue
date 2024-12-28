@@ -472,7 +472,7 @@ useTooltip(reactionRef, (showing) => {
 
 			&.quote {
 				padding: 3px;
-				background: #31748f;
+				background: #858AFA;
 				pointer-events: none;
 			}
 

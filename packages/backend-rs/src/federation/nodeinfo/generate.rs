@@ -92,7 +92,7 @@ async fn generate_nodeinfo_2_1() -> Result<Nodeinfo21, DbErr> {
         ("proxyAccountName".to_owned(), json!(meta.proxy_account_id)),
         (
             "themeColor".to_owned(),
-            json!(meta.theme_color.unwrap_or_else(|| "#31748f".to_owned())),
+            json!(meta.theme_color.unwrap_or_else(|| "#858AFA".to_owned())),
         ),
     ]);
     metadata.shrink_to_fit();

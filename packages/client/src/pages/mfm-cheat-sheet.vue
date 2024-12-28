@@ -525,7 +525,7 @@ const preview_scale = ref(
 	"$[scale.x=1.3 🍮]\n$[scale.x=1.5,y=3 🍮]\n$[scale.y=0.3 🍮]",
 );
 const preview_fg = ref("$[fg.color=eb6f92 Text color]");
-const preview_bg = ref("$[bg.color=31748f Background color]");
+const preview_bg = ref("$[bg.color=858AFA Background color]");
 const preview_plain = ref(
 	"<plain>**bold** @mention #hashtag `code` $[x2 🍮]</plain>",
 );
