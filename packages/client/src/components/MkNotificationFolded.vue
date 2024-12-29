@@ -46,6 +46,7 @@
 						class="avatar"
 						:user="user"
 					/>
+					
 				</span>
 				<span class="text">
 					{{ getText() }}
@@ -95,6 +96,7 @@ import type {
 	ReactionNotificationFolded,
 } from "@/types/notification";
 import XNote from "@/components/MkNote.vue";
+
 
 const props = withDefaults(
 	defineProps<{
