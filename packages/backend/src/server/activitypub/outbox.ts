@@ -58,6 +58,18 @@ export default async (ctx: Router.RouterContext) => {
 	const partOf = `${config.url}/users/${userId}/outbox`;
 
 	if (page) {
+		const validateQueryParams = (param: any) => {
+			return param == null || typeof param === "string";
+		};
+
+		if (!validateQueryParams(sinceId) || !validateQueryParams(untilId)) {
+			ctx.status = 400;
+			return;
+		}
+
+		const PUBLIC_VISIBILITY = 'public';
+		const HOME_VISIBILITY = 'home';
+
 		const query = makePaginationQuery(
 			Notes.createQueryBuilder("note"),
 			sinceId,
@@ -66,8 +78,8 @@ export default async (ctx: Router.RouterContext) => {
 			.andWhere("note.userId = :userId", { userId: user.id })
 			.andWhere(
 				new Brackets((qb) => {
-					qb.where("note.visibility = 'public'").orWhere(
-						"note.visibility = 'home'",
+					qb.where(`note.visibility = '${PUBLIC_VISIBILITY}'`).orWhere(
+						`note.visibility = '${HOME_VISIBILITY}'`,
 					);
 				}),
 			)
