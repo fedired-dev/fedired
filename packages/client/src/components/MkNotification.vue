@@ -100,7 +100,11 @@
 					class="name"
 					:to="userPage(notification.user)"
 					><MkUserName :user="notification.user"
-				/></MkA>
+				></MkUserName>
+
+				<MkVerifiedBadge :user="user" />
+
+				</MkA>
 				<span v-else>{{ notification.header }}</span>
 				<MkTime
 					v-if="withTime"
