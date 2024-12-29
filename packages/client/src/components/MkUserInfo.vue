@@ -339,4 +339,21 @@ const collapsed = ref(isLong.value);
 		color: white;
 	}
 }
+
+.verified-badge {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 4px;
+	color: var(--accent);
+	position: relative;
+	top: 6px;
+
+	i {
+		font-size: 2em;
+		display: inline-block;
+		vertical-align: middle;
+		position: relative;
+		top: -6px;
+	}
+}
 </style>
