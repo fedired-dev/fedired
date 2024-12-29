@@ -12,13 +12,6 @@
 				class="followed"
 				>{{ i18n.ts.followsYou }}</span
 			>
-			<span 
-				v-if="isVerified(user.username)" 
-				v-tooltip.noDelay="'Una insignia de verificación confirma que se trata de una página/perfil auténtico para esta empresa, organización o persona.'" 
-				class="verified-badge"
-			>
-				<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
-			</span>
 		</div>
 		<h3 class="title">
 			<MkAvatar
