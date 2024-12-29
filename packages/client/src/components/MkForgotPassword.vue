@@ -50,7 +50,7 @@
 				>
 			</div>
 			<div class="sub">
-				<MkA to="/about" class="_link">{{
+				<MkA href="https://help.fedired.com/cuentas/pwd.html" class="_link" target="_blank">{{
 					i18n.ts._forgotPassword.ifNoEmail
 				}}</MkA>
 			</div>
