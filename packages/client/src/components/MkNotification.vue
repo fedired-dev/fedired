@@ -291,6 +291,8 @@ import { useTooltip } from "@/scripts/use-tooltip";
 import { defaultStore } from "@/store";
 import { getInstanceInfo } from "@/instance";
 import icon from "@/scripts/icon";
+import MkVerifiedBadge from '@/components/MkVerifiedBadge.vue';
+
 
 const props = withDefaults(
 	defineProps<{
