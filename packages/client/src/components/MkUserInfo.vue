@@ -36,6 +36,7 @@
 					>
     			<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
 				</span>
+			/></MkA>
 
 			<p class="username"><MkAcct :user="user" /></p>
 		</h3>
