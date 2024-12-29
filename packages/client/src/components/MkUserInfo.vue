@@ -22,15 +22,21 @@
 			/>
 			<MkA class="name" :to="userPage(user)"
 				>			
+				
+			<MkUserName
+				class="name"
+				:user="user"
+				:nowrap="true"
+			/>
+
 				<span 
-				v-if="isVerified(user.username)" 
-				v-tooltip.noDelay="'Una insignia de verificación confirma que se trata de una página/perfil auténtico para esta empresa, organización o persona.'" 
-				class="verified-badge"
-			>
-				<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
-			</span>
-				<MkUserName :user="user" :nowrap="true"
-			/></MkA>
+   				v-if="isVerified(user.username)" 
+   				v-tooltip.noDelay="'Una insignia de verificación confirma que se trata de una página/perfil auténtico para esta empresa, organización o persona.'" 
+   				class="verified-badge"
+					>
+    			<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
+				</span>
+
 			<p class="username"><MkAcct :user="user" /></p>
 		</h3>
 		<div
