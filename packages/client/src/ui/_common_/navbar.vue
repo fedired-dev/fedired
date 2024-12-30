@@ -506,7 +506,7 @@ function more(ev: MouseEvent) {
 			}
 
 			> .bottom {
-				padding-block: 20px;
+				padding-block: 10px;
 				padding-inline: 0;
 
 				> .post {
