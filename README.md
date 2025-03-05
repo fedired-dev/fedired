@@ -2,7 +2,7 @@
   <img src="./title.svg" alt="Fedired Logo" style="border-radius:50%" width="400"/>
 </div>
 
-# 🌎 **Fedired: Open-source, decentralized social media platform – Free forever!** 🚀
+# 🌎 **Fedired Social: Red social descentralizada y de código abierto. ¡Gratis para siempre!** 🚀
 
 **Fedired** es una plataforma de redes sociales descentralizada y de código abierto. Aprovechando el protocolo **ActivityPub**, Fedired ofrece a los usuarios la capacidad de comunicarse y compartir contenido de manera segura y privada. En un mundo donde las redes sociales centralizadas comprometen la privacidad de los datos, Fedired se erige como una alternativa, empoderando a los usuarios para que tengan el control total de su experiencia social en línea.
 
