@@ -101,8 +101,6 @@ redis:
 reservedUsernames: [
   'root',
   'admin',
-  'srnovus',
-  'fedired',
   'administrator',
   'me',
   'system'
