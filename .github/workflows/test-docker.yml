@@ -3,21 +3,21 @@ name: Deploy Production Container
 on:
   push:
     branches:
-      - main  # El flujo de trabajo se activa en un push a la rama principal
+      - main  
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Usamos un runner de GitHub Actions basado en Ubuntu
+    runs-on: ubuntu-latest 
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3  # Hace checkout del código del repositorio
+      uses: actions/checkout@v3  
 
     - name: Login to GitHub Container Registry
       run: echo ${{ secrets.GITTOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
     - name: Pull the Latest Docker Image
-      run: docker pull ghcr.io/fedired-dev/fedired:latest  # Descargar la imagen desde GHCR
+      run: docker pull ghcr.io/fedired-dev/fedired:latest  
 
     - name: Run Docker Container in Production Mode
       run: |

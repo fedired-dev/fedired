@@ -41,6 +41,7 @@ fs.readdirSync(__dirname + "/../custom/locales").forEach((file) => {
 
 const primaries = {
 	en: "US",
+	es: "ES",
 	ja: "JP",
 	zh: "CN",
 };
