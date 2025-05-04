@@ -1,0 +1,20 @@
+url: http://localhost:3030
+port: 3030
+
+db:
+  host: fedired_db
+  port: 5432
+
+  db: fedired_db
+  user: fedired
+  pass: password
+
+redis:
+  host: fedired_redis
+  port: 6379
+
+#allowedPrivateNetworks: [
+#  '10.69.1.0/24'
+#]
+
+maxLogLevel: 'debug'

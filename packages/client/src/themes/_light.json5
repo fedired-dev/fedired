@@ -1,0 +1,99 @@
+// Tema claro alternativo
+{
+	id: 'light',
+	base: 'light',
+	name: 'Light',
+	author: 'srnovus',
+	desc: 'Tema claro alternativo',
+	kind: 'Light',
+
+	props: {
+		X2: ':lighten<2<@panel',
+		X3: 'rgba(0, 0, 0, 0.05)',
+		X4: 'rgba(0, 0, 0, 0.1)',
+		X5: 'rgba(0, 0, 0, 0.05)',
+		X6: 'rgba(0, 0, 0, 0.15)',
+		X7: 'rgba(0, 0, 0, 0.05)',
+		X8: ':darken<5<@accent',
+		X9: ':lighten<5<@accent',
+		bg: '#FFFFFF', // Fondo blanco
+		fg: '#000000', // Texto negro
+		X10: ':alpha<0.4<@accent',
+		X11: 'rgba(0, 0, 0, 0.3)',
+		X12: 'rgba(0, 0, 0, 0.1)',
+		X13: 'rgba(0, 0, 0, 0.15)',
+		X14: ':alpha<0.5<@navBg',
+		X15: ':alpha<0<@panel',
+		X16: ':alpha<0.7<@panel',
+		X17: ':alpha<0.8<@bg',
+		cwBg: '#F0F0F0', // Fondo de contenido
+		cwFg: '#333333', // Texto de contenido
+		link: '#6364FF', // Color de enlace
+		warn: '#FFA500', // Color de advertencia
+		badge: '#89b4fa',
+		error: '#FF4500', // Color de error
+		focus: ':alpha<0.3<@accent',
+		navBg: '@panel',
+		navFg: '@fg',
+		panel: '#F5F5F5', // Panel claro
+		popup: ':darken<3<@panel',
+		accent: '#6364FF', // Color de acento
+		header: ':alpha<0.7<@panel',
+		infoBg: '#E0E0E0', // Fondo de información
+		infoFg: '#000000', // Texto de información
+		renote: '#89b4fa',
+		shadow: 'rgba(0, 0, 0, 0.1)', // Sombra más clara
+		divider: 'rgba(0, 0, 0, 0.1)',
+		hashtag: '#74c7ec',
+		mention: '@accent',
+		modalBg: 'rgba(255, 255, 255, 0.9)', // Fondo modal
+		success: '#6364FF', // Color de éxito
+		buttonBg: 'rgba(0, 0, 0, 0.05)',
+		switchBg: 'rgba(0, 0, 0, 0.15)',
+		acrylicBg: ':alpha<0.5<@bg',
+		cwHoverBg: '#D0D0D0', // Fondo al pasar el mouse
+		indicator: '@accent',
+		mentionMe: '@mention',
+		messageBg: '@bg',
+		navActive: '@accent',
+		accentedBg: ':alpha<0.15<@accent',
+		codeNumber: '#a6e3a1',
+		codeString: '#fab387',
+		fgOnAccent: '#FFFFFF', // Texto en acento
+		infoWarnBg: '#E0E0E0',
+		infoWarnFg: '#000000',
+		navHoverFg: ':darken<17<@fg',
+		swutchOnBg: '@accentedBg',
+		swutchOnFg: '@accent',
+		codeBoolean: '@accent',
+		dateLabelFg: '@fg',
+		deckDivider: '#6c7086',
+		inputBorder: 'rgba(0, 0, 0, 0.1)',
+		panelBorder: 'solid 1px var(--divider)',
+		swutchOffBg: 'rgba(0, 0, 0, 0.1)',
+		swutchOffFg: '@fg',
+		accentDarken: ':darken<10<@accent',
+		acrylicPanel: ':alpha<0.5<@panel',
+		navIndicator: '@indicator',
+		windowHeader: ':alpha<0.85<@panel',
+		accentLighten: ':lighten<10<@accent',
+		buttonHoverBg: 'rgba(0, 0, 0, 0.1)',
+		driveFolderBg: ':alpha<0.3<@accent',
+		fgHighlighted: ':darken<3<@fg',
+		fgTransparent: ':alpha<0.5<@fg',
+		panelHeaderBg: ':darken<3<@panel',
+		panelHeaderFg: '@fg',
+		buttonGradateA: '@accent',
+		buttonGradateB: ':hue<20<@accent',
+		htmlThemeColor: '@bg',
+		panelHighlight: ':darken<3<@panel',
+		listItemHoverBg: 'rgba(0, 0, 0, 0.03)',
+		scrollbarHandle: 'rgba(0, 0, 0, 0.2)',
+		inputBorderHover: 'rgba(0, 0, 0, 0.2)',
+		wallpaperOverlay: 'rgba(255, 255, 255, 0.5)',
+		fgTransparentWeak: ':alpha<0.75<@fg',
+		panelHeaderDivider: 'rgba(0, 0, 0, 0)',
+		scrollbarHandleHover: 'rgba(0, 0, 0, 0.4)',
+	},
+	author: '@srnovus@fedired.com',
+}

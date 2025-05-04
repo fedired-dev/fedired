@@ -1,0 +1,28 @@
+name: Check Domain Status
+
+on:
+  push:
+    branches:
+      - main  
+  pull_request:
+    branches:
+      - main  
+
+jobs:
+  check-domain:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check domain status
+        run: |
+          echo "Checking domain status..."
+          STATUS=$(curl -Is https://fedired.com | head -n 1)
+          if [[ $STATUS == *"200"* ]]; then
+            echo "Domain is reachable"
+          else
+            echo "Warning: Domain is not reachable"
+            echo "Response: $STATUS"
+          fi

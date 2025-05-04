@@ -1,0 +1,39 @@
+name: Deploy Production Container
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest 
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3  
+
+    - name: Login to GitHub Container Registry
+      run: echo ${{ secrets.GITTOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Pull the Latest Docker Image
+      run: docker pull ghcr.io/fedired-dev/fedired:latest  
+
+    - name: Run Docker Container in Production Mode
+      run: |
+        docker run -d \
+          --name fedired-prod \
+          -e NODE_ENV=production \
+          -v /fedired/files:/fedired/files \
+          ghcr.io/fedired-dev/fedired:latest  # Ejecuta el contenedor en segundo plano
+
+    - name: Verify the Application is Running
+      run: |
+        docker ps  # Verifica si el contenedor está corriendo
+        docker logs fedired-prod  # Muestra los logs del contenedor para asegurarse de que todo esté funcionando
+
+    - name: Clean up
+      run: |
+        docker stop fedired-prod  # Detiene el contenedor después de verificar
+        docker rm fedired-prod  # Elimina el contenedor para no dejarlo corriendo innecesariamente
+

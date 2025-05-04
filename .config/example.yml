@@ -1,0 +1,236 @@
+#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Configuración de Fedired
+#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Después de iniciar su servidor, ¡por favor no cambie la URL! Hacerlo romperá la federación.
+
+#   ┌─────┐
+#───┘ URL └─────────────────────────────────────────────────────
+
+# URL final accesible que verá un usuario.
+url: https://example.com/
+
+#   ┌───────────────────────────────┐
+#───┘ Configuración de Puerto y TLS └───────────────────────────
+
+#
+# Fedired requiere un proxy inverso para soportar conexiones HTTPS.
+#
+#                 +----- https://example.com/ ------------+
+#   +------+      |+-------------+      +----------------+|
+#   | Usuario | ->|| Proxy (443) | ---> | Fedired (3000) ||
+#   +------+      |+-------------+      +----------------+|
+#                 +---------------------------------------+
+#
+#   Necesita configurar un proxy inverso (ej. nginx, caddy).
+#   Se recomienda altamente una conexión cifrada con HTTPS
+#   porque los tokens pueden transferirse en solicitudes GET.
+
+# El puerto en el que su servidor Fedired debería escuchar.
+port: 3000
+
+# La dirección de enlace en la que su servidor Fedired debería escuchar.
+# Si no se especifica, se usará la dirección comodín.
+#bind: 127.0.0.1
+
+#   ┌─────────────────────────────┐
+#───┘ Configuración de PostgreSQL └─────────────────────────────
+
+db:
+  host: localhost
+  port: 5432
+  #ssl: false
+  # Nombre de la base de datos
+  db: fedired_db
+
+  # Autenticación
+  user: fedired
+  pass: password
+
+  # Deshabilitar el caché de consultas
+  #disableCache: true
+
+  # Opciones adicionales de conexión extra:
+  #  ssl:
+  #   host: localhost
+  #   rejectUnauthorized: false
+
+#   ┌────────────────────────┐
+#───┘ Configuración de Redis └─────────────────────────────────
+
+redis:
+  host: localhost
+  port: 6379
+  #tls:
+  #  host: localhost
+  #  rejectUnauthorized: false
+  #family: 0  # 0=Ambos, 4=IPv4, 6=IPv6
+  #pass: ejemplo-contraseña
+  #prefix: ejemplo-prefijo
+  #db: 1
+  #user: predeterminado
+
+#   ┌────────────────────────────────────┐
+#───┘ Configuración de Servidor de Caché └─────────────────────
+
+# Un servidor compatible con Redis (DragonflyDB, Keydb, Redis) para caché.
+# Si se deja en blanco, usará el servidor Redis de arriba.
+
+#cacheServer:
+  #host: localhost
+  #port: 6379
+  #family: 0  # 0=Ambos, 4=IPv4, 6=IPv6
+  #pass: ejemplo-contraseña
+  #prefix: ejemplo-prefijo
+  #db: 1
+
+#   ┌──────────────────┐
+#───┘ Generación de ID └───────────────────────────────────────
+
+# No es necesario descomentar en la mayoría de los casos, pero puede
+# modificar estas configuraciones si planea ejecutar un servidor grande o distribuido.
+
+# cuid:
+#   # Mínimo 16, Máximo 24
+#   length: 16
+#
+#   # Establezca esto en una cadena única en todos los trabajadores (por ejemplo, hostname de la máquina)
+#   # si sus trabajadores se ejecutan en varios hosts.
+#   fingerprint: mi-huella
+
+#   ┌───────────────────────┐
+#───┘ Otras Configuraciones └──────────────────────────────────
+
+# Longitud máxima de una publicación (predeterminado 3000, máx 100000)
+#maxNoteLength: 3000
+
+# Longitud máxima de una descripción de imagen (predeterminado 1500, máx 8192)
+#maxCaptionLength: 1500
+
+# Nombres de usuario reservados que solo el administrador puede registrar
+reservedUsernames: [
+  'root',
+  'admin',
+  'administrador',
+  'yo',
+  'sistema'
+]
+
+# Deshabilitar HSTS
+#disableHsts: true
+
+# Número de procesos de trabajadores por tipo.
+# La suma no debe exceder el número de núcleos disponibles.
+#clusterLimits:
+#  web: 1
+#  queue: 1
+
+# Concurrencia de trabajos por trabajador
+# deliverJobConcurrency: 128
+# inboxJobConcurrency: 16
+
+# Limitador de tasa de trabajos
+# deliverJobPerSec: 128
+# inboxJobPerSec: 16
+
+# Intentos de trabajo
+# deliverJobMaxAttempts: 12
+# inboxJobMaxAttempts: 8
+
+# Dirección local utilizada para solicitudes salientes
+#outgoingAddress: 127.0.0.1
+
+# Familia de direcciones IP utilizada para solicitudes salientes (ipv4, ipv6 o dual)
+#outgoingAddressFamily: ipv4
+
+# Nivel de registro (error, advertencia, info, debug, trace)
+# Entorno de producción: info
+# Entorno de producción con espacio de almacenamiento o IO limitado: warning
+# Entorno de depuración/pruebas o resolución de problemas: debug (o trace)
+maxLogLevel: info
+
+# Opción de syslog
+#syslog:
+#  host: localhost
+#  port: 514
+
+# Proxy para HTTP/HTTPS
+#proxy: http://127.0.0.1:3128
+
+#proxyBypassHosts: [
+#  'web.kaiteki.app',
+#  'example.com',
+#  '192.0.2.8'
+#]
+
+# Proxy para SMTP/SMTPS
+#proxySmtp: http://127.0.0.1:3128   # usa HTTP/1.1 CONNECT
+#proxySmtp: socks4://127.0.0.1:1080 # usa SOCKS4
+#proxySmtp: socks5://127.0.0.1:1080 # usa SOCKS5
+
+# Proxy de medios
+#mediaProxy: https://example.com/proxy
+
+# Proxy para archivos remotos (por defecto: true)
+#proxyRemoteFiles: true
+
+#allowedPrivateNetworks: [
+#  '127.0.0.1/32'
+#]
+
+# Límites de tamaño para subir o descargar archivos (bytes)
+#maxFileSize: 262144000
+
+#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Felicidades, ¡ha llegado al final del archivo de configuración necesario para la mayoría de implementaciones!
+# ¡Disfrute de su servidor Fedired!
+#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+
+
+#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Configuración de alojamiento gestionado
+# >>> AUTO-GESTIONADOS, NO LO TOQUEN! <<<
+# >>> ¡USTED NO NECESITA ESTO! <<<
+# Cada categoría es opcional, pero si cada elemento en cada categoría es obligatorio.
+# Si comete un error aquí, es su responsabilidad... ha sido advertido.
+#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+#maxUserSignups: 100
+#isManagedHosting: true
+#deepl:
+#  managed: true
+#  authKey: ''
+#  isPro: false
+#
+#email:
+#  managed: true
+#  address: 'ejemplo@email.com'
+#  host: 'email.com'
+#  port: 587
+#  user: 'ejemplo@email.com'
+#  pass: ''
+#  useImplicitSslTls: false
+#
+#objectStorage:
+#  managed: true
+#  baseUrl: ''
+#  bucket: ''
+#  prefix: ''
+#  endpoint: ''
+#  region: ''
+#  accessKey: ''
+#  secretKey: ''
+#  useSsl: true
+#  connnectOverProxy: false
+#  setPublicReadOnUpload: true
+#  s3ForcePathStyle: true
+
+# ¡CUIDADO!
+# >>>>>> DE NUEVO, AUTO-GESTIONADOS, NO TOQUEN ESTO <<<<<<
+# >>>>>> LOS AJUSTES ANTERIORES SON SOLO PARA ALOJAMIENTO GESTIONADO! <<<<<<
+# ¡CUIDADO!
+
+# En serio. NO complete los ajustes anteriores si es auto-gestionado.
+# Es mucho mejor configurarlos desde el panel de control.
