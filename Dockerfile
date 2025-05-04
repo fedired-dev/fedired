@@ -15,10 +15,8 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Build
 COPY . ./
-RUN cargo update
-RUN pnpm install --no-frozen-lockfile
 RUN pnpm install --frozen-lockfile
-RUN NODE_ENV='production' NODE_OPTIONS='--max_old_space_size=4096' pnpm run build
+RUN NODE_ENV='production' NODE_OPTIONS='--max_old_space_size=3072' pnpm run build
 
 # Trim down the dependencies to only those for production
 RUN find . -path '*/node_modules/*' -delete && pnpm install --prod --frozen-lockfile
@@ -45,7 +43,6 @@ COPY --from=build /fedired/packages/backend/built /fedired/packages/backend/buil
 COPY --from=build /fedired/packages/backend/assets/instance.css /fedired/packages/backend/assets/instance.css
 COPY --from=build /fedired/packages/backend-rs/built /fedired/packages/backend-rs/built
 COPY --from=build /fedired/packages/fedired-js/built /fedired/packages/fedired-js/built
-COPY --from=build /fedired/locales /fedired/locales
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 ENV NODE_ENV=production
