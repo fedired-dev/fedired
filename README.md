@@ -54,6 +54,7 @@
 - **Integración con el Fediverse**: Conéctate y comparte contenido con otras instancias de redes sociales que utilizan el protocolo **ActivityPub**.
 
 
+
 ## Preguntas Frecuentes (FAQs)
 
 **¿Es Fedired realmente gratis?**  
