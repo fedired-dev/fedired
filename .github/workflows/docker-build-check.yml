@@ -40,10 +40,10 @@ jobs:
       run: pnpm install --no-frozen-lockfile  
 
     - name: Build Docker image (build stage)
-      run: docker build --file Dockerfile --target build --tag fedired --build-arg NODE_OPTIONS="--max_old_space_size=4096" .
+      run: docker build --file Dockerfile --target build --tag fedired --build-arg NODE_OPTIONS="--max_old_space_size=4096" --build-arg CARGO_UPDATE="true" .
 
     - name: Build production Docker image
-      run: docker build --file Dockerfile --target production --tag fedired:latest --build-arg NODE_OPTIONS="--max_old_space_size=4096" .
+      run: docker build --file Dockerfile --target production --tag fedired:latest --build-arg NODE_OPTIONS="--max_old_space_size=4096" --build-arg CARGO_UPDATE="true" .
 
     - name: Login to Docker Hub
       run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin

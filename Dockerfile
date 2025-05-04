@@ -16,7 +16,8 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 # Build
 COPY . ./
 RUN pnpm install --frozen-lockfile
-RUN NODE_ENV='production' NODE_OPTIONS='--max_old_space_size=3072' pnpm run build
+RUN cargo update -p napi_derive
+RUN NODE_ENV='production' NODE_OPTIONS='--max_old_space_size=4096' pnpm run build
 
 # Trim down the dependencies to only those for production
 RUN find . -path '*/node_modules/*' -delete && pnpm install --prod --frozen-lockfile
