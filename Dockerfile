@@ -45,6 +45,7 @@ COPY --from=build /fedired/packages/backend/built /fedired/packages/backend/buil
 COPY --from=build /fedired/packages/backend/assets/instance.css /fedired/packages/backend/assets/instance.css
 COPY --from=build /fedired/packages/backend-rs/built /fedired/packages/backend-rs/built
 COPY --from=build /fedired/packages/fedired-js/built /fedired/packages/fedired-js/built
+COPY --from=build /fedired/locales /fedired/locales
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 ENV NODE_ENV=production
