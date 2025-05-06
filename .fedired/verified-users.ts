@@ -14,10 +14,10 @@ export const fetchVerifiedUsers = async (): Promise<string[]> => {
     if (!data || !data.verifiedUsers || !Array.isArray(data.verifiedUsers)) {
       console.error("Formato inválido desde la API:", data);
       return [];  
+    }
 
-    return data.verifiedUsers;
+    return data.verifiedUsers;  
   } catch (error) {
-
     console.error("Error al conectarse a la API:", error);
     return [];  
   }
