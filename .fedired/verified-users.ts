@@ -11,6 +11,8 @@ export const fetchVerifiedUsers = async (): Promise<string[]> => {
 
     const data = await res.json();
 
+    console.log("Datos recibidos de la API:", data);
+
     if (!data || !data.verifiedUsers || !Array.isArray(data.verifiedUsers)) {
       console.error("Formato inválido desde la API:", data);
       return [];  
@@ -25,6 +27,8 @@ export const fetchVerifiedUsers = async (): Promise<string[]> => {
 
 export const isVerified = async (username: string): Promise<boolean> => {
   const verifiedUsers = await fetchVerifiedUsers();
-  
-  return verifiedUsers.includes(username.trim()); 
+
+  console.log("Usuarios verificados:", verifiedUsers);
+
+  return verifiedUsers.some(user => user.toLowerCase() === username.trim().toLowerCase());
 };
