@@ -29,7 +29,6 @@ coverage
 /.config/*
 !/.config/example.yml
 !/.config/devenv.yml
-!/.fedired/verified-users.ts
 !/.config/docker_example.env
 !/.config/docker_ci.env
 !/.config/helm_values_example.yml
@@ -39,6 +38,8 @@ coverage
 /custom/*
 !/custom/LICENSE
 
+# fedired
+!/.fedired/verified-users.ts
 
 
 # ESLint
