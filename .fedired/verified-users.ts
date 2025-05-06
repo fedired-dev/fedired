@@ -30,12 +30,21 @@ export const fetchVerifiedUsers = async (): Promise<string[]> => {
   }
 };
 
-export const isVerified = async (username: string): Promise<boolean> => {
+export const isVerified = async (username: string, verifierUsername: string): Promise<boolean> => {
+  // Primero verificamos si el usuario que intenta verificar está en la lista de verificados
   const verifiedUsers = await fetchVerifiedUsers();
-
+  
   if (!verifiedUsers || verifiedUsers.length === 0) {
+    console.error("No se pudo obtener la lista de usuarios verificados");
     return false;
   }
 
+  // Verificamos si el usuario que intenta verificar está autorizado
+  if (!verifiedUsers.includes(verifierUsername)) {
+    console.error(`Usuario ${verifierUsername} no está autorizado para realizar verificaciones`);
+    return false;
+  }
+
+  // Si el verificador está autorizado, entonces verificamos al usuario objetivo
   return verifiedUsers.includes(username);
 };
