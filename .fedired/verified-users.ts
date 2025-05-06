@@ -1,16 +1,9 @@
-/**
- * Copyright (C) 2024 Fedired
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- */
-
 const API_URL = "https://api-verify.fedired.com/verified-users";
 
 export const fetchVerifiedUsers = async (): Promise<string[]> => {
   try {
     const res = await fetch(API_URL);
+
     if (!res.ok) {
       console.error("Error al obtener los usuarios verificados:", res.statusText);
       return [];
@@ -18,26 +11,19 @@ export const fetchVerifiedUsers = async (): Promise<string[]> => {
 
     const data = await res.json();
 
-    // Validamos que tenga el formato correcto
     if (!data || !Array.isArray(data.verifiedUsers)) {
-      console.error("Respuesta de API inválida", data);
+      console.error("Formato inválido desde API:", data);
       return [];
     }
 
     return data.verifiedUsers;
   } catch (error) {
-    console.error("Error al conectar con la API:", error);
+    console.error("Error al conectarse a la API:", error);
     return [];
   }
 };
 
 export const isVerified = async (username: string): Promise<boolean> => {
   const verifiedUsers = await fetchVerifiedUsers();
-
-  // Si no hay usuarios, no verificamos a nadie
-  if (!verifiedUsers || verifiedUsers.length === 0) {
-    return false;
-  }
-
   return verifiedUsers.includes(username);
 };
