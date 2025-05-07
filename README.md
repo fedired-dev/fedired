@@ -33,14 +33,12 @@
 
 ## Navigation
 
-- [Instancia Oficial](https://fedired.com)
-- [Guia de Instalacion](https://docs.fedired.com/project/install.html)
+- [Guia de Instalacion](https://github.com/fedired-dev/fedired/wiki/Install)
 - [Control de Versiones](/docs/versions.md)
-- [Centro de Ayuda](https://join.fedired.com/help/)
-- [Reglas de Convivencia en Fedired](https://docs.fedired.com/manual/vocab.html)
+- [Centro de Ayuda](https://fedired.com/help/)
+
 - [Repositorio Oficial](https://github.com/fedired-dev/fedired)
 - [Donaciones](https://patreon.com/fedired)
-- [Licencia](https://help.fedired.com/legal/licencias.html)
 - [Traduciones](https://crowdin.com/project/fedired)
 
 [![Crowdin](https://badges.crowdin.net/fedired/localized.svg)](https://crowdin.com/project/fedired)
