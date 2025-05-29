@@ -4,6 +4,11 @@
 No probamos Fedired en sistemas que no sean Linux, por lo que te recomendamos que instales Fedired en un entorno de este tipo **solo si puedes solucionar los problemas tú mismo**. No hay ningún tipo de soporte. Dicho esto, es posible instalar Fedired en algunos sistemas que no sean Linux.
 
 
+> [!WARNING]
+> 
+>  Posible [configuración en Docker](https://github.com/fedired-dev/ordo/pkgs/container/ordo%2Fordo) esta forma de instalacion aun esta en Beta y puede no funcionar como se espera.
+
+
 
 ## 1. Instalar dependencias en Linux (Ubuntu Server)
 
@@ -98,10 +103,6 @@ sudo apt install ffmpeg
 
 ## 2. Configurar una base de datos
 
-> [!WARNING]
->
-> ¡No vuelva a crear la base de datos con el dominio/nombre de host del servidor una vez que haya comenzado a usarla!
-
 1. Crear un usuario de base de datos
     ```sh
     sudo -u postgres createuser --no-createdb --no-createrole --no-superuser --encrypted --pwprompt fedired
@@ -149,11 +150,6 @@ sudo apt install ffmpeg
     cp .config/example.yml .config/default.yml
     nano .config/default.yml
     ```
-> [!TIP]
->
-> Después de iniciar su servidor, ¡por favor no cambie la URL! Hacerlo romperá la federación.
-
-1. Editar la configuración de URL.
 
     ```yaml
     url: https://your-server-domain.example.com  # change here
@@ -165,13 +161,12 @@ sudo apt install ffmpeg
       db: fedired_db
       user: fedired
       pass: your-database-password  # and here
-      ```
+    ```
 
 ## 4. Construir Fedired
 
 1. Construir
     ```sh
-    cargo update
     pnpm install --no-frozen-lockfile
     pnpm install --frozen-lockfile
     NODE_ENV=production NODE_OPTIONS='--max-old-space-size=3072' pnpm run build

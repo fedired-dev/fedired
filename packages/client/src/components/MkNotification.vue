@@ -100,11 +100,7 @@
 					class="name"
 					:to="userPage(notification.user)"
 					><MkUserName :user="notification.user"
-				></MkUserName>
-
-				<MkVerifiedBadge :user="user" />
-
-				</MkA>
+				/></MkA>
 				<span v-else>{{ notification.header }}</span>
 				<MkTime
 					v-if="withTime"
@@ -291,8 +287,6 @@ import { useTooltip } from "@/scripts/use-tooltip";
 import { defaultStore } from "@/store";
 import { getInstanceInfo } from "@/instance";
 import icon from "@/scripts/icon";
-import MkVerifiedBadge from '@/components/MkVerifiedBadge.vue';
-
 
 const props = withDefaults(
 	defineProps<{
@@ -478,7 +472,7 @@ useTooltip(reactionRef, (showing) => {
 
 			&.quote {
 				padding: 3px;
-				background: #858AFA;
+				background: #31748f;
 				pointer-events: none;
 			}
 

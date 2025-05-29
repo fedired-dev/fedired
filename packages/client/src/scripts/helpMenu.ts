@@ -58,16 +58,7 @@ export function openHelpMenu_(ev: MouseEvent) {
         icon: `${icon("ph-lifebuoy")}`, 
         action: () => {
           // Aquí abres el enlace al centro de ayuda
-          window.open("https://join.fedired.com/help", "_blank"); 
-        },
-      },
-	  {
-        type: "button",
-        text: "Estado del Servicio", 
-        icon: `${icon("ph-check-circle")}`, 
-        action: () => {
-          
-          window.open("https://status.fedired.com", "_blank"); 
+          window.open("https://help.fedired.com", "_blank"); 
         },
       },
 			...(instanceSpecificItems.length >= 2 ? [null] : []),

@@ -18,10 +18,7 @@
 	</div>
 	<div v-if="collapsedReply && appearNote.reply" class="reply-to">
 		<MkAvatar class="avatar" :user="appearNote.reply.user" />
-		<MkUserName class="username" :user="appearNote.reply.user" />
-
-		<MkVerifiedBadge :user="note.user" />
-
+		<MkUserName class="username" :user="appearNote.reply.user"></MkUserName>
 		<Mfm
 			class="summary"
 			:text="getNoteSummary(appearNote.reply)"
@@ -38,8 +35,6 @@ import { i18n } from "@/i18n";
 import { getNoteSummary } from "@/scripts/get-note-summary";
 import icon from "@/scripts/icon";
 import type { NoteType } from "@/types/note";
-import MkVerifiedBadge from '@/components/MkVerifiedBadge.vue';
-
 
 defineProps<{
 	note: NoteType;
@@ -104,18 +99,6 @@ defineProps<{
 	&:hover,
 	&:focus-within {
 		color: var(--fg);
-	}
-}
-
-.verified-badge {
-	display: inline-flex;
-	align-items: center;
-	margin: 0 4px;
-	
-	img {
-		width: 16px;
-		height: 16px;
-		vertical-align: middle;
 	}
 }
 </style>

@@ -32,24 +32,15 @@ fs.readdirSync(__dirname).forEach((file) => {
 	}
 });
 
-// Verificar si el directorio de locales personalizados existe
-const customLocalesPath = __dirname + "/../custom/locales";
-if (fs.existsSync(customLocalesPath)) {
-	try {
-		fs.readdirSync(customLocalesPath).forEach((file) => {
-			if (file.includes(".yml")) {
-				file = file.slice(0, file.indexOf("."));
-				languages_custom.push(file);
-			}
-		});
-	} catch (error) {
-		console.warn("No se pudo leer el directorio de locales personalizados:", error.message);
+fs.readdirSync(__dirname + "/../custom/locales").forEach((file) => {
+	if (file.includes(".yml")) {
+		file = file.slice(0, file.indexOf("."));
+		languages_custom.push(file);
 	}
-}
+});
 
 const primaries = {
 	en: "US",
-	es: "ES",
 	ja: "JP",
 	zh: "CN",
 };
@@ -67,28 +58,18 @@ const locales = languages.reduce(
 	),
 	{},
 );
-
-// Solo intentar cargar locales personalizados si existen
-const locales_custom = {};
-if (languages_custom.length > 0) {
-	languages_custom.reduce(
-		(a, c) => {
-			try {
-				a[c] =
-					yaml.load(
-						clean(
-							fs.readFileSync(`${customLocalesPath}/${c}.yml`, "utf-8"),
-						),
-					) || {};
-			} catch (error) {
-				console.warn(`No se pudo cargar el archivo de localización personalizado ${c}:`, error.message);
-			}
-			return a;
-		},
-		locales_custom,
-	);
-}
-
+const locales_custom = languages_custom.reduce(
+	(a, c) => (
+		(a[c] =
+			yaml.load(
+				clean(
+					fs.readFileSync(`${__dirname}/../custom/locales/${c}.yml`, "utf-8"),
+				),
+			) || {}),
+		a
+	),
+	{},
+);
 Object.assign(locales, locales_custom);
 
 export default Object.entries(locales).reduce(

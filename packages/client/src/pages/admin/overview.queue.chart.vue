@@ -62,7 +62,7 @@ const color =
 	props.type === "process"
 		? "#c4a7e7"
 		: props.type === "active"
-			? "#858AFA"
+			? "#31748f"
 			: props.type === "delayed"
 				? "#eb6f92"
 				: props.type === "waiting"

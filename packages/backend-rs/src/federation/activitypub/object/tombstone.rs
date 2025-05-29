@@ -10,6 +10,7 @@ pub struct ApTombstone {
 impl ApObject for ApTombstone {}
 
 impl ApTombstone {
+    #[allow(dead_code)] // TODO: remove this line by actually using it
     fn new(note_id: String) -> Self {
         Self {
             id: note::local_uri(note_id),

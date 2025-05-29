@@ -2,7 +2,7 @@
   <img src="./title.svg" alt="Fedired Logo" style="border-radius:50%" width="400"/>
 </div>
 
-# 🌎 **Fedired Social: Red social descentralizada y de código abierto. ¡Gratis para siempre!** 🚀
+# 🌎 **Fedired: Open-source, decentralized social media platform – Free forever!** 🚀
 
 **Fedired** es una plataforma de redes sociales descentralizada y de código abierto. Aprovechando el protocolo **ActivityPub**, Fedired ofrece a los usuarios la capacidad de comunicarse y compartir contenido de manera segura y privada. En un mundo donde las redes sociales centralizadas comprometen la privacidad de los datos, Fedired se erige como una alternativa, empoderando a los usuarios para que tengan el control total de su experiencia social en línea.
 
@@ -33,17 +33,15 @@
 
 ## Navigation
 
-- [Guia de Instalacion](https://github.com/fedired-dev/fedired/wiki/Install)
-- [Control de Versiones](/docs/versions.md)
-- [Centro de Ayuda](https://fedired.com/help/)
-
+- [Instancia Oficial](https://fedired.com)
+- [Documentacion](https://help.fedired.com)
 - [Repositorio Oficial](https://github.com/fedired-dev/fedired)
 - [Donaciones](https://patreon.com/fedired)
 - [Traduciones](https://crowdin.com/project/fedired)
 
 [![Crowdin](https://badges.crowdin.net/fedired/localized.svg)](https://crowdin.com/project/fedired)
 
-## Características
+## Features
 
 - **Interfaz totalmente personalizable**: Ajusta la apariencia y el diseño de tu instancia para que refleje tu estilo personal.
 - **Reacciones emoji**: Utiliza una amplia variedad de emojis para expresar tus emociones en cada publicación o comentario.
@@ -65,6 +63,7 @@ Sí, **Fedired** es completamente gratuito y siempre lo será.
 **Fedired** es más que una plataforma; es un movimiento hacia una red social más privada y descentralizada. ¡Únete a nuestra comunidad y ayuda a dar forma al futuro de las redes sociales!
 
 - **Contribuye en [GitHub](https://github.com/fedired-dev/fedired)**
+- **Haz una donación en [Patreon](https://patreon.com/fedired)**
 
 ## Importante:
 Fedired es una bifurcación del proyecto Firefish, que a su vez era un fork de Misskey. Dado que Firefish ya no es mantenido, hemos decidido tomar el código y continuar su desarrollo para perfeccionarlo y adaptarlo a nuestras necesidades.

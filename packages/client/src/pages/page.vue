@@ -253,7 +253,7 @@ function getBgImg(): string {
 	if (page.value.eyeCatchingImage != null) {
 		return `url(${page.value.eyeCatchingImage.url})`;
 	} else {
-		return "linear-gradient(to bottom right, #858AFA, #9ccfd8)";
+		return "linear-gradient(to bottom right, #31748f, #9ccfd8)";
 	}
 }
 

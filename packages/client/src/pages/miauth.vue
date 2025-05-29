@@ -117,7 +117,7 @@ async function accept(): Promise<void> {
 	if (props.callback) {
 		const cbUrl = new URL(props.callback);
 		if (
-			["javascript:", "file:", "data:", "mailto:", "tel:", "vbscript:"].includes(
+			["javascript:", "file:", "data:", "mailto:", "tel:"].includes(
 				cbUrl.protocol,
 			)
 		)

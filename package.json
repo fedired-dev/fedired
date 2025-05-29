@@ -1,6 +1,6 @@
 {
 	"name": "fedired",
-	"version": "0.0.1-beta.1",
+	"version": "1.0.0-beta.1",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/fedired-dev/fedired.git"
@@ -49,6 +49,6 @@
 		"@biomejs/cli-linux-x64": "1.8.3",
 		"@types/node": "20.16.2",
 		"execa": "9.3.1",
-		"pnpm": "9.9.0"
+		"pnpm": "9.15.0"
 	}
 }

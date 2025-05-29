@@ -274,10 +274,10 @@ function more(ev: MouseEvent) {
 			}
 		}
 
-		#fedired_app > :not(.wallpaper) & {
+		#firefish_app > :not(.wallpaper) & {
 			background: var(--navBg);
 		}
-		#fedired_app > .wallpaper:not(.centered) & {
+		#firefish_app > .wallpaper:not(.centered) & {
 			border-inline-end: 1px solid var(--divider);
 		}
 	}
@@ -506,7 +506,7 @@ function more(ev: MouseEvent) {
 			}
 
 			> .bottom {
-				padding-block: 10px;
+				padding-block: 20px;
 				padding-inline: 0;
 
 				> .post {

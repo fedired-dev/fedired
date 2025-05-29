@@ -41,8 +41,8 @@
 					<MkInfo v-if="updateAvailable" warn class="info"
 						>{{ i18n.ts.updateAvailable }}
 						<a
-							href="`https://github.com/fedired-dev/fedired/releases/tag/${latestVersion}`"
-							target="_blank"
+							href="https://github.com/fedired-dev/fedired/releases"
+							target="_bank"
 							class="_link"
 							>{{ i18n.ts.check }}</a
 						></MkInfo
@@ -121,7 +121,6 @@ const noBotProtection =
 const noEmailServer = !instance.enableEmail;
 const thereIsUnresolvedAbuseReport = ref(false);
 const updateAvailable = ref(false);
-const latestVersion = ref('');
 const currentPage = computed(() => router.currentRef.value?.child);
 
 os.api("admin/abuse-user-reports", {
@@ -134,7 +133,6 @@ os.api("admin/abuse-user-reports", {
 if (defaultStore.state.showAdminUpdates) {
 	os.api("latest-version").then((res) => {
 		updateAvailable.value = version < res?.latest_version;
-				latestVersion.value = res?.latest_version;
 	});
 }
 

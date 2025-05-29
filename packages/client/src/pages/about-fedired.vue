@@ -46,7 +46,7 @@
           <div class="_formBlock" style="text-align: center">
             {{ i18n.ts._aboutFedired.about }}<br />
             <a
-              href="https://join.fedired.com"
+              href="https://help.fedired.com/project/fedired.html"
               target="_blank"
               class="_link"
             >
@@ -74,7 +74,7 @@
                 Donar
                 <template #suffix>Donation</template>
               </FormLink>
-              <FormLink to="https://docs.fedired.com/legal/licencias.html" external>
+              <FormLink to="https://help.fedired.com/legal/licencias.html" external>
                 <template #icon>
                   <i :class="icon('ph-gavel')"></i>
                 </template>
@@ -106,7 +106,8 @@
                 Agradecemos a nuestros donadores que han apoyado el proyecto a través de Patreon y otras plataformas.
               </p>
               <ul>
-                <li><strong>@ibootech</strong> - Donación única</li>
+                <li><strong>@ibootech</strong> - Donación mensual</li>
+                <li><strong>@j-rec</strong> - Donación única</li>
               </ul>
             </div>
           </FormSection>
@@ -119,6 +120,8 @@
               </p>
               <ul>
                 <li><strong>@ale@mastodon.manalejandro.com</strong></li>
+                <li><strong>Edgar Argueta</strong></li>
+                <li><strong>Joshua</strong></li>
               </ul>
             </div>
           </FormSection>
@@ -209,6 +212,11 @@ const contributors = [
     username: '@naskya',
     link: 'https://codeberg.org/naskya',
     avatar: 'https://codeberg.org/avatars/0f6ca7a56df9812bc539e499ccac9030fd4cb19a2dc4d57402e1d96f78fa2110?size=512', 
+  }, 
+	{
+    username: '@joshua',
+    link: 'https://github.com/Developerfullstack5451',
+    avatar: 'https://avatars.githubusercontent.com/u/170076457?v=4', 
   }
 ];
 </script>

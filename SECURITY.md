@@ -1,73 +1,53 @@
+# Seguridad en Fedired
 
+La seguridad es una prioridad fundamental para nosotros en Fedired. Este documento describe cómo puedes ayudarnos a mantener nuestra plataforma segura y cómo reportar cualquier problema de seguridad que encuentres.
 
-# 🔐 Seguridad en Fedired
+## Compromiso con la Seguridad
 
-La seguridad es uno de los pilares fundamentales de **Fedired**. Este documento describe nuestro compromiso con la protección de la plataforma y los pasos a seguir si descubrís una vulnerabilidad o problema relacionado con la seguridad.
+En Fedired, tomamos muy en serio la seguridad de nuestros usuarios y de la plataforma. Nos esforzamos por seguir las mejores prácticas en el desarrollo de software y mantenemos una política de revisión y actualización continua de nuestras medidas de seguridad.
 
----
+## Reporte de Vulnerabilidades
 
-## 🛡️ Nuestro Compromiso
+Si descubres una vulnerabilidad en Fedired, por favor, infórmanos de inmediato. Te pedimos que sigas estos pasos al reportar problemas de seguridad:
 
-En **Fedired**, priorizamos la integridad, confidencialidad y disponibilidad de los datos. Aplicamos prácticas modernas de desarrollo seguro, revisamos el código de forma constante y desplegamos parches de seguridad de forma proactiva. Nuestro objetivo es mantener un ecosistema robusto, resiliente y transparente para la comunidad.
+1. **No Explotes la Vulnerabilidad**: No intentes explotar o difundir la vulnerabilidad. Nuestro objetivo es solucionar el problema lo más rápido posible para proteger a nuestros usuarios.
 
----
+2. **Proporciona Información Detallada**: Cuando reportes un problema de seguridad, incluye la siguiente información:
+   - Una descripción clara de la vulnerabilidad.
+   - Pasos para reproducirla, si es posible.
+   - Impacto potencial de la vulnerabilidad (por ejemplo, acceso no autorizado, divulgación de datos, etc.).
+   - Información sobre el entorno en el que encontraste la vulnerabilidad (sistemas operativos, navegadores, versiones de software, etc.).
 
-## 🐞 Cómo Reportar Vulnerabilidades
+3. **Utiliza el Correo Electrónico para Reportar**: Envía tu informe de seguridad a [seguridad@fedired.com](mailto:seguridad@fedired.com). Este canal está diseñado específicamente para la recepción de informes de seguridad.
 
-Si detectás una falla o vulnerabilidad, te pedimos que nos lo comuniqués de forma responsable siguiendo estos pasos:
+4. **Confidencialidad**: Tomaremos todas las medidas necesarias para mantener la confidencialidad de tu informe. No compartiremos tu información sin tu consentimiento.
 
-1. **No la explotes ni la divulgues públicamente.**
-   Tu reporte responsable nos permite proteger a toda la red antes de que pueda ser comprometida.
+## Respuesta a Reportes de Seguridad
 
-2. **Enviá un informe claro y detallado.**
-   Incluí, si es posible:
+Una vez que recibamos tu reporte de seguridad, tomaremos las siguientes acciones:
 
-   * Descripción técnica del hallazgo.
-   * Pasos para reproducirlo.
-   * Posible impacto (ej: ejecución remota, acceso indebido, filtración de datos).
-   * Entorno técnico (navegador, sistema operativo, versión de Fedired, etc.).
+1. **Confirmación**: Te enviaremos una confirmación de que hemos recibido tu reporte.
 
-3. **Canal de contacto:**
-   Enviá el informe a **[fedired@sushell.com](mailto:fedired@sushell.com)**.
-   Este canal está dedicado exclusivamente para asuntos de seguridad.
+2. **Evaluación**: Nuestro equipo de seguridad evaluará la vulnerabilidad y determinará su gravedad.
 
-4. **Confidencialidad garantizada.**
-   Tratamos todos los reportes con absoluta discreción. No se divulgará tu identidad sin tu consentimiento explícito.
+3. **Solución**: Trabajaremos en una solución y te mantendremos informado sobre el progreso.
 
----
+4. **Reconocimiento**: Si lo deseas, podemos reconocer tu contribución públicamente en nuestro repositorio o en la documentación, según lo acordado.
 
-## 🔄 Proceso de Respuesta
+## Mejores Prácticas de Seguridad
 
-Una vez recibido tu informe:
+Además de reportar vulnerabilidades, te animamos a seguir estas buenas prácticas de seguridad al utilizar Fedired:
 
-* 📩 **Confirmación:** Te responderemos confirmando la recepción del reporte.
-* 🧠 **Análisis:** Evaluaremos la vulnerabilidad y su nivel de severidad.
-* 🛠️ **Remediación:** Aplicaremos una solución en el menor tiempo posible.
-* 🏅 **Reconocimiento:** Si querés, te mencionamos públicamente como contribuyente a la seguridad de Fedired (créditos en el repositorio o changelog oficial).
+- **Usa Contraseñas Fuertes**: Asegúrate de utilizar contraseñas seguras y únicas para tu cuenta en Fedired.
+- **Habilita la Autenticación de Dos Factores (2FA)**: Si está disponible, habilita 2FA para aumentar la seguridad de tu cuenta.
+- **Mantente Informado**: Mantente al día con las actualizaciones de seguridad y las mejores prácticas recomendadas para proteger tu información en línea.
 
----
+## Actualizaciones del Documento
 
-## ✅ Buenas Prácticas de Seguridad para Usuarios
+Este documento puede actualizarse ocasionalmente para reflejar cambios en nuestras políticas de seguridad o en respuesta a la retroalimentación de la comunidad.
 
-Además de colaborar con reportes, te recomendamos:
+## Contacto
 
-* **Contraseñas fuertes y únicas.**
-* **Habilitar la autenticación de dos factores (2FA)** si está disponible.
-* **Actualizarte regularmente** sobre buenas prácticas en ciberseguridad.
-* **Evitar clics sospechosos** o accesos desde redes no confiables.
+Si tienes preguntas o inquietudes relacionadas con la seguridad de Fedired, no dudes en ponerte en contacto con nosotros en [seguridad@fedired.com](mailto:seguridad@fedired.com).
 
----
-
-## 📌 Cambios en este Documento
-
-Este documento será actualizado cuando haya cambios relevantes en nuestras políticas de seguridad o tras eventos que lo justifiquen. La última revisión fue el **3 de mayo de 2025**.
-
----
-
-## 📬 Contacto
-
-Para dudas, comentarios o reportes de seguridad:
-**✉️ [fedired@sushell.com](mailto:fedired@sushell.com)**
-
-Gracias por tu responsabilidad y compromiso con un Fedired más seguro.
-
+Gracias por ayudarnos a mantener a Fedired seguro.

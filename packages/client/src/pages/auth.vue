@@ -113,7 +113,7 @@ const accepted = () => {
 	} else if (session.value.app.callbackUrl) {
 		const url = new URL(session.value.app.callbackUrl);
 		if (
-			["javascript:", "file:", "data:", "mailto:", "tel:", "vbscript:"].includes(
+			["javascript:", "file:", "data:", "mailto:", "tel:"].includes(
 				url.protocol,
 			)
 		) {

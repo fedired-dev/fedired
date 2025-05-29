@@ -11,9 +11,6 @@
 					<MkUserName :user="note.user" class="mkusername">
 						<span v-if="note.user.isBot" class="is-bot">bot</span>
 					</MkUserName>
-
-					<MkVerifiedBadge :user="note.user" />
-
 				</MkA>
 				<div class="username"><MkAcct :user="note.user" /></div>
 			</div>
@@ -62,7 +59,6 @@ import { i18n } from "@/i18n";
 import { pageWindow } from "@/os";
 import icon from "@/scripts/icon";
 import { me, isSignedIn } from "@/me";
-import MkVerifiedBadge from '@/components/MkVerifiedBadge.vue';
 
 const props = defineProps<{
 	note: entities.Note;
@@ -196,17 +192,6 @@ function openServerInfo() {
 			> .name {
 				display: none;
 			}
-		}
-	}
-
-	.verified-badge {
-		display: inline-flex;
-		align-items: center;
-		margin-left: 4px;
-		color: var(--accent);
-		
-		i {
-			font-size: 1.2em;
 		}
 	}
 }

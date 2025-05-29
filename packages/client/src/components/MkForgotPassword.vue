@@ -50,7 +50,7 @@
 				>
 			</div>
 			<div class="sub">
-				<MkA href="https://join.fedired.com/help/%f0%9f%94%90-como-recuperar-tu-contrasena/" class="_link" target="_blank">{{
+				<MkA to="/about" class="_link">{{
 					i18n.ts._forgotPassword.ifNoEmail
 				}}</MkA>
 			</div>

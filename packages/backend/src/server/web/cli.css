@@ -46,7 +46,7 @@ button {
 	border:none;
 	cursor:pointer;
 	margin-block-end:12px;
-	background:linear-gradient(var(--gradient-to-inline-end),#9ccfd8,#858AFA);
+	background:linear-gradient(var(--gradient-to-inline-end),#9ccfd8,#31748f);
 	line-height:50px;
 	color:#191724;
 	font-weight:700;

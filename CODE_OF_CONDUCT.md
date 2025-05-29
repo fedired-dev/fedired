@@ -57,10 +57,10 @@ Fedired se reserva el derecho de moderar contenido y tomar las medidas necesaria
 - Eliminación permanente de cuentas en casos graves o de comportamiento reiterado.
 
 ## 8. Apelaciones
-Si tu cuenta ha sido suspendida o se ha tomado alguna medida disciplinaria, tienes derecho a apelar. Puedes ponerte en contacto con nuestro equipo de moderación en [fedired@sushell.com](mailto:fedired@sushell.com) para revisar tu caso.
+Si tu cuenta ha sido suspendida o se ha tomado alguna medida disciplinaria, tienes derecho a apelar. Puedes ponerte en contacto con nuestro equipo de moderación en [soporte@fedired.com](mailto:soporte@fedired.com) para revisar tu caso.
 
 ## 9. Actualizaciones del Código de Conducta
 Este Código de Conducta puede actualizarse ocasionalmente para reflejar cambios en las políticas de la plataforma o en respuesta a la retroalimentación de la comunidad. Las modificaciones importantes serán anunciadas, y los usuarios estarán obligados a cumplir con las nuevas disposiciones.
 
 ## 10. Contacto
-Si tienes alguna duda o deseas reportar un incumplimiento de este Código de Conducta, puedes contactarnos en [fedired@sushell.com](mailto:fedired@sushell.com).
+Si tienes alguna duda o deseas reportar un incumplimiento de este Código de Conducta, puedes contactarnos en [soporte@fedired.com](mailto:soporte@fedired.com).

@@ -21,8 +21,6 @@ cd ~/fedired
 4. Construir Fedired y aplicar cambios a la base de datos
     ```sh
     corepack prepare pnpm@latest --activate
-    cargo update
-    pnpm install --no-frozen-lockfile
     pnpm install --frozen-lockfile
     NODE_ENV='production' NODE_OPTIONS='--max_old_space_size=3072' pnpm run rebuild
     pnpm run migrate

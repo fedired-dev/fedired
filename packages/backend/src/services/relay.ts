@@ -12,35 +12,19 @@ import type { Relay } from "@/models/entities/relay.js";
 
 const relaysCache = new Cache<Relay[]>("relay", 60 * 60);
 
-// Función segura para clonar objetos
-function safeClone<T>(obj: T): T {
-	try {
-		return structuredClone(obj);
-	} catch (e) {
-		console.warn('structuredClone not supported, falling back to JSON');
-		return JSON.parse(JSON.stringify(obj));
-	}
-}
-
 export async function addRelay(inbox: string) {
-	try {
-		const relay = await Relays.insert({
-			id: genId(),
-			inbox,
-			status: "requesting",
-		}).then((x) => Relays.findOneByOrFail(x.identifiers[0]));
+	const relay = await Relays.insert({
+		id: genId(),
+		inbox,
+		status: "requesting",
+	}).then((x) => Relays.findOneByOrFail(x.identifiers[0]));
 
-		const relayActorId = await getRelayActorId();
-		const follow = await renderFollowRelay(relay.id);
-		const activity = renderActivity(follow);
-		
-		await deliver(relayActorId, activity, relay.inbox);
+	const relayActorId = await getRelayActorId();
+	const follow = await renderFollowRelay(relay.id);
+	const activity = renderActivity(follow);
+	deliver(relayActorId, activity, relay.inbox);
 
-		return relay;
-	} catch (error) {
-		console.error('Error adding relay:', error);
-		throw error;
-	}
+	return relay;
 }
 
 export async function removeRelay(inbox: string) {
@@ -109,27 +93,14 @@ export async function deliverToRelays(
 	const relays = await getCachedRelays();
 	if (relays.length === 0) return;
 
-	try {
-		const copy = safeClone(activity);
-		if (!copy.to) {
-			copy.to = ["https://www.w3.org/ns/activitystreams#Public"];
-		}
+	// TODO
+	//const copy = structuredClone(activity);
+	const copy = JSON.parse(JSON.stringify(activity));
+	if (!copy.to) copy.to = ["https://www.w3.org/ns/activitystreams#Public"];
 
-		const signed = await attachLdSignature(copy, user);
+	const signed = await attachLdSignature(copy, user);
 
-		// Entregar a todos los relés en paralelo
-		await Promise.all(
-			relays.map(async (relay) => {
-				try {
-					await deliver(user.id, signed, relay.inbox);
-				} catch (error) {
-					console.error(`Error delivering to relay ${relay.inbox}:`, error);
-					// No lanzamos el error para que otros relés sigan funcionando
-				}
-			})
-		);
-	} catch (error) {
-		console.error('Error in deliverToRelays:', error);
-		throw error;
+	for (const relay of relays) {
+		deliver(user.id, signed, relay.inbox);
 	}
 }

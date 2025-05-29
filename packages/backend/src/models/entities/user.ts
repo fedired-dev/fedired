@@ -281,13 +281,6 @@ export class User {
 	})
 	public isIndexable: boolean;
 
-	@Column("varchar", {
-		array: true,
-		length: 512,
-		default: "{}",
-	})
-	public fcmTokens: string[];
-
 	//#region Relations
 	@OneToOne(() => DriveFile, {
 		onDelete: "SET NULL",

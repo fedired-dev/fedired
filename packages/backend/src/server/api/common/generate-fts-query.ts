@@ -418,10 +418,9 @@ function getSearchMatchOperator(
 	matchWords: boolean,
 	caseSensitive: boolean,
 ) {
-
-	const negatePrefix = matchWords ? '!' : 'NOT ';
-    return `${negate ? negatePrefix : ''}${matchWords ? caseSensitive ? '~' : '~*' : caseSensitive ? 'LIKE' : 'ILIKE'}`;
-
+	return `${negate ? "NOT " : ""}${
+		matchWords ? (caseSensitive ? "~" : "~*") : caseSensitive ? "LIKE" : "ILIKE"
+	}`;
 }
 
 function escapeSqlSearchParam(param: string, matchWords: boolean) {

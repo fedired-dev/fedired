@@ -45,10 +45,7 @@ const router = new Router();
 
 //#region Routing
 
-const SUPPORTED_SIGNATURE_ALGORITHMS = ['rsa-sha256', 'hs2019'];
-const SUPPORTED_DIGEST_ALGORITHMS = ['SHA-256'];
-
-async function inbox(ctx: Router.RouterContext) {
+function inbox(ctx: Router.RouterContext) {
 	const inboxLogger = serverLogger.createSubLogger("inbox");
 
 	if (ctx.req.headers.host !== config.host) {
@@ -58,38 +55,74 @@ async function inbox(ctx: Router.RouterContext) {
 		return;
 	}
 
-	const signature = httpSignature.parseRequest(ctx.req, {
-		headers: ['(request-target)', 'host', 'date', 'digest'],
-	});
+	let signature: httpSignature.IParsedSignature;
 
-	if (!signature) {
-		inboxLogger.info("rejecting request: signature missing");
+	try {
+		signature = httpSignature.parseRequest(ctx.req, {
+			headers: ["(request-target)", "digest", "host", "date"],
+		});
+	} catch (e) {
 		ctx.status = 401;
-		ctx.message = "Signature Missing";
+
+		if (e instanceof Error) {
+			if (e.name === "ExpiredRequestError")
+				ctx.message = "Expired Request Error";
+			if (e.name === "MissingHeaderError")
+				ctx.message = "Missing Required Header";
+		}
+
+		inboxLogger.info(`signature parse error: ${ctx.message}`);
+		inboxLogger.debug(inspect(e));
+
 		return;
 	}
 
-	const signatureAlgorithm = signature.algorithm.toLowerCase();
-	if (!SUPPORTED_SIGNATURE_ALGORITHMS.includes(signatureAlgorithm)) {
-		inboxLogger.info("rejecting signature: unsupported algorithm");
+	// Validate signature algorithm
+	if (
+		!signature.algorithm
+			.toLowerCase()
+			.match(/^((dsa|rsa|ecdsa)-(sha256|sha384|sha512)|ed25519-sha512|hs2019)$/)
+	) {
+		inboxLogger.info(
+			`rejecting signature: unknown algorithm (${signature.algorithm})`,
+		);
 		ctx.status = 401;
-		ctx.message = "Unsupported Signature Algorithm";
+		ctx.message = "Invalid Signature Algorithm";
+		return;
+
+		// hs2019
+		// keyType=ED25519 => ed25519-sha512
+		// keyType=other => (keyType)-sha256
+	}
+
+	// Validate digest header
+	const digest = ctx.req.headers.digest;
+
+	if (typeof digest !== "string") {
+		inboxLogger.info(
+			"rejecting invalid signature: zero or more than one digest header(s)",
+		);
+		ctx.status = 401;
+		ctx.message = "Invalid Digest Header";
 		return;
 	}
 
-	const digestAlgo = ctx.request.headers.digest?.split('=')[0];
-	if (!digestAlgo || !SUPPORTED_DIGEST_ALGORITHMS.includes(digestAlgo.toUpperCase())) {
+	const match = digest.match(/^([0-9A-Za-z-]+)=(.+)$/);
+
+	if (match == null) {
+		inboxLogger.info("rejecting signature: unrecognized digest header");
+		ctx.status = 401;
+		ctx.message = "Invalid Digest Header";
+		return;
+	}
+
+	const digestAlgo = match[1];
+	const expectedDigest = match[2];
+
+	if (digestAlgo.toUpperCase() !== "SHA-256") {
 		inboxLogger.info("rejecting signature: unsupported digest algorithm");
 		ctx.status = 401;
 		ctx.message = "Unsupported Digest Algorithm";
-		return;
-	}
-
-	const expectedDigest = ctx.request.headers.digest?.split('=')[1];
-	if (!expectedDigest) {
-		inboxLogger.info("rejecting signature: digest missing");
-		ctx.status = 401;
-		ctx.message = "Digest Missing";
 		return;
 	}
 
@@ -101,18 +134,13 @@ async function inbox(ctx: Router.RouterContext) {
 	if (expectedDigest !== actualDigest) {
 		inboxLogger.info("rejecting invalid signature: Digest Mismatch");
 		ctx.status = 401;
-		ctx.message = "Digest Mismatch";
+		ctx.message = "Digest Missmatch";
 		return;
 	}
 
-	try {
-		await processInbox(ctx.request.body as IActivity, signature);
-		ctx.status = 202;
-	} catch (error) {
-		inboxLogger.error("Error processing inbox:", error);
-		ctx.status = 500;
-		ctx.message = "Internal Server Error";
-	}
+	processInbox(ctx.request.body as IActivity, signature);
+
+	ctx.status = 202;
 }
 
 const ACTIVITY_JSON = "application/activity+json; charset=utf-8";

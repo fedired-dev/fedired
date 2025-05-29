@@ -44,7 +44,7 @@ function offlineContentHTML(): string {
       *{font-family:BIZ UDGothic,Roboto,HelveticaNeue,Arial,sans-serif}
       body,html{background-color:#191724;color:#e0def4;justify-content:center;margin:auto;padding:10px;text-align:center}
       button{border-radius:999px;padding:0 12px;border:none;cursor:pointer;margin-bottom:12px}.button-big{background:linear-gradient(90deg,#c4a7e7,#ebbcba);line-height:50px}
-      .button-big:hover{background:#858AFA}.button-label-big{color:#191724;font-weight:700;font-size:20px;padding:12px}
+      .button-big:hover{background:#31748f}.button-label-big{color:#191724;font-weight:700;font-size:20px;padding:12px}
       p{font-size:16px}#msg,.dont-worry{font-size:18px}.icon-warning{color:#f6c177;height:4rem;padding-top:2rem}
       h1{font-size:32px}code{font-family:Fira,FiraCode,monospace}@media screen and (max-width:500px){details{width:50%}}
     </style>

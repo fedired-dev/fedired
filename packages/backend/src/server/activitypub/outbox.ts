@@ -58,37 +58,22 @@ export default async (ctx: Router.RouterContext) => {
 	const partOf = `${config.url}/users/${userId}/outbox`;
 
 	if (page) {
-		const validateQueryParams = (param: any) => {
-			return param == null || typeof param === "string";
-		};
+		const query = makePaginationQuery(
+			Notes.createQueryBuilder("note"),
+			sinceId,
+			untilId,
+		)
+			.andWhere("note.userId = :userId", { userId: user.id })
+			.andWhere(
+				new Brackets((qb) => {
+					qb.where("note.visibility = 'public'").orWhere(
+						"note.visibility = 'home'",
+					);
+				}),
+			)
+			.andWhere("note.localOnly = FALSE");
 
-		if (!validateQueryParams(sinceId) || !validateQueryParams(untilId)) {
-			ctx.status = 400;
-			return;
-		}
-
-		const PUBLIC_VISIBILITY = 'public';
-		const HOME_VISIBILITY = 'home';
-
-		const query = Notes.createQueryBuilder("note")
-			.where("note.userId = :userId", { userId: user.id })
-			.andWhere("note.localOnly = FALSE")
-			.andWhere(new Brackets((qb) => {
-				qb.where("note.visibility = :public", { public: PUBLIC_VISIBILITY })
-				  .orWhere("note.visibility = :home", { home: HOME_VISIBILITY });
-			}))
-			.orderBy("note.createdAt", "DESC")
-			.take(limit);
-
-		if (sinceId) {
-			query.andWhere("note.id > :sinceId", { sinceId });
-		}
-
-		if (untilId) {
-			query.andWhere("note.id < :untilId", { untilId });
-		}
-
-		const notes = await query.getMany();
+		const notes = await query.take(limit).getMany();
 
 		if (sinceId) notes.reverse();
 

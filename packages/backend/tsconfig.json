@@ -26,7 +26,7 @@
 		"outDir": "./built",
 		"types": ["node"],
 		"typeRoots": ["./node_modules/@types", "./src/@types"],
-		"lib": ["esnext", "dom"]
+		"lib": ["esnext"]
 	},
 	"compileOnSave": false,
 	"include": ["./src/**/*.ts"]

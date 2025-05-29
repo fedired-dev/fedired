@@ -1,7 +1,7 @@
 use crate::{
     config::local_server_info,
     database::db_conn,
-    misc::{is_safe_url::is_safe_url, note::summarize},
+    misc::note::summarize,
     model::entity::{access_token, app, sw_subscription},
     util::{
         http_client,
@@ -32,8 +32,6 @@ pub enum Error {
     InvalidId(#[from] InvalidIdError),
     #[error("failed to acquire an HTTP client")]
     HttpClient(#[from] http_client::Error),
-    #[error("access to this URL is not allowed")]
-    UnsafeUrl,
 }
 
 static CLIENT: OnceCell<IsahcWebPushClient> = OnceCell::new();
@@ -194,6 +192,7 @@ async fn encode_mastodon_payload(
 
     // Adding space paddings to the end of JSON payload to prevent
     // `esm` from adding null bytes payload which many Mastodon clients don’t support.
+    // https://github.com/fedired-dev/fedired/-/merge_requests/10905#note_6733
     // not using the padding parameter directly on `res` because we want the padding to be
     // calculated based on the UTF-8 byte size of `res` instead of number of characters.
     let pad_length = match res.len() % 128 {
@@ -275,7 +274,7 @@ pub async fn send_push_notification(
         "".to_owned()
     } else {
         // Format the `content` passed from the TypeScript backend
-        // for Fedired push notifications
+        // for fedired push notifications
         let label = match kind {
             PushNotificationKind::Generic => "notification",
             PushNotificationKind::Chat => "unreadMessagingMessage",
@@ -307,11 +306,6 @@ pub async fn send_push_notification(
     };
 
     for subscription in subscriptions.iter() {
-        if !is_safe_url(&subscription.endpoint) {
-            unsubscribe(db, &subscription.id).await?;
-            continue;
-        }
-
         if !subscription.send_read_message
             && matches!(
                 kind,

@@ -124,8 +124,8 @@ onMounted(() => {
 					tension: 0.3,
 					borderWidth: 2,
 					borderJoinStyle: "round",
-					borderColor: "#858AFA",
-					backgroundColor: alpha("#858AFA", 0.1),
+					borderColor: "#31748f",
+					backgroundColor: alpha("#31748f", 0.1),
 					data: [],
 				},
 				{

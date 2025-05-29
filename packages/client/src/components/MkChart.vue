@@ -107,7 +107,7 @@ const alpha = (hex, a) => {
 };
 
 const colors = {
-	blue: "#858AFA",
+	blue: "#31748f",
 	green: "#9ccfd8",
 	yellow: "#f6c177",
 	red: "#eb6f92",

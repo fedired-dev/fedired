@@ -22,13 +22,7 @@
 			/>
 			<MkA class="name" :to="userPage(user)"
 				><MkUserName :user="user" :nowrap="true"
-				>
-				</MkUserName>
-
-				<MkVerifiedBadge :user="user" />
-
-					</MkA>
-				
+			/></MkA>
 			<p class="username"><MkAcct :user="user" /></p>
 		</h3>
 		<div
@@ -97,15 +91,13 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-import type { entities } from "fEDIRED-js";
+import type { entities } from "fedired-js";
 import MkFollowButton from "@/components/MkFollowButton.vue";
 import XShowMoreButton from "@/components/MkShowMoreButton.vue";
 import MkNumber from "@/components/MkNumber.vue";
 import { userPage } from "@/filters/user";
 import { i18n } from "@/i18n";
 import { isSignedIn, me } from "@/me";
-import MkVerifiedBadge from '@/components/MkVerifiedBadge.vue';
-
 
 const props = defineProps<{
 	user: entities.UserDetailed;

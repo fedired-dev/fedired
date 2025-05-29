@@ -69,9 +69,8 @@
 					<i :class="icon('ph-house')"></i>
 				</div>
 			</button>
-			<button
-				v-vibrate="5"
-				:aria-label="i18n.ts.notifications"
+					<button
+				:aria-label="i18n.t('notifications')"
 				class="button notifications _button"
 				@click="
 					mainRouter.push('/my/notifications');
@@ -79,35 +78,20 @@
 				"
 			>
 				<div
-					v-vibrate="5"
 					class="button-wrapper"
 					:class="buttonAnimIndex === 1 ? 'on' : ''"
 				>
-					<i :class="icon('ph-bell')"></i
+					<i class="ph-bell ph-bold ph-lg"></i
 					><span
-						v-if="me?.hasUnreadNotification"
+						v-if="$i?.hasUnreadNotification"
 						class="indicator"
-						:class="{
-							animateIndicator: defaultStore.state.animation,
-						}"
+						:class="{ animateIndicator: $store.state.animation }"
 						><i class="ph-circle ph-fill"></i
 					></span>
 				</div>
 			</button>
 			<button
-				v-if="replaceChatButtonWithAccountButton"
-				:aria-label="i18n.ts.accounts"
-				class="button messaging _button"
-				@click="openAccountMenu"
-			>
-				<div class="button-wrapper">
-					<i :class="icon('ph-users')"></i>
-				</div>
-			</button> 
-			<button
-				v-else
-				v-vibrate="5"
-				:aria-label="i18n.ts.messaging"
+				:aria-label="i18n.t('messaging')"
 				class="button messaging _button"
 				@click="
 					mainRouter.push('/my/messaging');
@@ -118,39 +102,26 @@
 					class="button-wrapper"
 					:class="buttonAnimIndex === 2 ? 'on' : ''"
 				>
-					<i :class="icon('ph-chats-teardrop')"></i
+					<i class="ph-chats-teardrop ph-bold ph-lg"></i
 					><span
-						v-if="me?.hasUnreadMessagingMessage"
+						v-if="$i?.hasUnreadMessagingMessage"
 						class="indicator"
-						:class="{
-							animateIndicator: defaultStore.state.animation,
-						}"
+						:class="{ animateIndicator: $store.state.animation }"
 						><i class="ph-circle ph-fill"></i
 					></span>
 				</div>
 			</button>
 			<button
-				v-if="replaceWidgetsButtonWithReloadButton"
-				:aria-label="i18n.ts.reload"
-				class="button widget _button"
-				@click="reload"
-			>
-				<div class="button-wrapper">
-					<i :class="icon('ph-arrows-clockwise')"></i>
-				</div>
-			</button>
-			<button
-				v-else
-				v-vibrate="5"
-				:aria-label="i18n.ts._deck._columns.widgets"
+				:aria-label="i18n.t('_deck._columns.widgets')"
 				class="button widget _button"
 				@click="widgetsShowing = true"
 			>
 				<div class="button-wrapper">
-					<i :class="icon('ph-stack')"></i>
+					<i class="ph-stack ph-bold ph-lg"></i>
 				</div>
 			</button>
 		</div>
+
 
 		<button
 			v-if="isMobile && mainRouter.currentRoute.value.name === 'index'"
