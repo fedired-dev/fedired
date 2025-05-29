@@ -8,7 +8,7 @@
 		"binaryName": "backend-rs"
 	},
 	"devDependencies": {
-		"@napi-rs/cli": "3.0.0-alpha.64"
+		"@napi-rs/cli": "^2.16.5"
 	},
 	"scripts": {
 		"fetch": "cargo fetch --manifest-path ../../Cargo.toml",
