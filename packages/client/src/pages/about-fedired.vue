@@ -106,7 +106,7 @@
                 Agradecemos a nuestros donadores que han apoyado el proyecto a través de Patreon y otras plataformas.
               </p>
               <ul>
-                <li><strong>@ibootech</strong> - Donación única</li>
+                <li><strong>@ibootech</strong> - Donación mensual</li>
                 <li><strong>@j-rec</strong> - Donación única</li>
               </ul>
             </div>
@@ -214,9 +214,9 @@ const contributors = [
     avatar: 'https://codeberg.org/avatars/0f6ca7a56df9812bc539e499ccac9030fd4cb19a2dc4d57402e1d96f78fa2110?size=512', 
   }, 
 	{
-    username: '@jazmin',
-    link: 'https://www.instagram.com/jazmin_mc73/',
-    avatar: 'https://instagram.faqb1-1.fna.fbcdn.net/v/t51.2885-19/379687695_255672004108612_7243932620264131712_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_ht=instagram.faqb1-1.fna.fbcdn.net&_nc_cat=104&_nc_oc=Q6cZ2QHUZPEHX3G_w5vedvC_nMNEUBqdtJ8cNfH8ojtmSkETuL7jFyQwLEJOH5kTnyLdVyA0Dp3OO_WdNSrnliolJnrv&_nc_ohc=D9bWQ3ESzLoQ7kNvwFgsQyX&_nc_gid=RvcBxnpXqnu339ztR4WV6Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfLRekbz9lWtXEBwHca930kdDPOZ_fbuyfTULvAr18MRTw&oe=683E64AA&_nc_sid=10d13b', 
+    username: '@joshua',
+    link: 'https://github.com/Developerfullstack5451',
+    avatar: 'https://avatars.githubusercontent.com/u/170076457?v=4', 
   }
 ];
 </script>
