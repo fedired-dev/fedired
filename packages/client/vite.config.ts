@@ -42,6 +42,8 @@ export default defineConfig(({ command, mode }) => {
 				"@/": `${__dirname}/src/`,
 				"/client-assets/": `${__dirname}/assets/`,
 				"/static-assets/": `${__dirname}/../backend/assets/`,
+				"@fedired/verified-users": `${__dirname}/../../.fedired/verified-users.ts`,
+				"@fedired/sponsor": `${__dirname}/../../.fedired/sponsor.ts`,
 			},
 		},
 

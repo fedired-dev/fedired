@@ -944,5 +944,39 @@ onUnmounted(() => {
 	justify-content: center
 
 
+	}
+
+.verified-badge {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 4px;
+	color: var(--accent);
+	position: relative;
+	top: 6px;
+	
+	i {
+		font-size: 2em;
+		display: inline-block;
+		vertical-align: middle;
+		position: relative;
+		top: -6px;
+	}
+}
+
+.sponsor-badge {
+	display: flex;
+	align-items: center;
+	border: solid 1px var(--color, var(--divider));
+	border-radius: 999px;
+	margin-right: 100px;
+	margin-left: 100px;
+	padding: 4px 10px;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: var(--accent);
+	font-weight: bold;
+	text-align: center;
+	font-size: 0.9em;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	justify-content: center;
 }
 </style>
