@@ -38,11 +38,11 @@ if (fs.existsSync(customLocalesPath)) {
 	try {
 		const customFiles = fs.readdirSync(customLocalesPath);
 		customFiles.forEach((file) => {
-			if (file.includes(".yml")) {
-				file = file.slice(0, file.indexOf("."));
-				languages_custom.push(file);
-			}
-		});
+	if (file.includes(".yml")) {
+		file = file.slice(0, file.indexOf("."));
+		languages_custom.push(file);
+	}
+});
 	} catch (error) {
 		// Directory exists but can't be read, skip custom locales
 		console.warn("Warning: Could not read custom/locales directory:", error.message);

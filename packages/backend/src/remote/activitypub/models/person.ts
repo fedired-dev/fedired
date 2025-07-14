@@ -85,7 +85,8 @@ function validateActor(x: IObject, uri: string): IActor {
 			typeof x.preferredUsername === "string" &&
 			x.preferredUsername.length > 0 &&
 			x.preferredUsername.length <= 128 &&
-			/^\w([\w-.]*\w)?$/.test(x.preferredUsername)
+			// More flexible username validation - allow Unicode characters
+			/^[\p{L}\p{N}_\-\.]+$/u.test(x.preferredUsername)
 		)
 	) {
 		throw new Error("invalid Actor: wrong username");

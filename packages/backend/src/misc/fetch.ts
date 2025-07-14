@@ -63,7 +63,7 @@ export async function getResponse(args: {
 		throw new StatusError("Invalid URL", 400);
 	}
 
-	const timeout = args.timeout || 10 * 1000;
+	const timeout = args.timeout || 30 * 1000; // Increased from 10 seconds to 30 seconds
 
 	const controller = new AbortController();
 	setTimeout(() => {

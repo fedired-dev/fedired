@@ -33,7 +33,7 @@ export default class Resolver {
 	private user?: ILocalUser;
 	private recursionLimit?: number;
 
-	constructor(recursionLimit = 100) {
+	constructor(recursionLimit = 500) {
 		this.history = new Set();
 		this.recursionLimit = recursionLimit;
 	}
@@ -83,12 +83,10 @@ export default class Resolver {
 
 		apLogger.info(`Resolving: ${value}`);
 
-		if (value.includes("#")) {
-			// URLs with fragment parts cannot be resolved correctly because
-			// the fragment part does not get transmitted over HTTP(S).
-			// Avoid strange behaviour by not trying to resolve these at all.
-			throw new Error(`cannot resolve URL with fragment: ${value}`);
-		}
+		// Remove fragment restriction - many instances use URLs with fragments
+		// if (value.includes("#")) {
+		// 	throw new Error(`cannot resolve URL with fragment: ${value}`);
+		// }
 
 		if (this.history.has(value)) {
 			throw new Error("cannot resolve already resolved one");
@@ -122,15 +120,15 @@ export default class Resolver {
 
 		const { finalUrl, content: object } = await apGet(value, this.user);
 
-		if (
-			object == null ||
-			(Array.isArray(object["@context"])
-				? !(object["@context"] as unknown[]).includes(
-						"https://www.w3.org/ns/activitystreams",
-					)
-				: object["@context"] !== "https://www.w3.org/ns/activitystreams")
-		) {
-			throw new Error("invalid response");
+		// More flexible context validation
+		if (object == null) {
+			throw new Error("invalid response: object is null");
+		}
+
+		// Check if context is valid (more flexible approach)
+		const context = object["@context"];
+		if (!this.isValidContext(context)) {
+			throw new Error("invalid response: missing or invalid @context");
 		}
 
 		if (object.id == null) {
@@ -154,6 +152,30 @@ export default class Resolver {
 			);
 
 		return finalRes.content;
+	}
+
+	// Helper method to validate context more flexibly
+	private isValidContext(context: any): boolean {
+		if (!context) return false;
+		
+		// Handle string context
+		if (typeof context === "string") {
+			return context === "https://www.w3.org/ns/activitystreams";
+		}
+		
+		// Handle array context
+		if (Array.isArray(context)) {
+			return context.some(ctx => 
+				typeof ctx === "string" && ctx === "https://www.w3.org/ns/activitystreams"
+			);
+		}
+		
+		// Handle object context (compact form)
+		if (typeof context === "object") {
+			return true; // Accept compact contexts
+		}
+		
+		return false;
 	}
 
 	private async resolveLocal(url: string): Promise<IObject> {

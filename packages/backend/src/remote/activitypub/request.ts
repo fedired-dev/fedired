@@ -84,6 +84,7 @@ export async function apGet(
 			headers: {
 				Accept:
 					'application/activity+json, application/ld+json; profile="https://www.w3.org/ns/activitystreams"',
+				"Accept-Encoding": "gzip, deflate",
 				"User-Agent": config.userAgent,
 			},
 			redirect: redirects ? "manual" : "error",
@@ -108,7 +109,7 @@ export async function apGet(
 	if (res.body == null) throw new Error("body is null");
 
 	const text = await res.text();
-	if (text.length > 65536) throw new Error("too big result");
+	if (text.length > 2 * 1024 * 1024) throw new Error("too big result"); // Increased from 65536 to 2MB
 
 	return {
 		finalUrl: res.url,
@@ -117,13 +118,27 @@ export async function apGet(
 }
 
 function validateContentType(contentType: string): boolean {
-	const parts = contentType.split(/\s*;\s*/);
-	if (parts[0] === "application/activity+json") return true;
-	if (parts[0] !== "application/ld+json") return false;
-	return parts
-		.slice(1)
-		.some(
-			(part) =>
-				part.trim() === 'profile="https://www.w3.org/ns/activitystreams"',
-		);
+	if (!contentType) return false;
+	
+	// Normalize content type by removing charset and extra spaces
+	const normalized = contentType.split(';')[0].trim().toLowerCase();
+	
+	// Accept application/activity+json
+	if (normalized === "application/activity+json") return true;
+	
+	// Accept application/ld+json with profile
+	if (normalized === "application/ld+json") {
+		// Check if profile parameter is present
+		const parts = contentType.split(/\s*;\s*/);
+		return parts.some(part => {
+			const trimmed = part.trim();
+			return trimmed === 'profile="https://www.w3.org/ns/activitystreams"' ||
+				   trimmed === "profile=https://www.w3.org/ns/activitystreams";
+		});
+	}
+	
+	// Accept application/json (some instances use this)
+	if (normalized === "application/json") return true;
+	
+	return false;
 }

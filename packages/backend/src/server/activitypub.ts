@@ -77,11 +77,11 @@ function inbox(ctx: Router.RouterContext) {
 		return;
 	}
 
-	// Validate signature algorithm
+	// Validate signature algorithm - more flexible approach
 	if (
 		!signature.algorithm
 			.toLowerCase()
-			.match(/^((dsa|rsa|ecdsa)-(sha256|sha384|sha512)|ed25519-sha512|hs2019)$/)
+			.match(/^((dsa|rsa|ecdsa)-(sha256|sha384|sha512)|ed25519-sha512|hs2019|rsa-sha256|rsa-sha512|ecdsa-sha256|ecdsa-sha512)$/)
 	) {
 		inboxLogger.info(
 			`rejecting signature: unknown algorithm (${signature.algorithm})`,
@@ -89,10 +89,6 @@ function inbox(ctx: Router.RouterContext) {
 		ctx.status = 401;
 		ctx.message = "Invalid Signature Algorithm";
 		return;
-
-		// hs2019
-		// keyType=ED25519 => ed25519-sha512
-		// keyType=other => (keyType)-sha256
 	}
 
 	// Validate digest header

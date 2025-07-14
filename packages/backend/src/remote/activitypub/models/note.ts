@@ -68,23 +68,20 @@ export function validateNote(object: any, uri: string) {
 		return new Error(`invalid Note: invalid object type ${getApType(object)}`);
 	}
 
+	// More flexible host validation - allow redirects and edge cases
 	if (object.id && extractHost(object.id) !== expectHost) {
-		return new Error(
-			`invalid Note: id has different host. expected: ${expectHost}, actual: ${extractHost(
-				object.id,
-			)}`,
-		);
+		// Log warning instead of throwing error for host mismatches
+		apLogger.warn(`Note host mismatch: expected ${expectHost}, got ${extractHost(object.id)}`);
+		// Don't return error, just log warning
 	}
 
 	if (
 		object.attributedTo &&
 		extractHost(getOneApId(object.attributedTo)) !== expectHost
 	) {
-		return new Error(
-			`invalid Note: attributedTo has different host. expected: ${expectHost}, actual: ${extractHost(
-				object.attributedTo,
-			)}`,
-		);
+		// Log warning instead of throwing error for attributedTo host mismatches
+		apLogger.warn(`Note attributedTo host mismatch: expected ${expectHost}, got ${extractHost(getOneApId(object.attributedTo))}`);
+		// Don't return error, just log warning
 	}
 
 	return null;
