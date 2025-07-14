@@ -32,12 +32,22 @@ fs.readdirSync(__dirname).forEach((file) => {
 	}
 });
 
-fs.readdirSync(__dirname + "/../custom/locales").forEach((file) => {
-	if (file.includes(".yml")) {
-		file = file.slice(0, file.indexOf("."));
-		languages_custom.push(file);
+// Check if custom/locales directory exists and has files
+const customLocalesPath = __dirname + "/../custom/locales";
+if (fs.existsSync(customLocalesPath)) {
+	try {
+		const customFiles = fs.readdirSync(customLocalesPath);
+		customFiles.forEach((file) => {
+			if (file.includes(".yml")) {
+				file = file.slice(0, file.indexOf("."));
+				languages_custom.push(file);
+			}
+		});
+	} catch (error) {
+		// Directory exists but can't be read, skip custom locales
+		console.warn("Warning: Could not read custom/locales directory:", error.message);
 	}
-});
+}
 
 const primaries = {
 	en: "US",
