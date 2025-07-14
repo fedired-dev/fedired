@@ -336,7 +336,7 @@ import * as ep___users_show from "./endpoints/users/show.js";
 import * as ep___users_stats from "./endpoints/users/stats.js";
 import * as ep___fetchRss from "./endpoints/fetch-rss.js";
 import * as ep___admin_driveCapOverride from "./endpoints/admin/drive-capacity-override.js";
-import * as ep___admin_syncVerifiedSponsors from "./endpoints/admin/sync-verified-sponsors.js";
+
 
 //Fedired Move
 import * as ep___i_move from "./endpoints/i/move.js";
@@ -679,7 +679,7 @@ const eps = [
 	["users/show", ep___users_show],
 	["users/stats", ep___users_stats],
 	["admin/drive-capacity-override", ep___admin_driveCapOverride],
-	["admin/sync-verified-sponsors", ep___admin_syncVerifiedSponsors],
+
 	["fetch-rss", ep___fetchRss],
 	["get-sounds", ep___sounds],
 ];

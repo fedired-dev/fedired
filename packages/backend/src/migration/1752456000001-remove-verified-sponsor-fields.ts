@@ -8,14 +8,22 @@
 
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class AddVerifiedSponsorFields1752456000000 implements MigrationInterface {
+export class RemoveVerifiedSponsorFields1752456000001 implements MigrationInterface {
 	public async up(queryRunner: QueryRunner): Promise<void> {
-		// Add isVerified field
+		// Remove isSponsor field
+		await queryRunner.query(`ALTER TABLE "user" DROP COLUMN "isSponsor"`);
+
+		// Remove isVerified field
+		await queryRunner.query(`ALTER TABLE "user" DROP COLUMN "isVerified"`);
+	}
+
+	public async down(queryRunner: QueryRunner): Promise<void> {
+		// Add isVerified field back
 		await queryRunner.query(
 			`ALTER TABLE "user" ADD "isVerified" boolean NOT NULL DEFAULT false`,
 		);
 
-		// Add isSponsor field
+		// Add isSponsor field back
 		await queryRunner.query(
 			`ALTER TABLE "user" ADD "isSponsor" boolean NOT NULL DEFAULT false`,
 		);
@@ -28,13 +36,5 @@ export class AddVerifiedSponsorFields1752456000000 implements MigrationInterface
 		await queryRunner.query(
 			`COMMENT ON COLUMN "user"."isSponsor" IS 'Whether the User is a sponsor.'`,
 		);
-	}
-
-	public async down(queryRunner: QueryRunner): Promise<void> {
-		// Remove isSponsor field
-		await queryRunner.query(`ALTER TABLE "user" DROP COLUMN "isSponsor"`);
-
-		// Remove isVerified field
-		await queryRunner.query(`ALTER TABLE "user" DROP COLUMN "isVerified"`);
 	}
 } 

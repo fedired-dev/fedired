@@ -43,6 +43,16 @@
 										:user="user"
 										:nowrap="true"
 									/>
+
+									<span 
+   									 v-if="isVerified(user.username)" 
+   									 v-tooltip.noDelay="'Una insignia de verificación confirma que se trata de una página/perfil auténtico para esta empresa, organización o persona.'" 
+   									 class="verified-badge"
+										>
+    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
+								</span>
+
+
 									<div v-if="isModerator">
 										<span
 											v-if="user.isSilenced"
@@ -101,18 +111,6 @@
 										v-tooltip.noDelay="i18n.ts.isBot"
 										><i :class="icon('ph-robot')"></i
 									></span>
-									<span
-										v-if="user.isVerified"
-										v-tooltip.noDelay="'Usuario Verificado'"
-										style="color: var(--badge)"
-										><i :class="icon('ph-seal-check')"></i
-									></span>
-									<span
-										v-if="user.isSponsor"
-										v-tooltip.noDelay="'Patrocinador'"
-										style="color: var(--accent)"
-										><i :class="icon('ph-heart')"></i
-									></span>
 								</div>
 							</div>
 						</div>
@@ -130,15 +128,23 @@
 									:user="user"
 									:nowrap="true"
 								/>
-								<span
-									v-if="
+
+								<span 
+   									 v-if="isVerified(user.username)" 
+   									 v-tooltip.noDelay="'Una insignia de verificación confirma que se trata de una página/perfil auténtico para esta empresa, organización o persona.'" 
+   									 class="verified-badge"
+										>
+    									<i :class="icon('ph-fill ph-seal-check')" style="font-size: 1.8em;"></i>
+								</span>
+
+
+									<div	v-if="
 										isSignedIn(me) &&
 										me.id !== user.id &&
 										user.isFollowed
 									"
 									class="followed"
-									>{{ i18n.ts.followsYou }}</span
-								>
+									>{{ i18n.ts.followsYou }}</div>
 								<div v-if="isModerator">
 									<span
 										v-if="user.isSilenced"
@@ -188,18 +194,6 @@
 									v-tooltip.noDelay="i18n.ts.isBot"
 									><i :class="icon('ph-robot')"></i
 								></span>
-								<span
-									v-if="user.isVerified"
-									v-tooltip.noDelay="'Usuario Verificado'"
-									style="color: var(--badge)"
-									><i :class="icon('ph-seal-check')"></i
-								></span>
-								<span
-									v-if="user.isSponsor"
-									v-tooltip.noDelay="'Patrocinador'"
-									style="color: var(--accent)"
-									><i :class="icon('ph-heart')"></i
-								></span>
 							</div>
 						</div>
 						<div class="follow-container">
@@ -215,6 +209,14 @@
 								/>
 							</div>
 						</div>
+						<span 
+   									 v-if="isSponsor(user.username)" 
+   									 v-tooltip.noDelay="'Sponsor de Fedired'" 
+   									 class="sponsor-badge"
+										>
+    									<img :src="'https://raw.githubusercontent.com/fedired-dev/img/refs/heads/main/custom/sponsor.png'" alt="Sponsor" style="width: 1.2em; height: 1.2em; margin-right: 4px;" />
+										Sponsor
+										</span>
 						<div class="description">
 							<Mfm
 								v-if="user.description"
@@ -387,6 +389,11 @@ import { defaultStore } from "@/store";
 import { i18n } from "@/i18n";
 import { isModerator, isSignedIn, me } from "@/me";
 import icon from "@/scripts/icon";
+import { isVerified } from '@fedired/verified-users';
+import { isSponsor } from '@fedired/sponsor';
+
+
+
 
 const XPhotos = defineAsyncComponent(() => import("./index.photos.vue"));
 
@@ -462,7 +469,7 @@ function parallax() {
 
 	if (top < 0) return;
 
-	const z = 1.75; // 奥行き(小さいほど奥)
+	const z = 1.75; // 奥き(小さいほど奥)
 	const pos = -(top / z);
 	banner.style.backgroundPosition = `center calc(50% - ${pos}px)`;
 }
@@ -477,6 +484,7 @@ onUnmounted(() => {
 		window.cancelAnimationFrame(parallaxAnimationId.value);
 	}
 });
+
 </script>
 
 <style lang="scss" scoped>
@@ -675,8 +683,8 @@ onUnmounted(() => {
 						}
 
 						> .followed {
-							position: relative;
-							inset-block-start: -4px;
+							position: absolute;
+							inset-block-start: 4px;
 							inset-inline-start: 4px;
 							padding-block: 4px;
 							padding-inline: 8px;
@@ -900,5 +908,41 @@ onUnmounted(() => {
 			margin-inline-start: var(--margin);
 		}
 	}
+}
+
+.verified-badge {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 4px;
+	color: var(--accent);
+	position: relative;
+	top: 6px;
+	
+	i {
+		font-size: 2em;
+		display: inline-block;
+		vertical-align: middle;
+		position: relative;
+		top: -6px;
+	}
+}
+
+.sponsor-badge {
+	display: flex;
+	align-items: center;
+	border: solid 1px var(--color, var(--divider));
+	border-radius: 999px;
+	margin-right: 100px;
+	margin-left: 100px;
+	padding: 4px 10px;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: var(--accent);
+	font-weight: bold;
+	text-align: center;
+	font-size: 0.9em;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	justify-content: center
+
+
 }
 </style>
