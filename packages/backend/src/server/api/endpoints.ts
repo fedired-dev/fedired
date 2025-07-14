@@ -336,6 +336,7 @@ import * as ep___users_show from "./endpoints/users/show.js";
 import * as ep___users_stats from "./endpoints/users/stats.js";
 import * as ep___fetchRss from "./endpoints/fetch-rss.js";
 import * as ep___admin_driveCapOverride from "./endpoints/admin/drive-capacity-override.js";
+import * as ep___admin_syncVerifiedSponsors from "./endpoints/admin/sync-verified-sponsors.js";
 
 //Fedired Move
 import * as ep___i_move from "./endpoints/i/move.js";
@@ -374,14 +375,8 @@ const eps = [
 	["admin/emoji/set-license-bulk", ep___admin_emoji_setLicenseBulk],
 	["admin/emoji/update", ep___admin_emoji_update],
 	["admin/federation/delete-all-files", ep___admin_federation_deleteAllFiles],
-	[
-		"admin/federation/refresh-remote-instance-metadata",
-		ep___admin_federation_refreshRemoteInstanceMetadata,
-	],
-	[
-		"admin/federation/remove-all-following",
-		ep___admin_federation_removeAllFollowing,
-	],
+	["admin/federation/refresh-remote-instance-metadata", ep___admin_federation_refreshRemoteInstanceMetadata],
+	["admin/federation/remove-all-following", ep___admin_federation_removeAllFollowing],
 	["admin/federation/update-instance", ep___admin_federation_updateInstance],
 	["admin/get-index-stats", ep___admin_getIndexStats],
 	["admin/get-table-stats", ep___admin_getTableStats],
@@ -684,6 +679,7 @@ const eps = [
 	["users/show", ep___users_show],
 	["users/stats", ep___users_stats],
 	["admin/drive-capacity-override", ep___admin_driveCapOverride],
+	["admin/sync-verified-sponsors", ep___admin_syncVerifiedSponsors],
 	["fetch-rss", ep___fetchRss],
 	["get-sounds", ep___sounds],
 ];

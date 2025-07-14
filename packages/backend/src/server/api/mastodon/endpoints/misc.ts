@@ -10,16 +10,35 @@ import { MastoApiError } from "@/server/api/mastodon/middleware/catch-errors.js"
 import { filterContext } from "@/server/api/mastodon/middleware/filter-context.js";
 
 export function setupEndpointsMisc(router: Router): void {
+	// Enhanced caching for public endpoints
 	router.get("/v1/custom_emojis", async (ctx) => {
+		// Add cache headers for public emoji endpoint
+		ctx.set("Cache-Control", "public, max-age=3600, s-maxage=7200");
 		ctx.body = await MiscHelpers.getCustomEmoji();
 	});
 
 	router.get("/v1/instance", async (ctx) => {
+		// Add cache headers for instance info
+		ctx.set("Cache-Control", "public, max-age=1800, s-maxage=3600");
 		ctx.body = await MiscHelpers.getInstance(ctx);
 	});
 
 	router.get("/v2/instance", async (ctx) => {
+		// Add cache headers for v2 instance info
+		ctx.set("Cache-Control", "public, max-age=1800, s-maxage=3600");
 		ctx.body = await MiscHelpers.getInstanceV2(ctx);
+	});
+
+	// Add v1/instance/peers endpoint for better Mastodon compatibility
+	router.get("/v1/instance/peers", async (ctx) => {
+		ctx.set("Cache-Control", "public, max-age=3600, s-maxage=7200");
+		ctx.body = await MiscHelpers.getInstancePeers(ctx);
+	});
+
+	// Add v1/instance/activity endpoint for better Mastodon compatibility
+	router.get("/v1/instance/activity", async (ctx) => {
+		ctx.set("Cache-Control", "public, max-age=3600, s-maxage=7200");
+		ctx.body = await MiscHelpers.getInstanceActivity(ctx);
 	});
 
 	router.get("/v1/announcements", auth(true), async (ctx) => {
@@ -39,15 +58,16 @@ export function setupEndpointsMisc(router: Router): void {
 		},
 	);
 
-	// FIXME: add link pagination to trends (ref: https://mastodon.social/api/v1/trends/tags?offset=10&limit=1)
+	// Enhanced trends endpoint with better caching
 	router.get(["/v1/trends/tags", "/v1/trends"], async (ctx) => {
 		const args = limitToInt(ctx.query);
+		ctx.set("Cache-Control", "public, max-age=1800, s-maxage=3600");
 		ctx.body = await MiscHelpers.getTrendingHashtags(args.limit, args.offset);
-		// FIXME: convert ids
 	});
 
 	router.get("/v1/trends/statuses", filterContext("public"), async (ctx) => {
 		const args = limitToInt(ctx.query);
+		ctx.set("Cache-Control", "public, max-age=900, s-maxage=1800");
 		ctx.body = await MiscHelpers.getTrendingStatuses(
 			args.limit,
 			args.offset,
@@ -56,6 +76,7 @@ export function setupEndpointsMisc(router: Router): void {
 	});
 
 	router.get("/v1/trends/links", async (ctx) => {
+		ctx.set("Cache-Control", "public, max-age=1800, s-maxage=3600");
 		ctx.body = [];
 	});
 
@@ -66,5 +87,18 @@ export function setupEndpointsMisc(router: Router): void {
 	router.get("/v2/suggestions", auth(true, ["read:accounts"]), async (ctx) => {
 		const args = limitToInt(ctx.query);
 		ctx.body = await MiscHelpers.getFollowSuggestions(args.limit, ctx);
+	});
+
+	// Add v1/directory endpoint for better Mastodon compatibility
+	router.get("/v1/directory", async (ctx) => {
+		const args = limitToInt(ctx.query);
+		ctx.set("Cache-Control", "public, max-age=1800, s-maxage=3600");
+		ctx.body = await MiscHelpers.getDirectory(args.limit, args.offset, ctx);
+	});
+
+	// Add v1/endorsements endpoint for better Mastodon compatibility
+	router.get("/v1/endorsements", auth(true, ["read:accounts"]), async (ctx) => {
+		const args = limitToInt(ctx.query);
+		ctx.body = await MiscHelpers.getEndorsements(args.limit, args.max_id, args.since_id, ctx);
 	});
 }

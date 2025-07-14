@@ -101,6 +101,18 @@
 										v-tooltip.noDelay="i18n.ts.isBot"
 										><i :class="icon('ph-robot')"></i
 									></span>
+									<span
+										v-if="user.isVerified"
+										v-tooltip.noDelay="'Usuario Verificado'"
+										style="color: var(--badge)"
+										><i :class="icon('ph-seal-check')"></i
+									></span>
+									<span
+										v-if="user.isSponsor"
+										v-tooltip.noDelay="'Patrocinador'"
+										style="color: var(--accent)"
+										><i :class="icon('ph-heart')"></i
+									></span>
 								</div>
 							</div>
 						</div>
@@ -175,6 +187,18 @@
 									v-if="user.isBot"
 									v-tooltip.noDelay="i18n.ts.isBot"
 									><i :class="icon('ph-robot')"></i
+								></span>
+								<span
+									v-if="user.isVerified"
+									v-tooltip.noDelay="'Usuario Verificado'"
+									style="color: var(--badge)"
+									><i :class="icon('ph-seal-check')"></i
+								></span>
+								<span
+									v-if="user.isSponsor"
+									v-tooltip.noDelay="'Patrocinador'"
+									style="color: var(--accent)"
+									><i :class="icon('ph-heart')"></i
 								></span>
 							</div>
 						</div>

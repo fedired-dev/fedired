@@ -176,6 +176,18 @@ export class User {
 	})
 	public isModerator: boolean;
 
+	@Column("boolean", {
+		default: false,
+		comment: "Whether the User is verified.",
+	})
+	public isVerified: boolean;
+
+	@Column("boolean", {
+		default: false,
+		comment: "Whether the User is a sponsor.",
+	})
+	public isSponsor: boolean;
+
 	// unauthorized: no permission
 	//          add: add custom emojis to the server
 	//          mod: add permission + modify {category, tags, license} of existing custom emojis

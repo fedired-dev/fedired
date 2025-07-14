@@ -7,6 +7,13 @@ import type { IEndpoint } from "./endpoints.js";
 import authenticate, { AuthenticationError } from "./authenticate.js";
 import call from "./call.js";
 import { ApiError } from "./error.js";
+import { createHash } from "node:crypto";
+
+// Generate ETag for cache validation
+function generateETag(content: string): string {
+	const hash = createHash('md5').update(content).digest('hex');
+	return `"${hash}"`;
+}
 
 const userIpHistories = new Map<User["id"], Set<string>>();
 
@@ -58,16 +65,26 @@ export default (endpoint: IEndpoint, ctx: Koa.Context) =>
 				// API invoking
 				call(endpoint.name, user, app, body, ctx)
 					.then((res: any) => {
+						// Enhanced caching for public endpoints
 						if (
 							ctx.method === "GET" &&
 							endpoint.meta.cacheSec &&
 							!body["i"] &&
 							!user
 						) {
+							// Set cache headers with better optimization
 							ctx.set(
 								"Cache-Control",
-								`public, max-age=${endpoint.meta.cacheSec}`,
+								`public, max-age=${endpoint.meta.cacheSec}, s-maxage=${endpoint.meta.cacheSec * 2}, stale-while-revalidate=${endpoint.meta.cacheSec * 3}`,
 							);
+							// Add ETag for better cache validation
+							if (res && typeof res === 'object') {
+								const etag = generateETag(JSON.stringify(res));
+								ctx.set("ETag", etag);
+							}
+						} else if (ctx.method === "GET" && user) {
+							// Private cache for authenticated users
+							ctx.set("Cache-Control", "private, max-age=60, stale-while-revalidate=300");
 						}
 						reply(res);
 					})

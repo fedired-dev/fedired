@@ -25,10 +25,13 @@ type executor<T extends IEndpointMeta, Ps extends Schema> = (
 
 const ajv = new Ajv({
 	useDefaults: true,
+	allErrors: true, // Show all validation errors
+	verbose: true, // More detailed error messages
 });
 
 ajv.addFormat("misskey:id", /^[a-zA-Z0-9]+$/);
 
+// Enhanced parameter validation with better error handling
 export default function <T extends IEndpointMeta, Ps extends Schema>(
 	meta: T,
 	paramDef: Ps,
@@ -72,20 +75,30 @@ export default function <T extends IEndpointMeta, Ps extends Schema>(
 				);
 		}
 
+		// Enhanced parameter validation with better error messages
 		const valid = validate(params);
 		if (!valid) {
 			if (file) cleanup!();
 
 			const errors = validate.errors!;
+			
+			// Create more detailed error message
+			const errorDetails = errors.map(err => ({
+				field: err.instancePath || err.schemaPath,
+				message: err.message,
+				value: err.data
+			}));
+
 			const err = new ApiError(
 				{
-					message: "Invalid param.",
+					message: `Invalid parameters: ${errors.length} validation error(s)`,
 					code: "INVALID_PARAM",
 					id: "3d81ceae-475f-4600-b2a8-2bc116157532",
 				},
 				{
 					param: errors[0].schemaPath,
 					reason: errors[0].message,
+					details: errorDetails,
 				},
 			);
 			return Promise.reject(err);

@@ -48,10 +48,20 @@ export default async (
 	if (ep.meta.limit) {
 		// koa will automatically load the `X-Forwarded-For` header if `proxy: true` is configured in the app.
 		let limitActor: string;
+		let userType: 'authenticated' | 'moderator' | 'admin' | 'anonymous' = 'anonymous';
+		
 		if (user) {
 			limitActor = user.id;
+			if (user.isAdmin) {
+				userType = 'admin';
+			} else if (user.isModerator) {
+				userType = 'moderator';
+			} else {
+				userType = 'authenticated';
+			}
 		} else {
 			limitActor = getIpHash(ctx!.ip);
+			userType = 'anonymous';
 		}
 
 		const limit = Object.assign({}, ep.meta.limit);
@@ -60,10 +70,11 @@ export default async (
 			limit.key = ep.name;
 		}
 
-		// Rate limit
+		// Enhanced rate limit with user type differentiation
 		await limiter(
 			limit as IEndpointMeta["limit"] & { key: NonNullable<string> },
 			limitActor,
+			userType,
 		).catch((e) => {
 			const remainingTime = e.remainingTime
 				? `Please try again in ${e.remainingTime}.`

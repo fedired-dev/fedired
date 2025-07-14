@@ -25,6 +25,8 @@ export type UserLite = {
 	emojiModPerm: "unauthorized" | "add" | "mod" | "full";
 	isAdmin?: boolean;
 	isModerator?: boolean;
+	isVerified?: boolean;
+	isSponsor?: boolean;
 	isBot?: boolean;
 	isLocked: boolean;
 	isIndexable: boolean;

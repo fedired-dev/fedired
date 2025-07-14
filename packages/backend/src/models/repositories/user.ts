@@ -460,6 +460,8 @@ export const UserRepository = db.getRepository(User).extend({
 			emojiModPerm: user.emojiModPerm ?? "unauthorized",
 			isAdmin: user.isAdmin || falsy,
 			isModerator: user.isModerator || falsy,
+			isVerified: user.isVerified || falsy,
+			isSponsor: user.isSponsor || falsy,
 			isBot: user.isBot || falsy,
 			isLocked: user.isLocked,
 			isIndexable: user.isIndexable,
