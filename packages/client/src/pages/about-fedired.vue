@@ -46,7 +46,7 @@
           <div class="_formBlock" style="text-align: center">
             {{ i18n.ts._aboutFedired.about }}<br />
             <a
-              href="https://help.fedired.com/project/fedired.html"
+              href="https://sushell.com/fedired-social/"
               target="_blank"
               class="_link"
             >
@@ -74,7 +74,7 @@
                 Donar
                 <template #suffix>Donation</template>
               </FormLink>
-              <FormLink to="https://help.fedired.com/legal/licencias.html" external>
+              <FormLink to="https://docs.fedired.com/legal/licencias.html" external>
                 <template #icon>
                   <i :class="icon('ph-gavel')"></i>
                 </template>
@@ -100,14 +100,13 @@
           </FormSection>
 
           <FormSection>
-            <template #label>Donadores</template>
+            <template #label>Agradecimiento Especial</template>
             <div class="_formBlock" style="text-align: ">
               <p>
-                Agradecemos a nuestros donadores que han apoyado el proyecto a través de Patreon y otras plataformas.
+                Gracias a B. S. B. por su apoyo y por ser una pieza clave en el crecimiento personal de Javier Caceres.
               </p>
               <ul>
-                <li><strong>@ibootech</strong> - Donación única</li>
-                <li><strong>@j-rec</strong> - Donación única</li>
+                <li><strong>B. S. B.</strong> - Bombero Voluntario.</li>
               </ul>
             </div>
           </FormSection>
@@ -119,9 +118,7 @@
                 Agradecemos a todos los colaboradores, desde los desarrolladores hasta los usuarios que contribuyen activamente. Sin su apoyo, Fedired no sería posible.
               </p>
               <ul>
-                <li><strong>@ale@mastodon.manalejandro.com</strong></li>
-                <li><strong>Edgar Argueta</strong></li>
-                <li><strong>Joshua</strong></li>
+                <li><strong>Edgar Argueta</strong> - Miembreo de Fedired.</li>
               </ul>
             </div>
           </FormSection>
@@ -211,12 +208,7 @@ const contributors = [
 	{
     username: '@naskya',
     link: 'https://codeberg.org/naskya',
-    avatar: 'https://codeberg.org/avatars/0f6ca7a56df9812bc539e499ccac9030fd4cb19a2dc4d57402e1d96f78fa2110?size=512', 
-  }, 
-	{
-    username: '@jazmin',
-    link: 'https://www.instagram.com/jazmin_mc73/',
-    avatar: 'https://instagram.faqb1-1.fna.fbcdn.net/v/t51.2885-19/379687695_255672004108612_7243932620264131712_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_ht=instagram.faqb1-1.fna.fbcdn.net&_nc_cat=104&_nc_oc=Q6cZ2QHUZPEHX3G_w5vedvC_nMNEUBqdtJ8cNfH8ojtmSkETuL7jFyQwLEJOH5kTnyLdVyA0Dp3OO_WdNSrnliolJnrv&_nc_ohc=D9bWQ3ESzLoQ7kNvwFgsQyX&_nc_gid=RvcBxnpXqnu339ztR4WV6Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfLRekbz9lWtXEBwHca930kdDPOZ_fbuyfTULvAr18MRTw&oe=683E64AA&_nc_sid=10d13b', 
+    avatar: 'https://codeberg.org/avatars/7ba95dd39534916367a1083b69ce275fad9c348127b4c37ce891e0e81af31e8a?size=512', 
   }
 ];
 </script>
