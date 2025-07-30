@@ -37,18 +37,18 @@ const menuOptions = [
 ];
 
 export const defaultReactions = [
-	"⭐",
-	"❤️",
-	"😆",
-	"🤔",
-	"😮",
-	"🎉",
-	"💢",
-	"😥",
-	"😇",
-	"🥴",
-	"🔥",
-	"🐟",
+	"❤️",    // Amor/Me gusta
+	"👍",    // Pulgar arriba/Me gusta
+	"😊",    // Sonrisa feliz
+	"😂",    // Llorando de risa
+	"😮",    // Asombro
+	"😢",    // Triste
+	"😡",    // Enojado
+	"🎉",    // Celebración
+	"🔥",    // Fuego/Trending
+	"💯",    // 100 puntos/Perfecto
+	"👏",    // Aplausos
+	"🤔",    // Pensando
 ];
 
 // TODO: それぞれいちいちwhereとかdefaultというキーを付けなきゃいけないの冗長なのでなんとかする(ただ型定義が面倒になりそう)

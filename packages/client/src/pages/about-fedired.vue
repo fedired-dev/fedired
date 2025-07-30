@@ -103,7 +103,7 @@
             <template #label>Agradecimiento Especial</template>
             <div class="_formBlock" style="text-align: ">
               <p>
-                Gracias a B. S. B. por su apoyo y por ser una pieza clave en el crecimiento personal de Javier Caceres.
+                Gracias por su apoyo y por ser una pieza clave en el crecimiento personal de Javier Caceres.
               </p>
               <ul>
                 <li><strong>B. S. B.</strong> - Bombero Voluntario.</li>
@@ -118,7 +118,7 @@
                 Agradecemos a todos los colaboradores, desde los desarrolladores hasta los usuarios que contribuyen activamente. Sin su apoyo, Fedired no sería posible.
               </p>
               <ul>
-                <li><strong>Edgar Argueta</strong> - Miembreo de Fedired.</li>
+                <li><strong>Edgar Argueta</strong> - Miembro de Fedired.</li>
               </ul>
             </div>
           </FormSection>
