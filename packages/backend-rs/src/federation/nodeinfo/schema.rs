@@ -265,7 +265,7 @@ mod unit_test {
         assert_eq!(parsed_2.software.name, "meisskey");
         assert_eq!(parsed_2.software.version, "10.102.699-m544");
 
-        let json_str_3 = r##"{"metadata":{"enableGlobalTimeline":true,"enableGuestTimeline":false,"enableLocalTimeline":true,"enableRecommendedTimeline":false,"maintainer":{"name":"Javier Caceres"},"nodeDescription":"","nodeName":"Fedired","repositoryUrl":"https://github.com/fedired-dev/fedired","themeColor":"#F25A85"},"openRegistrations":false,"protocols":["activitypub"],"services":{"inbound":[],"outbound":["atom1.0","rss2.0"]},"software":{"homepage":"https://joinfedired.org","name":"Fedired","repository":"https://github.com/fedired/fedired","version":"2.0.3-nvus.1"},"usage":{"localPosts":23857,"users":{"activeHalfyear":7,"activeMonth":7,"total":9}},"version":"2.1"}"##;
+        let json_str_3 = r##"{"metadata":{"enableGlobalTimeline":true,"enableGuestTimeline":false,"enableLocalTimeline":true,"enableRecommendedTimeline":false,"maintainer":{"name":"Javier Caceres"},"nodeDescription":"","nodeName":"Fedired","repositoryUrl":"https://github.com/fedired-dev/fedired","themeColor":"#F25A85"},"openRegistrations":false,"protocols":["activitypub"],"services":{"inbound":[],"outbound":["atom1.0","rss2.0"]},"software":{"homepage":"https://joinfedired.org","name":"Fedired","repository":"https://github.com/fedired/fedired","version":"2.0.3"},"usage":{"localPosts":23857,"users":{"activeHalfyear":7,"activeMonth":7,"total":9}},"version":"2.1"}"##;
         let parsed_3: Nodeinfo21 = serde_json::from_str(json_str_3).unwrap();
         let serialized_3 = serde_json::to_string(&parsed_3).unwrap();
         let reparsed_3: Nodeinfo21 = serde_json::from_str(&serialized_3).unwrap();
