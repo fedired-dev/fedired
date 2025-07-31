@@ -272,7 +272,7 @@ mod unit_test {
 
         assert_eq!(parsed_3, reparsed_3);
         assert_eq!(parsed_3.software.name, "fedired");
-        assert_eq!(parsed_3.software.version, "2.0.3-nvus.1;
+        assert_eq!(parsed_3.software.version, "2.0.3-nvus.1";
 
         let json_str_4 = r#"{"version":"2.1","software":{"name":"activity-relay","version":"2.0.5","repository":"https://github.com/yukimochi/Activity-Relay"},"protocols":["activitypub"],"services":{"inbound":[],"outbound":[]},"openRegistrations":true,"usage":{"users":{"total":1,"activeMonth":1,"activeHalfyear":1}},"metadata":{}}"#;
         let parsed_4: Nodeinfo21 = serde_json::from_str(json_str_4).unwrap();
