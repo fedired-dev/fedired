@@ -1,6 +1,6 @@
 {
 	"name": "fedired",
-	"version": "2.0.3-nvus.1",
+	"version": "3.0.0-nvus.1",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/fedired-dev/fedired.git"
