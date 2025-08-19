@@ -9,6 +9,7 @@
 
 export const verifiedUsers = [
   "srnovus",
+  "Dyabl0420",
 ];
 
 export const isVerified = (username: string): boolean => {
